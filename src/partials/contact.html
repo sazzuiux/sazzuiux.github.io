@@ -1,0 +1,50 @@
+    <!-- ================= CONTACT ================= -->
+    <section class="section section--dark contact" id="contact">
+      <div class="glow glow--1" aria-hidden="true"></div>
+      <div class="glow glow--2 glow--b" aria-hidden="true"></div>
+      <div class="container contact__grid">
+        <div class="contact__pitch">
+          <span class="call-badge">Free 30-min strategy call, on me</span>
+          <h2 class="t-h3">Got a project?<br>Let's <span class="grad-text">make it real.</span></h2>
+          <ul class="checks">
+            <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity=".8" stroke-width="1.4"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Reply within 24 hours, every time</li>
+            <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity=".8" stroke-width="1.4"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Happy to sign an NDA on request</li>
+            <li><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="8.5" stroke="currentColor" stroke-opacity=".8" stroke-width="1.4"/><path d="M6.5 10.2l2.3 2.3 4.7-4.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Top Rated with 100% Job Success on Upwork</li>
+          </ul>
+          <div class="contact__photo reveal-photo" data-reveal data-r="46" data-x="60" data-y="40">
+            <img src="@@ROOT@@assets/img/hero-human.webp" alt="Sazzadul Kabir" width="613" height="920" loading="lazy">
+            <img class="robot" src="@@ROOT@@assets/img/hero-robot.webp" alt="" aria-hidden="true" width="613" height="920" loading="lazy">
+            <span class="lens" aria-hidden="true"></span>
+          </div>
+          <div class="person"><b>Sazzadul Kabir</b><span>Senior UI/UX &amp; Product Designer</span></div>
+          <div class="direct">
+            <a href="mailto:sazzuxui@gmail.com"><svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><rect x="2" y="3.5" width="14" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 5l6.5 5 6.5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>sazzuxui@gmail.com</a>
+            <a class="book" href="https://wa.me/8801778968398?text=Hi%20Sazzad%2C%20I%27d%20like%20to%20book%20a%2030-min%20call." target="_blank" rel="noopener">Book a call directly →</a>
+          </div>
+        </div>
+
+        <form class="form" id="contact-form" action="https://formsubmit.co/sazzuxui@gmail.com" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="New project inquiry — sazzuiux.github.io">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+          <div class="field"><label for="f-name">Full Name</label><input id="f-name" name="name" type="text" placeholder="John Doe" autocomplete="name"></div>
+          <div class="field-row">
+            <div class="field"><label for="f-email">Your Email*</label><input id="f-email" name="email" type="email" placeholder="you@company.com" autocomplete="email" required></div>
+            <div class="field"><label for="f-wa">WhatsApp Number</label><input id="f-wa" name="whatsapp" type="tel" placeholder="+1 234 567 8900" autocomplete="tel"></div>
+          </div>
+          <fieldset class="field field--chips" style="margin:0;min-width:0">
+            <legend class="lbl" style="padding:0;margin-bottom:14px">Project Budget</legend>
+            <div class="chips">
+              <label><input type="radio" name="budget" value="Less than $1K"><span>Less than $1K</span></label>
+              <label><input type="radio" name="budget" value="$1K – $3K" checked><span>$1K – $3K</span></label>
+              <label><input type="radio" name="budget" value="$3K – $5K"><span>$3K – $5K</span></label>
+              <label><input type="radio" name="budget" value="$5K – $10K"><span>$5K – $10K</span></label>
+              <label><input type="radio" name="budget" value="More than $10K"><span>More than $10K</span></label>
+            </div>
+          </fieldset>
+          <div class="field"><label for="f-msg">Project Details*</label><textarea id="f-msg" name="message" rows="3" placeholder="I want to design a SaaS dashboard for…" required></textarea></div>
+          <button class="btn btn--primary" type="submit">Send inquiry <svg viewBox="0 0 18 18" fill="none" aria-hidden="true"><path d="M3 9h12M10 4l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <p class="form__status" role="status"></p>
+        </form>
+      </div>
+    </section>

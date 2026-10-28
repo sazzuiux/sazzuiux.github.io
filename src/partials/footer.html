@@ -1,0 +1,68 @@
+  <!-- ================= TOGETHER MARQUEE ================= -->
+  <section class="together" aria-label="Let's work together">
+    <div class="band band--back">
+      <div class="marquee"><div class="marquee__track marquee__track--rev" style="--dur:44s">
+        <div class="phrases">@@PHRASES@@</div><div class="phrases" aria-hidden="true">@@PHRASES@@</div>
+      </div></div>
+    </div>
+    <div class="band band--front">
+      <div class="marquee"><div class="marquee__track" style="--dur:38s">
+        <div class="phrases">@@PHRASES@@</div><div class="phrases" aria-hidden="true">@@PHRASES@@</div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="glow glow--1" aria-hidden="true"></div>
+    <div class="glow glow--2 glow--b" aria-hidden="true"></div>
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a class="logo" href="@@HOME@@#top">Sazzuiux<span class="logo__dot"></span></a>
+          <h2>Let's build something<br>people love to use.</h2>
+          <a class="footer__mail" href="mailto:sazzuxui@gmail.com">sazzuxui@gmail.com</a>
+          <div class="socials">
+            <a href="https://dribbble.com/sazzuiux" target="_blank" rel="noopener">Dribbble <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="https://www.linkedin.com/in/sazzadul-kabir-595a29396" target="_blank" rel="noopener">LinkedIn <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="https://www.behance.net/sazzuiux" target="_blank" rel="noopener">Behance <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="https://wa.me/8801778968398" target="_blank" rel="noopener">WhatsApp <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          </div>
+        </div>
+        <nav class="footer__nav" aria-label="Footer">
+          <a href="@@HOME@@#top"><span>→</span><span>Home</span><span>01</span></a>
+          <a href="@@HOME@@#works"><span>→</span><span>My Works</span><span>02</span></a>
+          <a href="@@HOME@@#services"><span>→</span><span>Services</span><span>03</span></a>
+          <a href="@@HOME@@#about"><span>→</span><span>About</span><span>04</span></a>
+          <a href="@@ROOT@@resume.html"><span>→</span><span>Resume</span><span>05</span></a>
+          <a href="#contact"><span>→</span><span>Contact</span><span>06</span></a>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <span>Design &amp; Dev by Sazzadul Kabir</span>
+        <span>© 2026 Sazzuiux. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- custom cursor -->
+  <div class="cursor is-hidden" aria-hidden="true">
+    <div class="cursor__scale">
+      <div class="cursor__ring">
+        <svg viewBox="0 0 110 110"><defs><path id="cursor-circle" d="M55,55 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
+          <circle cx="55" cy="55" r="54" fill="none" stroke="#ee4505" stroke-width="1"/>
+          <text><textPath href="#cursor-circle" textLength="282">Hire me now * Hire me now * </textPath></text>
+        </svg>
+      </div>
+      <div class="cursor__face"><img src="@@ROOT@@assets/img/cursor-face.webp" alt=""></div>
+    </div>
+  </div>
+  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- water ripple filter -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="water" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence id="water-turb" type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="3" result="noise"/>
+      <feDisplacementMap id="water-disp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
