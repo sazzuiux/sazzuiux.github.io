@@ -90,16 +90,16 @@
       if (deleting) {
         c--;
         el.textContent = roles[r].slice(0, c);
-        if (c <= 0) { deleting = false; r = (r + 1) % roles.length; return setTimeout(tick, 320); }
-        return setTimeout(tick, 40);
+        if (c <= 0) { deleting = false; r = (r + 1) % roles.length; return setTimeout(tick, 180); }
+        return setTimeout(tick, 22);
       }
       c++;
       el.textContent = roles[r].slice(0, c);
-      if (c >= roles[r].length) { deleting = true; return setTimeout(tick, 2200); }
-      setTimeout(tick, 80);
+      if (c >= roles[r].length) { deleting = true; return setTimeout(tick, 1300); }
+      setTimeout(tick, 42);
     };
     // start only after the loader is gone, so visitors always see "Product Designer" first
-    const start = () => setTimeout(tick, 2600);
+    const start = () => setTimeout(tick, 1500);
     if (document.documentElement.classList.contains("is-loading")) window.addEventListener("sz:loaded", start, { once: true });
     else start();
   });
