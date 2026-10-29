@@ -922,13 +922,13 @@ html.is-loading .loader.is-done { opacity: 0; visibility: hidden; }
    ========================================================= */
 .hero__orbit {
   position: absolute; left: 0; right: 0; top: 6%; aspect-ratio: 1; container-type: inline-size;
-  animation: spin 48s linear infinite; pointer-events: none;
+  animation: spin 19.2s linear infinite; pointer-events: none;
 }
 .orb {
   position: absolute; left: 50%; top: 50%; width: 12.5cqw; min-width: 44px; aspect-ratio: 224 / 300; margin: 0;
   transform: translate(-50%, -50%) rotate(var(--a)) translateX(50cqw) rotate(calc(var(--a) * -1));
 }
-.orb img { width: 100%; height: 100%; object-fit: contain; animation: spin 48s linear infinite reverse; filter: drop-shadow(0 10px 16px rgba(0,0,0,.45)); }
+.orb img { width: 100%; height: 100%; object-fit: contain; animation: spin 19.2s linear infinite reverse; filter: drop-shadow(0 10px 16px rgba(0,0,0,.45)); }
 .hero__photo > img { z-index: 1; }
 .hero__photo > img.robot { z-index: 2; }
 
