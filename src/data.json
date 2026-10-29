@@ -1,32 +1,366 @@
 {
   "services": [
-    {"title": "Product Design", "desc": "Apps and web products, from first sketch to shipped release.", "label": "Product design", "head": "Products people\nlove to use.", "list": ["UX research & user flows", "Wireframes to hi-fi UI", "Clickable prototypes", "Dev-ready handoff"]},
-    {"title": "Web Design & Development", "desc": "Conversion-focused websites, designed in Figma and built in Framer, Webflow or code.", "label": "Web design & development", "head": "Sites built\nto convert.", "list": ["Landing pages & marketing sites", "Built in Framer, Webflow or code", "Responsive on every screen", "SEO-ready structure"]},
-    {"title": "AI Product Development", "desc": "Interfaces for AI tools, copilots and agents that people actually trust.", "label": "AI product development", "head": "AI interfaces\npeople trust.", "list": ["Chat & copilot UX", "Agent workflows and states", "Prompt-to-output flows", "Clickable MVP in 2 weeks"]},
-    {"title": "SaaS Design", "desc": "Dashboards and B2B platforms that make complex workflows feel simple.", "label": "SaaS design", "head": "Dashboards that\nfeel simple.", "list": ["Dashboards & data views", "B2B workflows", "Onboarding flows", "Design systems"]},
-    {"title": "Brand Design", "desc": "Identities that look sharp everywhere, from logo to launch kit.", "label": "Brand design", "head": "Brands people\nremember.", "list": ["Logo & visual identity", "Color & type system", "Brand guidelines", "Launch kit"]},
-    {"title": "Creative Campaigns", "desc": "Launch visuals, ads and social creatives built to get noticed.", "label": "Creative campaigns", "head": "Campaigns that\nget noticed.", "list": ["Ad creatives", "Social media campaigns", "Launch visuals", "Motion & static assets"]}
+    {
+      "title": "Product Design",
+      "desc": "Apps and web products that turn users into paying customers.",
+      "label": "Product design",
+      "head": "Design that\ngrows your sales.",
+      "list": [
+        "UX research & user flows",
+        "Wireframes to hi-fi UI",
+        "Clickable prototypes",
+        "Dev handoff, or built & live"
+      ]
+    },
+    {
+      "title": "Web Design & Development",
+      "desc": "Websites that sell, built with Claude, Framer, WordPress, Webflow or custom code.",
+      "label": "Web design & development",
+      "head": "Sites that\nsell for you.",
+      "list": [
+        "Built with Claude & custom code",
+        "Framer, WordPress & Webflow",
+        "Landing pages & business sites",
+        "Responsive, SEO-ready & live"
+      ]
+    },
+    {
+      "title": "AI Product Development",
+      "desc": "Interfaces for AI tools, copilots and agents that people actually trust.",
+      "label": "AI product development",
+      "head": "AI interfaces\npeople trust.",
+      "list": [
+        "Chat & copilot UX",
+        "Agent workflows and states",
+        "Prompt-to-output flows",
+        "Clickable MVP in 2 weeks"
+      ]
+    },
+    {
+      "title": "SaaS Design",
+      "desc": "Enterprise SaaS, CRM and ERP platforms that make complex work feel simple.",
+      "label": "SaaS design",
+      "head": "Dashboards that\nfeel simple.",
+      "list": [
+        "Enterprise SaaS design",
+        "CRM & ERP systems",
+        "Dashboards & B2B workflows",
+        "Design systems & onboarding"
+      ]
+    },
+    {
+      "title": "Brand Design",
+      "desc": "Complete brand kits, from logo and guidelines to stationery.",
+      "label": "Brand design",
+      "head": "Brands people\nremember.",
+      "list": [
+        "Logo & visual identity",
+        "Brand guidelines & type system",
+        "Stationery: cards, letterheads",
+        "Full branding kit, print to social"
+      ]
+    },
+    {
+      "title": "Creative Campaigns",
+      "desc": "Monthly packages of reels, social posts and ads that keep you seen.",
+      "label": "Creative campaigns",
+      "head": "Monthly content\nthat sells.",
+      "list": [
+        "Monthly content packages",
+        "Short reels & motion videos",
+        "Social media posts & carousels",
+        "Ad creatives & launch visuals"
+      ]
+    }
   ],
   "works": [
-    {"name": "Feno", "img": "feno", "tag": "Web & campaign", "meta": "Oral health · Landing page · Social campaign", "desc": "An oral health brand I designed from the first sketch: landing page, marketing pages and social campaigns.", "figma": "https://www.figma.com/design/NKJjYsNcXgLKHdHVuR0wV9/Feno---Partial-file-saved-2-15-2025?node-id=1170-14634&t=k836zGpQkXLAcntU-1", "live": "https://feno.co/", "alt": "Feno oral care website shown in two browser windows"},
-    {"name": "JASI", "img": "jasi", "tag": "Web design", "meta": "Skincare DTC · Web design · Marketing kit", "desc": "A skincare DTC brand. I designed the landing page, marketing pages and the full marketing kit.", "figma": "https://www.figma.com/design/zFcY7PALiu2S6Yes6L0ZLt/Jasi-Website?node-id=0-1&t=Elat2EIVpTwYoMsP-1", "live": "", "alt": "JASI skincare website on desktop and mobile"},
-    {"name": "Tali", "img": "tali", "tag": "SaaS design", "meta": "Healthcare · SaaS & web design", "desc": "A platform where doctors and cancer patients talk to each other and get AI-guided instructions. I designed both the SaaS app and the website.", "figma": "https://www.figma.com/design/EMEHnLVEz8s4b8cKQJBRTs/Darren-Booker?node-id=35-735&t=82rqleaayGv2ImbS-1", "live": "", "alt": "Tali clinician dashboard and website"},
-    {"name": "Lobab", "img": "lobab", "tag": "Mobile & web app", "meta": "Book platform · Mobile & web app", "desc": "A reading platform where you can find any kind of book. I designed everything, from the mobile app to the web app.", "figma": "https://www.figma.com/design/jaXatXeTPwRn7bwBU4D48T/Lobab-Cera-pro-web?node-id=0-1&t=6XsPQOxuBpH4Ln1u-1", "live": "https://lobab.com/en", "alt": "Lobab book summary website and mobile app"}
+    {
+      "name": "JASI",
+      "img": "jasi",
+      "tag": "Web design",
+      "meta": "Skincare DTC · Web design · Marketing kit",
+      "desc": "A skincare DTC brand. I designed the landing page, marketing pages and the full marketing kit.",
+      "figma": "https://www.figma.com/design/zFcY7PALiu2S6Yes6L0ZLt/Jasi-Website?node-id=0-1&t=Elat2EIVpTwYoMsP-1",
+      "live": "https://jasiskin.com/",
+      "alt": "JASI skincare website on desktop and mobile"
+    },
+    {
+      "name": "Baldwin",
+      "img": "baldwin",
+      "tag": "DTC ecommerce",
+      "meta": "Grooming DTC · UI/UX · Ecommerce",
+      "desc": "Conversion-focused UI/UX for a DTC grooming/eCommerce brand. Focused on product presentation, brand perception, user journey, and conversion.",
+      "figma": "https://www.figma.com/design/Nz9jxdJHxGcicBpZonYTq6/Baldwin?node-id=1737-12048&t=UwGS15EUfMfEiNKf-1",
+      "live": "",
+      "alt": "Baldwin grooming store on desktop and mobile"
+    },
+    {
+      "name": "Feno",
+      "img": "feno",
+      "tag": "Web & campaign",
+      "meta": "Oral health · Landing page · Social campaign",
+      "desc": "An oral health brand I designed from the first sketch: landing page, marketing pages and social campaigns.",
+      "figma": "https://www.figma.com/design/NKJjYsNcXgLKHdHVuR0wV9/Feno---Partial-file-saved-2-15-2025?node-id=1170-14634&t=k836zGpQkXLAcntU-1",
+      "live": "https://feno.co/",
+      "alt": "Feno oral care website shown in two browser windows"
+    },
+    {
+      "name": "Neuture.ai",
+      "img": "neuture",
+      "tag": "EdTech platform",
+      "meta": "EdTech · Product design · €10M funded",
+      "desc": "EdTech platform for international students. Designed the digital product experience with scalability, trust, and business growth in mind—helping the company secure €10M in funding.",
+      "figma": "https://www.figma.com/design/sWOnB3DBJ7JSZwlVj2m2bn/https---neuture.ai-?node-id=4810-13094&t=5Gs56mj4ATMejLk9-1",
+      "live": "https://www.neuture.ai/",
+      "alt": "Neuture.ai student platform on desktop and mobile"
+    },
+    {
+      "name": "Claymail",
+      "img": "claymail",
+      "tag": "AI SaaS",
+      "meta": "AI SaaS · Email automation · Product design",
+      "desc": "AI-powered email marketing automation SaaS. Focused on automation workflows, campaign management, data hierarchy, and AI-assisted product experiences.",
+      "figma": "https://www.figma.com/design/aKCdnRfeDACmGckQgVqgOQ/Clay-1.0?node-id=0-1&t=bgUqKjBaIRRHVOG4-1",
+      "live": "https://www.clay.com/",
+      "alt": "Claymail AI email marketing landing page"
+    },
+    {
+      "name": "Kruizapp",
+      "img": "kruizapp",
+      "tag": "Mobile app",
+      "meta": "AI travel · Mobile app · Design system",
+      "desc": "AI-assisted, pet-friendly hotel booking mobile app focused on discovery, intuitive booking flows, detailed accommodation information, and pet-friendly travel needs. Led the complete design lifecycle from initial sketches and UX architecture to the design system and final marketing kit.",
+      "figma": "https://www.figma.com/design/qXlhiv4VcY1cyZolOetJpN/kruizapp?node-id=0-1&t=KS1dQB9N20zgjUCb-1",
+      "live": "https://kruiz.co/",
+      "alt": "Kruiz pet-friendly hotel booking app screens"
+    },
+    {
+      "name": "Tali",
+      "img": "tali",
+      "tag": "SaaS design",
+      "meta": "Healthcare · SaaS & web design",
+      "desc": "A platform where doctors and cancer patients talk to each other and get AI-guided instructions. I designed both the SaaS app and the website.",
+      "figma": "https://www.figma.com/design/EMEHnLVEz8s4b8cKQJBRTs/Darren-Booker?node-id=35-735&t=82rqleaayGv2ImbS-1",
+      "live": "",
+      "alt": "Tali clinician dashboard and website"
+    },
+    {
+      "name": "Lobab",
+      "img": "lobab",
+      "tag": "Mobile & web app",
+      "meta": "Book platform · Mobile & web app",
+      "desc": "A reading platform where you can find any kind of book. I designed everything, from the mobile app to the web app.",
+      "figma": "https://www.figma.com/design/jaXatXeTPwRn7bwBU4D48T/Lobab-Cera-pro-web?node-id=0-1&t=6XsPQOxuBpH4Ln1u-1",
+      "live": "https://lobab.com/en",
+      "alt": "Lobab book summary website and mobile app"
+    }
   ],
   "steps": [
-    {"name": "Brief", "when": "Day 1", "desc": "We talk goals, users and constraints. You get a one-page plan."},
-    {"name": "Explore", "when": "Between 1–2 days", "desc": "Research, flows and quick sketches to find the right direction."},
-    {"name": "Design", "when": "Week 1", "desc": "High-fidelity screens in Figma, every state covered."},
-    {"name": "Feedback", "when": "Every Friday", "desc": "You review, I refine. Your feedback shapes each round."},
-    {"name": "Build & ship", "when": "Week 2", "desc": "I build it, launch it and hand over files and docs."}
+    {
+      "name": "Brief",
+      "when": "Day 1",
+      "desc": "We talk goals, users and constraints. You get a one-page plan."
+    },
+    {
+      "name": "Explore",
+      "when": "Between 1–2 days",
+      "desc": "Research, flows and quick sketches to find the right direction."
+    },
+    {
+      "name": "Design",
+      "when": "Week 1",
+      "desc": "High-fidelity screens in Figma, every state covered."
+    },
+    {
+      "name": "Feedback",
+      "when": "Every Friday",
+      "desc": "You review, I refine. Your feedback shapes each round."
+    },
+    {
+      "name": "Build & ship",
+      "when": "Week 2",
+      "desc": "I build it, launch it and hand over files and docs."
+    }
   ],
   "jobs": [
-    {"when": "Dec 2025 — Present", "now": true, "role": "Lead Product Designer", "co": "Buyamia International", "loc": "Singapore · Remote", "items": ["Designed the entire B2B procurement platform end to end as the lead and sole product designer, from research and information architecture to final UI.", "Work directly with the leadership team to turn business goals into product features and a clear product roadmap.", "Designed dashboards for order tracking and procurement management, simplifying high-volume transactions for business buyers.", "Designed marketing landing pages that present the platform's value to new business partners.", "Built the design system, high-fidelity prototypes and developer-ready specs used by the engineering team."]},
-    {"when": "Jul 2022 — Present", "now": true, "role": "UI/UX Designer", "co": "FormNation LLC", "loc": "New York, USA · Remote", "items": ["Core designer for a US design and development company, delivering a large volume of client projects across industries.", "Designed DTC brand websites and e-commerce stores, from brand-led visuals to conversion-focused product pages.", "Designed AI products, mobile apps, websites and CRM systems for the company's startup and business clients.", "Worked with lead designers and engineers from concept to launch, handling multiple projects in parallel on tight deadlines."]},
-    {"when": "Jun 2024 — Nov 2024", "role": "UI/UX Designer", "co": "Neuture.ai", "loc": "Rome, Italy · Remote", "items": ["Key designer for a student-services platform covering university admissions, scholarships and accommodation; the company raised €10M in funding during this period.", "Ran user research, ideation, sketching and prototyping to design features aligned with the CEO's product strategy.", "Created and maintained the design system used across all products, keeping the experience consistent.", "Delivered production-ready files and supported developers during implementation."], "link": "neuture.ai"},
-    {"when": "May 2022 — Jul 2022", "role": "UI/UX Designer (Design Lead)", "co": "Lobab", "loc": "Riyadh, Saudi Arabia · Remote", "items": ["Led the design team for a book-summary app on iOS and Android, owning wireframes, prototypes and final UI.", "Researched user needs to guide design decisions and managed design delivery with developers."], "link": "lobab.com"},
-    {"when": "Jan 2022 — Apr 2022", "role": "UI/UX Designer", "co": "LowlandTech", "loc": "Amsterdam, Netherlands · Remote", "items": ["Designed wireframes, prototypes and visual designs for a social media platform."]},
-    {"when": "Aug 2021 — Dec 2021", "role": "UI/UX Designer (Mid-Level)", "co": "Everything Zimbabwean", "loc": "UK · Remote", "items": ["Designed B2B and B2C e-commerce journeys, from wireframes to final UI."]},
-    {"when": "Jan 2021 — Present", "now": true, "role": "Top Rated UI/UX Designer", "co": "Upwork & Fiverr", "loc": "Freelance · Remote", "items": ["Top Rated on Upwork with a 100% Job Success Score; 500+ completed orders and 350+ five-star reviews on Fiverr.", "Delivered UI/UX for SaaS, AI products, healthcare, law firms, e-commerce and mobile apps, including motion and micro-interactions."]}
+    {
+      "when": "Dec 2025 — Present",
+      "now": true,
+      "role": "Lead Product Designer",
+      "co": "Buyamia International",
+      "loc": "Singapore · Remote",
+      "items": [
+        "Designed the entire B2B procurement platform end to end as the lead and sole product designer, from research and information architecture to final UI.",
+        "Work directly with the leadership team to turn business goals into product features and a clear product roadmap.",
+        "Designed dashboards for order tracking and procurement management, simplifying high-volume transactions for business buyers.",
+        "Designed marketing landing pages that present the platform's value to new business partners.",
+        "Built the design system, high-fidelity prototypes and developer-ready specs used by the engineering team."
+      ]
+    },
+    {
+      "when": "Jul 2022 — Present",
+      "now": true,
+      "role": "UI/UX Designer",
+      "co": "FormNation LLC",
+      "loc": "New York, USA · Remote",
+      "items": [
+        "Core designer for a US design and development company, delivering a large volume of client projects across industries.",
+        "Designed DTC brand websites and e-commerce stores, from brand-led visuals to conversion-focused product pages.",
+        "Designed AI products, mobile apps, websites and CRM systems for the company's startup and business clients.",
+        "Worked with lead designers and engineers from concept to launch, handling multiple projects in parallel on tight deadlines."
+      ]
+    },
+    {
+      "when": "Jun 2024 — Nov 2024",
+      "role": "UI/UX Designer",
+      "co": "Neuture.ai",
+      "loc": "Rome, Italy · Remote",
+      "items": [
+        "Key designer for a student-services platform covering university admissions, scholarships and accommodation; the company raised €10M in funding during this period.",
+        "Ran user research, ideation, sketching and prototyping to design features aligned with the CEO's product strategy.",
+        "Created and maintained the design system used across all products, keeping the experience consistent.",
+        "Delivered production-ready files and supported developers during implementation."
+      ],
+      "link": "neuture.ai"
+    },
+    {
+      "when": "May 2022 — Jul 2022",
+      "role": "UI/UX Designer (Design Lead)",
+      "co": "Lobab",
+      "loc": "Riyadh, Saudi Arabia · Remote",
+      "items": [
+        "Led the design team for a book-summary app on iOS and Android, owning wireframes, prototypes and final UI.",
+        "Researched user needs to guide design decisions and managed design delivery with developers."
+      ],
+      "link": "lobab.com"
+    },
+    {
+      "when": "Jan 2022 — Apr 2022",
+      "role": "UI/UX Designer",
+      "co": "LowlandTech",
+      "loc": "Amsterdam, Netherlands · Remote",
+      "items": [
+        "Designed wireframes, prototypes and visual designs for a social media platform."
+      ]
+    },
+    {
+      "when": "Aug 2021 — Dec 2021",
+      "role": "UI/UX Designer (Mid-Level)",
+      "co": "Everything Zimbabwean",
+      "loc": "UK · Remote",
+      "items": [
+        "Designed B2B and B2C e-commerce journeys, from wireframes to final UI."
+      ]
+    },
+    {
+      "when": "Jan 2021 — Present",
+      "now": true,
+      "role": "Top Rated UI/UX Designer",
+      "co": "Upwork & Fiverr",
+      "loc": "Freelance · Remote",
+      "items": [
+        "Top Rated on Upwork with a 100% Job Success Score; 500+ completed orders and 350+ five-star reviews on Fiverr.",
+        "Delivered UI/UX for SaaS, AI products, healthcare, law firms, e-commerce and mobile apps, including motion and micro-interactions."
+      ]
+    }
+  ],
+  "shots": [
+    [
+      "1.jpg",
+      "Real estate website and mobile design",
+      "https://dribbble.com/shots/27511179-Real-Estate-Agent-Website-UI-UX-Design"
+    ],
+    [
+      "2.jpg",
+      "Sleep and wellness mobile app",
+      "https://dribbble.com/shots/27254136-AI-Sleep-Mental-Health-Tracking-App"
+    ],
+    [
+      "3.jpg",
+      "SmileWay dental brand identity",
+      "https://dribbble.com/shots/27360924-SmileWay-Dental-Care-Brand-Identity-Design"
+    ],
+    [
+      "4.jpg",
+      "ClearDX healthcare dashboard",
+      "https://dribbble.com/shots/26484186-ClearDX-Healthcare-SaaS-Dashboard-UI"
+    ],
+    [
+      "5.jpg",
+      "FleetEase logistics mobile website",
+      "https://dribbble.com/shots/22295169-Logistics-FleetEase-Responsive-Landing-page-design"
+    ],
+    [
+      "6.jpg",
+      "Tali AI health companion website",
+      "https://dribbble.com/shots/26327349--Tali-Doctor-Guided-AI-Health-Companion-Landing-Page"
+    ],
+    [
+      "7.jpg",
+      "PodCatcher podcast app",
+      "https://dribbble.com/shots/20831517-Podcast-mobile-app-UI"
+    ],
+    [
+      "8.jpg",
+      "Innerly mental health website",
+      "https://dribbble.com/shots/27397722-Mental-Health-Wellness-Landing-Page-Design"
+    ],
+    [
+      "9.jpg",
+      "SmileWay dental website",
+      "https://dribbble.com/shots/27344229-SmileWay-Dental-Care-Landing-Page-Design"
+    ],
+    [
+      "10.jpg",
+      "EliteWrist luxury watch app",
+      "https://dribbble.com/shots/20631775-EliteWrist-luxury-watch-collection-app"
+    ],
+    [
+      "11.jpg",
+      "Sunvolt clean energy landing page",
+      "https://dribbble.com/shots/27396719-Sunvolt-Energy-Clean-Smart-Renewable-Energy-Landing-Page"
+    ],
+    [
+      "12.jpg",
+      "Done home services branding",
+      "https://dribbble.com/shots/27331568-Done-Branding-Design"
+    ],
+    [
+      "13.jpg",
+      "Lindra Living real estate landing page",
+      "https://dribbble.com/shots/26207641-Lindra-Living-Modern-Real-Estate-Landing-Page-UI-UX-Design"
+    ]
+  ],
+  "testimonials": [
+    [
+      "Sazz completely understood the assignment. His expertise and attention to detail is something any developer can learn from.",
+      "Jimmy Brutskiy",
+      "Infrastructure Software Engineer",
+      "1.jpg"
+    ],
+    [
+      "He took every piece of feedback with professionalism and consistently went above and beyond. Highly recommend!",
+      "Rachelle Starr",
+      "Director of Deals · Buyamia",
+      "2.jpg"
+    ],
+    [
+      "Amazing service! Super communicative, fast delivery, very responsive and most professional. Loving the result.",
+      "Rona Kishon",
+      "Real Estate Broker · We Bait Ltd",
+      "3.jpg"
+    ],
+    [
+      "Incredibly talented, thorough and concise. The project turned out much better than expected.",
+      "Brock Kyle",
+      "Executive & Chairman · Taste",
+      "4.jpg"
+    ],
+    [
+      "Went above and beyond and delivered outstanding screens. Wow, so impressed. Highly recommend!",
+      "Brad Pauer",
+      "Co-Founder & CEO · Kruizapp",
+      "5.jpg"
+    ]
   ]
 }

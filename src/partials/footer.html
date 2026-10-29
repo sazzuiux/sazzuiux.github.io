@@ -26,7 +26,7 @@
             <a href="https://dribbble.com/sazzuiux" target="_blank" rel="noopener">Dribbble <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             <a href="https://www.linkedin.com/in/sazzadul-kabir-595a29396" target="_blank" rel="noopener">LinkedIn <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
             <a href="https://www.behance.net/sazzuiux" target="_blank" rel="noopener">Behance <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            <a href="https://wa.me/8801778968398" target="_blank" rel="noopener">WhatsApp <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a href="https://wa.me/message/XKFCN6LQTQFNH1" target="_blank" rel="noopener">WhatsApp <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
         <nav class="footer__nav" aria-label="Footer">
@@ -45,19 +45,54 @@
     </div>
   </footer>
 
-  <!-- custom cursor -->
+  <!-- custom cursor (follows the normal pointer) -->
   <div class="cursor is-hidden" aria-hidden="true">
-    <div class="cursor__scale">
-      <div class="cursor__ring">
-        <svg viewBox="0 0 110 110"><defs><path id="cursor-circle" d="M55,55 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs>
-          <circle cx="55" cy="55" r="54" fill="none" stroke="#ee4505" stroke-width="1"/>
-          <text><textPath href="#cursor-circle" textLength="282">Hire me now * Hire me now * </textPath></text>
-        </svg>
-      </div>
-      <div class="cursor__face"><img src="@@ROOT@@assets/img/cursor-face.webp" alt=""></div>
+    <div class="cursor__lean">
+      <svg class="cursor__ring" viewBox="0 0 124 124">
+        <defs><path id="cursor-circle" d="M62,62 m-50,0 a50,50 0 1,1 100,0 a50,50 0 1,1 -100,0"/></defs>
+        <circle cx="62" cy="62" r="61.5" fill="none" stroke="#ee4505" stroke-width="1"/>
+        <g class="cursor__spin"><text><textPath href="#cursor-circle" textLength="314" lengthAdjust="spacingAndGlyphs">Hire me * Let’s build * Hire me * Let’s build *&#160;</textPath></text></g>
+        <circle cx="62" cy="62" r="39.5" fill="none" stroke="#ee4505" stroke-width="1"/>
+      </svg>
+      <div class="cursor__face"><img src="@@ROOT@@assets/img/cursor-face.webp" alt="" width="195" height="268"></div>
     </div>
   </div>
-  <div class="cursor-dot" aria-hidden="true"></div>
+
+  <!-- WhatsApp chat -->
+  <div class="wa" id="wa">
+    <section class="wa__panel" id="wa-panel" role="dialog" aria-modal="false" aria-labelledby="wa-title" hidden>
+      <header class="wa__head">
+        <span class="wa__avatar"><img src="@@ROOT@@assets/img/wa-avatar.webp" alt="" width="44" height="44"><i class="wa__online" aria-hidden="true"></i></span>
+        <div class="wa__who"><b id="wa-title">Sazzadul Kabir</b><span>Product Designer &amp; Developer</span></div>
+        <button class="wa__close" type="button" aria-label="Close chat"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+      </header>
+      <div class="wa__body">
+        <p class="wa__bubble">Hi there 👋 I design and develop websites, apps and SaaS products. Pick a service and tell me a little about your project.</p>
+        <div class="wa__chips" role="radiogroup" aria-label="Service">
+          <button type="button" role="radio" aria-checked="false" data-svc="UI/UX design">UI/UX design</button>
+          <button type="button" role="radio" aria-checked="true" class="is-on" data-svc="website design &amp; development">Website design &amp; development</button>
+          <button type="button" role="radio" aria-checked="false" data-svc="mobile app">Mobile app</button>
+          <button type="button" role="radio" aria-checked="false" data-svc="SaaS dashboard">SaaS dashboard</button>
+          <button type="button" role="radio" aria-checked="false" data-svc="branding">Branding</button>
+          <button type="button" role="radio" aria-checked="false" data-svc="marketing kit">Marketing kit</button>
+          <button type="button" role="radio" aria-checked="false" data-svc="something else">Something else</button>
+        </div>
+        <p class="wa__bubble wa__reply" id="wa-reply">Great! Tell me about the website you want designed and developed. We'll continue the conversation on WhatsApp.</p>
+        <label class="wa__label" for="wa-msg">Your message</label>
+        <textarea class="wa__msg" id="wa-msg" rows="3" placeholder="Hi Sazzad, I need a website designed and developed for…"></textarea>
+        <a class="btn btn--primary btn--block wa__go" id="wa-go" href="https://wa.me/message/XKFCN6LQTQFNH1" target="_blank" rel="noopener">
+          <svg class="wa__ico" viewBox="0 0 30 30" aria-hidden="true"><path fill="currentColor" d="M21.84 17.9776C21.4688 17.7913 19.6425 16.8938 19.3025 16.7688C18.9613 16.6451 18.7138 16.5838 18.465 16.9563C18.2188 17.3276 17.5063 18.1638 17.29 18.4113C17.0738 18.6601 16.8563 18.6901 16.485 18.5051C16.1138 18.3176 14.9163 17.9263 13.4975 16.6613C12.3938 15.6763 11.6475 14.4601 11.4313 14.0876C11.215 13.7163 11.4088 13.5151 11.5938 13.3301C11.7613 13.1638 11.9663 12.8963 12.1513 12.6801C12.3375 12.4626 12.3988 12.3076 12.5238 12.0588C12.6475 11.8113 12.5863 11.5951 12.4925 11.4088C12.3988 11.2226 11.6563 9.3938 11.3475 8.65005C11.045 7.9263 10.7388 8.02505 10.5113 8.01255C10.295 8.00255 10.0475 8.00005 9.79879 8.00005C9.55129 8.00005 9.14879 8.09255 8.80879 8.46505C8.46879 8.8363 7.50879 9.73505 7.50879 11.5638C7.50879 13.3913 8.84004 15.1576 9.02504 15.4063C9.21129 15.6538 11.645 19.4063 15.3713 21.0151C16.2575 21.3976 16.9488 21.6263 17.4888 21.7963C18.3788 22.08 19.1888 22.0401 19.8275 21.9438C20.5413 21.8376 22.025 21.045 22.335 20.1776C22.645 19.3101 22.645 18.5663 22.5513 18.4113C22.4588 18.2563 22.2125 18.1638 21.84 17.9776ZM15.0625 27.2313H15.0575C12.8447 27.2315 10.6726 26.6365 8.76879 25.5088L8.31754 25.2413L3.64129 26.4688L4.88879 21.9088L4.59504 21.4413C3.35809 19.4716 2.70372 17.1922 2.70754 14.8663C2.70879 8.0538 8.25254 2.5113 15.0675 2.5113C18.3675 2.5113 21.47 3.7988 23.8025 6.1338C24.9534 7.27957 25.8656 8.64221 26.4863 10.1429C27.107 11.6435 27.424 13.2524 27.4188 14.8763C27.415 21.6888 21.8725 27.2313 15.0625 27.2313ZM25.5788 4.36005C24.2015 2.97371 22.5628 1.87447 20.7576 1.12605C18.9525 0.377631 17.0167 -0.00509531 15.0625 5.12219e-05C6.86879 5.12219e-05 0.200039 6.6688 0.196289 14.8651C0.196289 17.4851 0.880039 20.0425 2.18129 22.2963L0.0712891 30L7.95254 27.9326C10.132 29.1199 12.5743 29.7422 15.0563 29.7425H15.0625C23.255 29.7425 29.925 23.0738 29.9288 14.8763C29.9348 12.9229 29.5535 10.9877 28.8068 9.18259C28.0602 7.37751 26.963 5.73839 25.5788 4.36005Z"/></svg>
+          Continue on WhatsApp
+        </a>
+        <p class="wa__note" id="wa-note">Opens WhatsApp chat with Sazzad. Your message is copied, so just paste and send.</p>
+      </div>
+    </section>
+    <button class="wa__fab" type="button" aria-expanded="false" aria-controls="wa-panel" aria-label="Chat on WhatsApp">
+      <svg class="wa__ico" viewBox="0 0 30 30" aria-hidden="true"><path fill="currentColor" d="M21.84 17.9776C21.4688 17.7913 19.6425 16.8938 19.3025 16.7688C18.9613 16.6451 18.7138 16.5838 18.465 16.9563C18.2188 17.3276 17.5063 18.1638 17.29 18.4113C17.0738 18.6601 16.8563 18.6901 16.485 18.5051C16.1138 18.3176 14.9163 17.9263 13.4975 16.6613C12.3938 15.6763 11.6475 14.4601 11.4313 14.0876C11.215 13.7163 11.4088 13.5151 11.5938 13.3301C11.7613 13.1638 11.9663 12.8963 12.1513 12.6801C12.3375 12.4626 12.3988 12.3076 12.5238 12.0588C12.6475 11.8113 12.5863 11.5951 12.4925 11.4088C12.3988 11.2226 11.6563 9.3938 11.3475 8.65005C11.045 7.9263 10.7388 8.02505 10.5113 8.01255C10.295 8.00255 10.0475 8.00005 9.79879 8.00005C9.55129 8.00005 9.14879 8.09255 8.80879 8.46505C8.46879 8.8363 7.50879 9.73505 7.50879 11.5638C7.50879 13.3913 8.84004 15.1576 9.02504 15.4063C9.21129 15.6538 11.645 19.4063 15.3713 21.0151C16.2575 21.3976 16.9488 21.6263 17.4888 21.7963C18.3788 22.08 19.1888 22.0401 19.8275 21.9438C20.5413 21.8376 22.025 21.045 22.335 20.1776C22.645 19.3101 22.645 18.5663 22.5513 18.4113C22.4588 18.2563 22.2125 18.1638 21.84 17.9776ZM15.0625 27.2313H15.0575C12.8447 27.2315 10.6726 26.6365 8.76879 25.5088L8.31754 25.2413L3.64129 26.4688L4.88879 21.9088L4.59504 21.4413C3.35809 19.4716 2.70372 17.1922 2.70754 14.8663C2.70879 8.0538 8.25254 2.5113 15.0675 2.5113C18.3675 2.5113 21.47 3.7988 23.8025 6.1338C24.9534 7.27957 25.8656 8.64221 26.4863 10.1429C27.107 11.6435 27.424 13.2524 27.4188 14.8763C27.415 21.6888 21.8725 27.2313 15.0625 27.2313ZM25.5788 4.36005C24.2015 2.97371 22.5628 1.87447 20.7576 1.12605C18.9525 0.377631 17.0167 -0.00509531 15.0625 5.12219e-05C6.86879 5.12219e-05 0.200039 6.6688 0.196289 14.8651C0.196289 17.4851 0.880039 20.0425 2.18129 22.2963L0.0712891 30L7.95254 27.9326C10.132 29.1199 12.5743 29.7422 15.0563 29.7425H15.0625C23.255 29.7425 29.925 23.0738 29.9288 14.8763C29.9348 12.9229 29.5535 10.9877 28.8068 9.18259C28.0602 7.37751 26.963 5.73839 25.5788 4.36005Z"/></svg>
+      <svg class="wa__x" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <i class="wa__online" aria-hidden="true"></i>
+    </button>
+  </div>
 
   <!-- water ripple filter -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
