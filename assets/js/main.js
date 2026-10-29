@@ -99,7 +99,7 @@
       setTimeout(tick, 42);
     };
     // start only after the loader is gone, so visitors always see "Product Designer" first
-    const start = () => setTimeout(tick, 1500);
+    const start = () => setTimeout(tick, 1000);
     if (document.documentElement.classList.contains("is-loading")) window.addEventListener("sz:loaded", start, { once: true });
     else start();
   });
