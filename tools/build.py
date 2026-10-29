@@ -92,14 +92,14 @@ def notes(order, rots):
 
 def testimonials():
     rows = []
-    for cls, order, rots, label in [
-        ("marquee__track--rev", [0, 1, 2, 3, 4], [-2.5, 1.5, -1, 1.2, -2], "Client reviews"),
-        ("", [3, 4, 0, 1, 2], [1, -2, 2, -1.5, 1.5], None),
+    for speed, order, rots, label in [
+        (-18, [0, 1, 2, 3], [-2.5, 1.5, -1, 1.2], "Client reviews, row 1"),
+        (18, [4, 5, 6, 7], [1, -2, 2, -1.5], "Client reviews, row 2"),
     ]:
         one = notes(order, rots)
-        hidden = ' aria-hidden="true"' if label is None else ""
         rows.append(
-            f'<div class="marquee notes-row"{hidden}><div class="marquee__track {cls} pause-hover" style="--dur:60s">'
+            f'<div class="marquee marquee--drag notes-row" data-drag-marquee data-drag-group="notes" data-speed="{speed}" aria-label="{label} (drag to browse)">'
+            f'<div class="marquee__track marquee__track--js">'
             f'<div class="notes">{one}</div><div class="notes" aria-hidden="true">{one}</div></div></div>')
     return "".join(rows)
 

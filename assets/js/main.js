@@ -265,37 +265,51 @@
     window.addEventListener("resize", stack);
   }
 
-  /* ---------------- showreel: auto-scrolling, draggable, every shot is a link ---------------- */
-  $$("[data-drag-marquee]").forEach((wrap) => {
+  /* ---------------- drag marquees: showreel + testimonials ----------------
+     auto-scroll, pause on hover, drag left/right with momentum.
+     Rows sharing data-drag-group move together when any one of them is dragged. */
+  const lanes = $$("[data-drag-marquee]").map((wrap) => {
     const track = $(".marquee__track", wrap);
-    if (!track) return;
-    const speed = +wrap.dataset.speed || -60; // px per second (negative = moves right)
-    let x = 0, half = 0, last = performance.now(), hover = false, drag = null, vel = 0, moved = 0;
-    const measure = () => { half = track.scrollWidth / 2; };
-    measure();
-    window.addEventListener("resize", measure);
-    window.addEventListener("load", measure);
-    const wrapX = () => { if (half) { while (x <= -half) x += half; while (x > 0) x -= half; } };
-    // the base direction: negative speed means content travels right
-    const dir = speed < 0 ? 1 : -1;
+    const speed = +wrap.dataset.speed || -60; // px per second (negative = content moves right)
+    const lane = { wrap, track, speed, x: 0, x0: 0, half: 0, vel: 0, group: wrap.dataset.dragGroup || null };
+    lane.measure = () => { lane.half = track.scrollWidth / 2; };
+    lane.measure();
+    if (speed > 0 && lane.half) lane.x = 0; else lane.x = -(lane.half || 0) / 2;
+    return lane;
+  }).filter((l) => l.track);
+  if (lanes.length) {
+    window.addEventListener("resize", () => lanes.forEach((l) => l.measure()));
+    window.addEventListener("load", () => lanes.forEach((l) => l.measure()));
+    let drag = null, hoverWrap = null, moved = 0, last = performance.now();
+    const peers = (lane) => (lane.group ? lanes.filter((l) => l.group === lane.group) : [lane]);
     const tick = (now) => {
       const dt = Math.min(64, now - last) / 1000; last = now;
-      if (!drag) {
-        vel *= Math.pow(0.04, dt);
-        const auto = reduced || (hover && finePointer) ? 0 : Math.abs(speed) * dir;
-        x += (auto + vel) * dt;
-      }
-      wrapX();
-      track.style.transform = `translate3d(${x}px,0,0)`;
+      lanes.forEach((l) => {
+        const held = drag && drag.set.includes(l);
+        if (!held) {
+          l.vel *= Math.pow(0.04, dt);
+          const paused = reduced || (finePointer && hoverWrap && peers(l).some((p) => p.wrap === hoverWrap));
+          l.x += ((paused ? 0 : -l.speed) + l.vel) * dt;
+        }
+        if (l.half) { while (l.x <= -l.half) l.x += l.half; while (l.x > 0) l.x -= l.half; }
+        l.track.style.transform = `translate3d(${l.x}px,0,0)`;
+      });
       requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
-    wrap.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hover = true; });
-    wrap.addEventListener("pointerleave", () => { hover = false; });
-    wrap.addEventListener("pointerdown", (e) => {
-      if (e.button !== 0) return;
-      drag = { sx: e.clientX, sy: e.clientY, x0: x, lx: e.clientX, lt: performance.now(), id: e.pointerId, axis: null };
-      moved = 0; vel = 0;
+    lanes.forEach((lane) => {
+      const { wrap } = lane;
+      wrap.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") hoverWrap = wrap; });
+      wrap.addEventListener("pointerleave", () => { if (hoverWrap === wrap) hoverWrap = null; });
+      wrap.addEventListener("pointerdown", (e) => {
+        if (e.button !== 0) return;
+        const set = peers(lane);
+        set.forEach((l) => { l.x0 = l.x; l.vel = 0; });
+        drag = { lane, set, sx: e.clientX, sy: e.clientY, lx: e.clientX, lt: performance.now(), id: e.pointerId, axis: null, vel: 0 };
+        moved = 0;
+      });
+      // a drag should never open the link underneath
+      wrap.addEventListener("click", (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
     });
     window.addEventListener("pointermove", (e) => {
       if (!drag || e.pointerId !== drag.id) return;
@@ -303,26 +317,25 @@
       if (!drag.axis) {
         if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return;
         drag.axis = Math.abs(dx) > Math.abs(dy) ? "x" : "y";
-        if (drag.axis === "y") { drag = null; return; } // let the page scroll
-        wrap.classList.add("is-dragging");
-        try { wrap.setPointerCapture(e.pointerId); } catch (err) {}
+        if (drag.axis === "y") { drag = null; return; } // vertical swipe: let the page scroll
+        drag.set.forEach((l) => l.wrap.classList.add("is-dragging"));
+        try { drag.lane.wrap.setPointerCapture(e.pointerId); } catch (err) {}
       }
       moved = Math.max(moved, Math.abs(dx));
-      x = drag.x0 + dx;
+      drag.set.forEach((l) => { l.x = l.x0 + dx; });
       const now = performance.now(), dt = Math.max(1, now - drag.lt);
-      vel = ((e.clientX - drag.lx) / dt) * 1000; drag.lx = e.clientX; drag.lt = now;
+      drag.vel = ((e.clientX - drag.lx) / dt) * 1000; drag.lx = e.clientX; drag.lt = now;
     });
     const end = () => {
       if (!drag) return;
+      const v = clamp(drag.vel, -2500, 2500), set = drag.set;
+      set.forEach((l) => { l.vel = v; });
       drag = null;
-      vel = clamp(vel, -2500, 2500);
-      setTimeout(() => wrap.classList.remove("is-dragging"), 0);
+      setTimeout(() => set.forEach((l) => l.wrap.classList.remove("is-dragging")), 0);
     };
     window.addEventListener("pointerup", end);
     window.addEventListener("pointercancel", end);
-    // a drag should never open the link underneath
-    wrap.addEventListener("click", (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
-  });
+  }
 
   /* ---------------- process steps ---------------- */
   const steps = $$(".step");
@@ -445,7 +458,7 @@
     const leave = (el) => { if (target === el) leaving = 1; };
     $$(".water").forEach((el) => {
       const host = el.closest(".shot, .work__cover, .photo-card, .note") || el;
-      host.addEventListener("pointerenter", () => enter(el));
+      host.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse" && !host.closest(".is-dragging")) enter(el); });
       host.addEventListener("pointerleave", () => leave(el));
     });
   }
