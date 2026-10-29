@@ -81,26 +81,25 @@
     }
   }
 
-  /* ---------------- hero role typewriter ---------------- */
-  const role = $("#role");
-  if (role && !reduced) {
-    const roles = role.dataset.roles.split("|");
+  /* ---------------- typewriter: hero role + resume headline ---------------- */
+  $$("[data-roles]").forEach((el) => {
+    if (reduced) return;
+    const roles = el.dataset.roles.split("|");
     let r = 0, c = roles[0].length, deleting = true;
     const tick = () => {
-      const word = roles[r];
       if (deleting) {
         c--;
-        role.textContent = word.slice(0, c);
+        el.textContent = roles[r].slice(0, c);
         if (c <= 0) { deleting = false; r = (r + 1) % roles.length; return setTimeout(tick, 320); }
-        return setTimeout(tick, 45);
+        return setTimeout(tick, 40);
       }
       c++;
-      role.textContent = roles[r].slice(0, c);
+      el.textContent = roles[r].slice(0, c);
       if (c >= roles[r].length) { deleting = true; return setTimeout(tick, 2200); }
-      setTimeout(tick, 85);
+      setTimeout(tick, 80);
     };
     setTimeout(tick, 2600);
-  }
+  });
 
   /* ---------------- human → robot reveal ---------------- */
   $$("[data-reveal]").forEach((el) => {

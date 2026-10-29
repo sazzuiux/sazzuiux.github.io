@@ -313,7 +313,16 @@ ul { margin: 0; padding: 0; list-style: none; }
   .nav__links { display: none; }
   .nav__menu-btn { display: inline-flex; }
   .nav.is-open { background: rgba(10, 10, 10, 0.96); backdrop-filter: blur(16px); }
-  .nav.is-open .nav__panel { display: block; animation: panelIn 0.35s var(--ease); }
+  .nav__panel {
+    display: block; overflow: hidden; max-height: 0; margin-top: 0; padding-block: 0; opacity: 0; visibility: hidden;
+    transform: translateY(-10px); border-color: transparent;
+    transition: max-height 0.5s var(--ease), margin-top 0.5s var(--ease), padding 0.5s var(--ease), opacity 0.35s ease, transform 0.5s var(--ease), visibility 0s linear 0.5s, border-color 0.3s;
+  }
+  .nav.is-open .nav__panel {
+    max-height: 560px; margin-top: 16px; padding-block: 8px 20px; opacity: 1; visibility: visible; transform: none;
+    border-color: var(--border-dark); transition-delay: 0s;
+  }
+  .nav { transition: padding 0.4s var(--ease), background 0.45s ease, backdrop-filter 0.4s, border-color 0.4s; }
 }
 @media (max-width: 767px) { .nav__actions .btn { display: none; } }
 @keyframes panelIn { from { opacity: 0; transform: translateY(-8px); } }
@@ -335,6 +344,9 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero__title .chip-hl { margin-bottom: 2px; }
 .hero__role { display: flex; align-items: center; gap: 0.2em; white-space: nowrap; }
 .hero__rotator { display: inline-flex; align-items: center; }
+.hero__rotator .grad-text { padding-bottom: 0.18em; margin-bottom: -0.18em; }
+.r-rotator { display: inline; }
+.r-rotator .caret { display: inline-block; width: 0.06em; height: 0.8em; margin-left: 0.08em; background: var(--orange); animation: blink 1s steps(1) infinite; }
 .hero__rotator .caret {
   display: inline-block; width: 4px; height: 0.85em; margin-left: 6px; background: var(--orange);
   animation: blink 1s steps(1) infinite;
