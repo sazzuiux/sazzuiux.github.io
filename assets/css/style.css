@@ -808,7 +808,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   box-shadow: 0 24px 60px rgba(0,0,0,.12);
 }
 .side { display: flex; flex-direction: column; gap: var(--space-lg); }
-.side h1 { font-size: var(--t-h3); }
+.side h1, .side .side__name { font-size: var(--t-h3); }
 .side__role { font-weight: 500; color: rgba(10,10,10,.6); margin-top: 10px; }
 .avail {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 6px 12px; border-radius: 8px;
@@ -860,7 +860,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   .section { padding: 0 !important; background: #fff !important; }
   .container { padding: 0 !important; max-width: none; }
   .paper { box-shadow: none; padding: 0; grid-template-columns: 220px 1fr; gap: 28px; border-radius: 0; }
-  .side h1 { font-size: 26px; }
+  .side h1, .side .side__name { font-size: 26px; }
   .summary .lead { font-size: 15px; }
   .r-stat { padding: 8px 10px; } .r-stat b { font-size: 18px; }
   .job { grid-template-columns: 110px 1fr; gap: 14px; padding-block: 10px; break-inside: avoid; }
