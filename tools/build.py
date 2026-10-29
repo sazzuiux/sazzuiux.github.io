@@ -41,9 +41,9 @@ def services_list():
             f'<span class="svc__content"><span class="svc__meta">{n}<i></i></span>'
             f'<span class="svc__title">{e(s["title"])}</span><span class="svc__desc">{e(s["desc"])}</span></span>'
             f'<span class="svc__arrow">{ARROW}</span></button>'
-            f'<div class="svc-m"><p class="t-label svc-card__label">{n} / {len(data["services"]):02d} · {e(s["label"])}</p>'
+            f'<div class="svc-m-wrap"><div class="svc-m-inner"><div class="svc-m"><p class="t-label svc-card__label">{n} / {len(data["services"]):02d} · {e(s["label"])}</p>'
             f'<p class="svc-card__num">{n}</p><h3 class="svc-card__title">{e(s["head"]).replace(chr(10), "<br>")}</h3>'
-            f'<ul class="svc-card__list">{"".join(f"<li>{e(x)}</li>" for x in s["list"])}</ul></div></li>')
+            f'<ul class="svc-card__list">{"".join(f"<li>{e(x)}</li>" for x in s["list"])}</ul></div></div></div></li>')
     return "\n".join(out)
 
 

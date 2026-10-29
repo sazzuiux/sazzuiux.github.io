@@ -191,7 +191,7 @@
       active = i;
       items.forEach((li, k) => {
         li.classList.toggle("is-active", k === i);
-        li.classList.toggle("is-dim", isDesktop() && k > i + 1);
+        li.classList.toggle("is-dim", k > i + 1);
         $(".svc__btn", li).setAttribute("aria-expanded", String(k === i));
       });
       if (first || !animate || reduced) { fill(i); placeCard(); return; }
@@ -211,25 +211,37 @@
     }, { rootMargin: "-48% 0px -48% 0px" });
     items.forEach((li) => io.observe(li));
 
-    // tablet / mobile: every service is its own card; they stack like the work cards as you scroll
-    if (!reduced) {
-      const stackSvc = () => {
-        items.forEach((li, k) => {
-          const next = items[k + 1];
-          if (isDesktop() || !next) { li.style.transform = ""; li.style.filter = ""; return; }
-          const a2 = li.getBoundingClientRect(), b2 = next.getBoundingClientRect();
-          const p = clamp(1 - (b2.top - a2.top) / a2.height, 0, 1);
-          li.style.transform = `scale(${1 - p * 0.06})`;
-          li.style.filter = `brightness(${1 - p * 0.45})`;
-        });
+    // tablet / mobile (as in Figma): the orange card opens under the active row.
+    // The row that crosses the reading line becomes active; while the cards
+    // open / close we keep that row still on screen so nothing jumps.
+    const keepStill = (li) => {
+      let prev = li.getBoundingClientRect().top + window.scrollY;
+      const end = performance.now() + 800;
+      const f = () => {
+        const cur = li.getBoundingClientRect().top + window.scrollY;
+        const d = cur - prev;
+        if (Math.abs(d) > 0.5) window.scrollTo(0, window.scrollY + d);
+        prev = cur;
+        if (performance.now() < end) requestAnimationFrame(f);
       };
-      stackSvc();
-      window.addEventListener("scroll", () => requestAnimationFrame(stackSvc), { passive: true });
-      window.addEventListener("resize", stackSvc);
-    }
+      requestAnimationFrame(f);
+    };
+    let spyTick = false;
+    const mobileSpy = () => {
+      spyTick = false;
+      if (isDesktop() || performance.now() < lockUntil) return;
+      const line = window.innerHeight * 0.42;
+      let next = 0;
+      items.forEach((li, k) => { if (li.getBoundingClientRect().top <= line) next = k; });
+      if (next === active) return;
+      keepStill(items[next]);
+      setActive(next, false);
+    };
+    window.addEventListener("scroll", () => { if (!spyTick) { spyTick = true; requestAnimationFrame(mobileSpy); } }, { passive: true });
+    items.forEach((li) => $(".svc__btn", li).addEventListener("click", () => { if (!isDesktop()) keepStill(li); }));
     window.addEventListener("resize", () => {
       placeCard();
-      items.forEach((li, k) => li.classList.toggle("is-dim", isDesktop() && k > active + 1));
+      items.forEach((li, k) => li.classList.toggle("is-dim", k > active + 1));
     });
   }
 
