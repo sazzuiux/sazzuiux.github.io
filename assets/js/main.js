@@ -348,7 +348,7 @@
     const set = (i) => {
       if (i === cur) return;
       cur = i;
-      steps.forEach((s, k) => { s.classList.toggle("is-active", k === i); s.classList.toggle("done", k < i); });
+      steps.forEach((s, k) => { s.classList.toggle("is-active", k === i); s.classList.toggle("done", k < i || (i === S.length - 1 && k === i)); });
       dots.forEach((d, k) => d.classList.toggle("on", k <= i));
       f("bar").style.width = `${(i / (S.length - 1)) * 100}%`;
       status.classList.add("is-swapping");
