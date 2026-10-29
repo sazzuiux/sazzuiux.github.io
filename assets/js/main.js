@@ -27,7 +27,7 @@
       if (done) return; done = true;
       try { sessionStorage.setItem("szLoaded", "1"); } catch (e) {}
       loader.classList.add("is-done");
-      setTimeout(() => { document.documentElement.classList.remove("is-loading"); loader.remove(); }, 650);
+      setTimeout(() => { document.documentElement.classList.remove("is-loading"); loader.remove(); window.dispatchEvent(new Event("sz:loaded")); }, 650);
     };
     const step = (now) => {
       const t = now - t0;
@@ -98,7 +98,10 @@
       if (c >= roles[r].length) { deleting = true; return setTimeout(tick, 2200); }
       setTimeout(tick, 80);
     };
-    setTimeout(tick, 2600);
+    // start only after the loader is gone, so visitors always see "Product Designer" first
+    const start = () => setTimeout(tick, 2600);
+    if (document.documentElement.classList.contains("is-loading")) window.addEventListener("sz:loaded", start, { once: true });
+    else start();
   });
 
   /* ---------------- human → robot reveal ---------------- */
