@@ -182,13 +182,8 @@
       $('[data-f="list"]', svcCard).innerHTML = s.list.map((x) => `<li>${x.replace(/&/g, "&amp;")}</li>`).join("");
     };
     const placeCard = () => {
-      if (isDesktop()) {
-        if (svcCard.parentElement !== desktopHome) desktopHome.appendChild(svcCard);
-        slot.remove();
-      } else {
-        items[active].after(slot);
-        if (svcCard.parentElement !== slot) slot.appendChild(svcCard);
-      }
+      if (svcCard.parentElement !== desktopHome) desktopHome.appendChild(svcCard);
+      slot.remove();
     };
     const setActive = (i, animate = true) => {
       if (i === active) return;
@@ -206,7 +201,6 @@
     items.forEach((li, i) => $(".svc__btn", li).addEventListener("click", () => {
       lockUntil = performance.now() + 1200;
       setActive(i);
-      if (!isDesktop()) setTimeout(() => li.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "start" }), 260);
     }));
     setActive(0, false);
 
@@ -217,25 +211,22 @@
     }, { rootMargin: "-48% 0px -48% 0px" });
     items.forEach((li) => io.observe(li));
 
-    // tablet / mobile: the card opens under whichever row has scrolled past the reading line
-    let ticking = false;
-    const mobileSpy = () => {
-      ticking = false;
-      if (isDesktop() || performance.now() < lockUntil) return;
-      const line = window.innerHeight * 0.38;
-      let next = 0;
-      items.forEach((li, k) => { if (li.getBoundingClientRect().top <= line) next = k; });
-      if (next === active) return;
-      // keep the newly active row where it is while the card moves under it
-      const anchor = items[next], before = anchor.getBoundingClientRect().top;
-      active = -2; // force setActive to run
-      items.forEach((li, k) => { li.classList.toggle("is-active", k === next); $(".svc__btn", li).setAttribute("aria-expanded", String(k === next)); });
-      active = next; fill(next); placeCard();
-      const after = anchor.getBoundingClientRect().top;
-      if (Math.abs(after - before) > 1) window.scrollBy({ top: after - before, left: 0, behavior: "instant" });
-      if (!reduced) { svcCard.classList.add("is-swapping"); requestAnimationFrame(() => requestAnimationFrame(() => svcCard.classList.remove("is-swapping"))); }
-    };
-    window.addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(mobileSpy); } }, { passive: true });
+    // tablet / mobile: every service is its own card; they stack like the work cards as you scroll
+    if (!reduced) {
+      const stackSvc = () => {
+        items.forEach((li, k) => {
+          const next = items[k + 1];
+          if (isDesktop() || !next) { li.style.transform = ""; li.style.filter = ""; return; }
+          const a2 = li.getBoundingClientRect(), b2 = next.getBoundingClientRect();
+          const p = clamp(1 - (b2.top - a2.top) / a2.height, 0, 1);
+          li.style.transform = `scale(${1 - p * 0.06})`;
+          li.style.filter = `brightness(${1 - p * 0.45})`;
+        });
+      };
+      stackSvc();
+      window.addEventListener("scroll", () => requestAnimationFrame(stackSvc), { passive: true });
+      window.addEventListener("resize", stackSvc);
+    }
     window.addEventListener("resize", () => {
       placeCard();
       items.forEach((li, k) => li.classList.toggle("is-dim", isDesktop() && k > active + 1));
