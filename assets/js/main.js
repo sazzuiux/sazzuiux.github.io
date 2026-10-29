@@ -248,19 +248,31 @@
   /* ---------------- works: stacked cards shrink as the next one slides over ---------------- */
   const works = $$(".work");
   if (works.length && !reduced) {
-    const fit = () => works.forEach((card) => card.classList.toggle("is-stack", card.offsetHeight < window.innerHeight - 110));
-    fit();
-    window.addEventListener("resize", fit);
-    window.addEventListener("load", fit);
+    // tablet / mobile: every card stacks. A card taller than the screen sticks
+    // once its bottom reaches the screen bottom, so the whole card is always seen.
+    let lastW = 0, vh = 0;
+    const fit = (force) => {
+      const w = window.innerWidth;
+      if (!force && w === lastW) return; // ignore mobile URL-bar height changes
+      lastW = w;
+      vh = document.documentElement.clientHeight;
+      works.forEach((card, i) => {
+        if (isDesktop()) { card.style.top = ""; return; }
+        const base = (w < 768 ? 76 : 84) + i * (w < 768 ? 8 : 12);
+        card.style.top = Math.min(base, vh - card.offsetHeight - 16) + "px";
+      });
+    };
+    fit(true);
+    window.addEventListener("resize", () => fit(false));
+    window.addEventListener("load", () => fit(true));
     const stack = () => {
       works.forEach((card, i) => {
         const next = works[i + 1];
-        const stacks = isDesktop() || card.classList.contains("is-stack");
-        if (!stacks || !next) { card.style.transform = ""; card.style.filter = ""; return; }
+        if (!next) { card.style.transform = ""; card.style.filter = ""; return; }
         const a = card.getBoundingClientRect(), b = next.getBoundingClientRect();
         const p = clamp(1 - (b.top - a.top) / a.height, 0, 1);
-        card.style.transform = `scale(${1 - p * 0.06})`;
-        card.style.filter = `brightness(${1 - p * 0.45})`;
+        card.style.transform = p ? `scale(${1 - p * 0.06})` : "";
+        card.style.filter = p ? `brightness(${1 - p * 0.45})` : "";
       });
     };
     stack();

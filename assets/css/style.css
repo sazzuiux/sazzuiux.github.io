@@ -551,7 +551,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .work__ticks i { display: block; width: 18px; height: 2px; background: rgba(255,255,255,.25); }
 .work__ticks i.on { width: 36px; background: var(--orange); }
 @media (max-width: 1023px) {
-  .work { grid-template-columns: 1fr; position: relative; top: 0; }
+  .work { grid-template-columns: 1fr; }
   .work__ticks { display: none; }
   .work__name { margin-top: var(--space-sm); }
 }
@@ -959,7 +959,7 @@ html.is-loading .loader.is-done { opacity: 0; visibility: hidden; }
    WORKS — stack on tablet / mobile too
    ========================================================= */
 @media (max-width: 1023px) {
-  .work.is-stack { position: sticky; top: calc(80px + var(--i) * 10px); }
+  .work { position: sticky; }
 }
 
 /* =========================================================
@@ -1064,3 +1064,6 @@ html.is-loading .loader.is-done { opacity: 0; visibility: hidden; }
   }
   .svc.is-active .svc__btn::before { transform: scaleY(1); }
 }
+
+/* keep sticky working on every browser (hidden can break it on iOS) */
+@supports (overflow: clip) { body { overflow-x: clip; } }
