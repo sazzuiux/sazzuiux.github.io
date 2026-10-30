@@ -149,6 +149,8 @@ footer = (SRC / "partials/footer.html").read_text(encoding="utf-8").replace("@@P
 def page(name, home, out_path):
     html = (SRC / name).read_text(encoding="utf-8")
     html = html.replace("<!-- @@CONTACT@@ -->", contact).replace("<!-- @@FOOTER@@ -->", footer)
+    # from another page, "Home" goes to the clean site URL (no #top)
+    html = html.replace("@@HOME@@#top", "#top" if name == "index.html" else "/")
     html = html.replace("@@HOME@@", home).replace("@@ROOT@@", "/")
     html = html.replace('<ul class="svc-list" id="svc-list"></ul>', f'<ul class="svc-list" id="svc-list">{services_list()}</ul>')
     html = html.replace('<div class="works__list" id="works-list"></div>', f'<div class="works__list" id="works-list">{works()}</div>')

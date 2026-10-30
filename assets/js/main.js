@@ -633,7 +633,8 @@
     ["wheel", "touchstart", "keydown"].forEach((ev) => window.addEventListener(ev, cancel, { passive: true }));
     autoScrollUntil = performance.now() + 4000;
     root.style.scrollBehavior = "auto";
-    if (hash) try { history.pushState(null, "", hash); } catch (e) {}
+    // the home/logo link (#top) keeps the address clean: just the site URL
+    if (hash) try { history.pushState(null, "", hash === "#top" ? location.pathname + location.search : hash); } catch (e) {}
     const start = window.scrollY, t0 = performance.now();
     const dur = reduced ? 0 : clamp(Math.abs(target() - start) * 0.3, 450, 1100);
     const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -653,6 +654,7 @@
     };
     requestAnimationFrame(step);
   };
+  if (location.hash === "#top") try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
   document.addEventListener("click", (e) => {
     const a = e.target.closest && e.target.closest('a[href^="#"], a[href^="/#"]');
     if (!a || a.hasAttribute("data-soon") || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
