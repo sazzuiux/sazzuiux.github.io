@@ -477,7 +477,17 @@
     $$(".water").forEach((el) => {
       const host = el.closest(".shot, .work__cover, .photo-card, .note") || el;
       host.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse" && !host.closest(".is-dragging")) enter(el); });
-      host.addEventListener("pointerleave", () => leave(el));
+      host.addEventListener("pointerleave", (e) => { if (e.pointerType === "mouse") leave(el); });
+      // touch screens have no hover: a tap (not a drag or scroll) makes the same ripple for a moment
+      let t0 = null, timer = 0;
+      host.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") t0 = { x: e.clientX, y: e.clientY }; }, { passive: true });
+      host.addEventListener("pointerup", (e) => {
+        if (e.pointerType === "mouse" || !t0) return;
+        const moved = Math.hypot(e.clientX - t0.x, e.clientY - t0.y); t0 = null;
+        if (moved > 10) return;
+        enter(el); clearTimeout(timer); timer = setTimeout(() => leave(el), 1600);
+      });
+      host.addEventListener("pointercancel", () => { t0 = null; });
     });
   }
 
