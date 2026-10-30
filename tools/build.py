@@ -60,7 +60,8 @@ def works():
         out.append(f'''<article class="work" style="--i:{i}">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME {i + 1:02d}A</span><span class="pill pill--orange">{e(w["tag"].upper())}</span></div>
-              <img class="mock water" src="assets/img/work/{w["img"]}.webp" alt="{e(w["alt"])}" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="assets/img/work/{w["img"]}.webp" alt="{e(w["alt"])}" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="assets/img/work/{w["img"]}-light.webp" alt="{e(w["alt"])}" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">{i + 1:02d}</b><small>/ {total:02d}</small></div>

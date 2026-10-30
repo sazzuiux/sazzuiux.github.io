@@ -5,6 +5,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t)})()</script>
   <!-- Google Analytics (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-E7JFSQL59W"></script>
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E7JFSQL59W');</script>
@@ -21,7 +23,7 @@
   <meta property="og:title" content="Sazzadul Kabir — Product Designer & Web Developer">
   <meta property="og:description" content="I design & build products that sell: websites, SaaS, AI products, brands and monthly marketing kits. Top Rated · 350+ projects.">
   <meta property="og:url" content="https://sazzuiux.github.io/">
-  <meta property="og:image" content="https://sazzuiux.github.io/assets/img/og.jpg?v=2">
+  <meta property="og:image" content="https://sazzuiux.github.io/assets/img/og.jpg?v=3">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Sazzadul Kabir — I design & build products that sell. Product Designer & Web Developer.">
@@ -29,7 +31,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sazzadul Kabir — Product Designer & Web Developer">
   <meta name="twitter:description" content="I design & build products that sell: websites, SaaS, AI products, brands and monthly marketing kits.">
-  <meta name="twitter:image" content="https://sazzuiux.github.io/assets/img/og.jpg?v=2">
+  <meta name="twitter:image" content="https://sazzuiux.github.io/assets/img/og.jpg?v=3">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,11 +67,13 @@
         <nav class="nav__links" aria-label="Primary">
           <a href="#works" data-spy="works" class="is-active">My Works</a>
           <a href="#services" data-spy="services">Services</a>
+          <a href="#pricing" data-soon>Pricing</a>
           <a href="#about" data-spy="about">About</a>
           <a href="/resume/">Resume</a>
           <a href="#contact" data-spy="contact">Contact</a>
         </nav>
         <div class="nav__actions">
+          <button class="theme-tg" type="button" id="theme-toggle" aria-label="Switch to light mode"><span class="theme-tg__label"><span class="if-dark">Go Light</span><span class="if-light">Go Dark</span></span><span class="theme-tg__switch"><span class="theme-tg__ico theme-tg__ico--moon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg></span><span class="theme-tg__ico theme-tg__ico--sun"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg></span></span></button>
           <a class="btn btn--primary" href="#contact">Let's talk <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           <button class="nav__menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-panel"><span></span></button>
         </div>
@@ -77,6 +81,7 @@
       <div class="nav__panel" id="nav-panel">
         <a class="panel-link is-active" href="#works" data-spy="works"><span>My Works</span><svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a class="panel-link" href="#services" data-spy="services"><span>Services</span><svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a class="panel-link" href="#pricing" data-soon><span>Pricing</span><svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a class="panel-link" href="#about" data-spy="about"><span>About</span><svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a class="panel-link" href="/resume/"><span>Resume</span><svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a class="panel-link" href="#contact" data-spy="contact"><span>Contact</span><svg width="20" height="20" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
@@ -237,7 +242,8 @@
         <div class="works__list" id="works-list"><article class="work" style="--i:0">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 01A</span><span class="pill pill--orange">WEB DESIGN</span></div>
-              <img class="mock water" src="/assets/img/work/jasi.webp" alt="JASI skincare website on desktop and mobile" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/jasi.webp" alt="JASI skincare website on desktop and mobile" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/jasi-light.webp" alt="JASI skincare website on desktop and mobile" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">01</b><small>/ 08</small></div>
@@ -251,7 +257,8 @@
 <article class="work" style="--i:1">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 02A</span><span class="pill pill--orange">DTC ECOMMERCE</span></div>
-              <img class="mock water" src="/assets/img/work/baldwin.webp" alt="Baldwin grooming store on desktop and mobile" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/baldwin.webp" alt="Baldwin grooming store on desktop and mobile" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/baldwin-light.webp" alt="Baldwin grooming store on desktop and mobile" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">02</b><small>/ 08</small></div>
@@ -265,7 +272,8 @@
 <article class="work" style="--i:2">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 03A</span><span class="pill pill--orange">WEB &amp; CAMPAIGN</span></div>
-              <img class="mock water" src="/assets/img/work/feno.webp" alt="Feno oral care website shown in two browser windows" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/feno.webp" alt="Feno oral care website shown in two browser windows" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/feno-light.webp" alt="Feno oral care website shown in two browser windows" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">03</b><small>/ 08</small></div>
@@ -279,7 +287,8 @@
 <article class="work" style="--i:3">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 04A</span><span class="pill pill--orange">EDTECH PLATFORM</span></div>
-              <img class="mock water" src="/assets/img/work/neuture.webp" alt="Neuture.ai student platform on desktop and mobile" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/neuture.webp" alt="Neuture.ai student platform on desktop and mobile" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/neuture-light.webp" alt="Neuture.ai student platform on desktop and mobile" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">04</b><small>/ 08</small></div>
@@ -293,7 +302,8 @@
 <article class="work" style="--i:4">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 05A</span><span class="pill pill--orange">AI SAAS</span></div>
-              <img class="mock water" src="/assets/img/work/claymail.webp" alt="Claymail AI email marketing landing page" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/claymail.webp" alt="Claymail AI email marketing landing page" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/claymail-light.webp" alt="Claymail AI email marketing landing page" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">05</b><small>/ 08</small></div>
@@ -307,7 +317,8 @@
 <article class="work" style="--i:5">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 06A</span><span class="pill pill--orange">MOBILE APP</span></div>
-              <img class="mock water" src="/assets/img/work/kruizapp.webp" alt="Kruiz pet-friendly hotel booking app screens" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/kruizapp.webp" alt="Kruiz pet-friendly hotel booking app screens" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/kruizapp-light.webp" alt="Kruiz pet-friendly hotel booking app screens" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">06</b><small>/ 08</small></div>
@@ -321,7 +332,8 @@
 <article class="work" style="--i:6">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 07A</span><span class="pill pill--orange">SAAS DESIGN</span></div>
-              <img class="mock water" src="/assets/img/work/tali.webp" alt="Tali clinician dashboard and website" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/tali.webp" alt="Tali clinician dashboard and website" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/tali-light.webp" alt="Tali clinician dashboard and website" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">07</b><small>/ 08</small></div>
@@ -335,7 +347,8 @@
 <article class="work" style="--i:7">
             <div class="work__cover">
               <div class="work__pills"><span class="pill pill--dark">FRAME 08A</span><span class="pill pill--orange">MOBILE &amp; WEB APP</span></div>
-              <img class="mock water" src="/assets/img/work/lobab.webp" alt="Lobab book summary website and mobile app" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--dark water" src="/assets/img/work/lobab.webp" alt="Lobab book summary website and mobile app" width="1520" height="1104" loading="lazy">
+              <img class="mock mock--light water" src="/assets/img/work/lobab-light.webp" alt="Lobab book summary website and mobile app" width="1520" height="1104" loading="lazy">
             </div>
             <div class="work__info">
               <div class="work__num"><b class="grad-text">08</b><small>/ 08</small></div>

@@ -577,6 +577,44 @@
     if (typeof window.gtag === "function") fab.addEventListener("click", () => window.gtag("event", "whatsapp_open"));
   }
 
+  /* ---------------- theme: follows the system, the toggle overrides ---------------- */
+  const root = document.documentElement;
+  const sysLight = window.matchMedia("(prefers-color-scheme: light)");
+  const themeMeta = $('meta[name="theme-color"]');
+  const tg = $("#theme-toggle");
+  const applyTheme = (t) => {
+    root.setAttribute("data-theme", t);
+    if (themeMeta) themeMeta.setAttribute("content", t === "light" ? "#f6f5f1" : "#0a0a0a");
+    if (tg) tg.setAttribute("aria-label", t === "light" ? "Switch to dark mode" : "Switch to light mode");
+  };
+  applyTheme(root.getAttribute("data-theme") === "light" ? "light" : "dark");
+  const saved = () => { try { return localStorage.getItem("theme"); } catch (e) { return null; } };
+  sysLight.addEventListener && sysLight.addEventListener("change", (e) => { if (!saved()) applyTheme(e.matches ? "light" : "dark"); });
+  tg && tg.addEventListener("click", () => {
+    const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.classList.add("theme-anim");
+    applyTheme(next);
+    try { localStorage.setItem("theme", next); } catch (e) {}
+    setTimeout(() => root.classList.remove("theme-anim"), 450);
+    if (typeof window.gtag === "function") window.gtag("event", "theme_toggle", { theme: next });
+  });
+
+  /* ---------------- pricing: coming soon ---------------- */
+  let toast, toastTimer;
+  $$("[data-soon]").forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.className = "toast"; toast.setAttribute("role", "status"); toast.setAttribute("aria-live", "polite");
+      toast.innerHTML = '<span class="toast__dot" aria-hidden="true"></span><span><b>Pricing is coming soon.</b> The best prices on the market, on the way.</span>';
+      document.body.appendChild(toast);
+    }
+    toast.classList.remove("is-on"); void toast.offsetWidth; toast.classList.add("is-on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("is-on"), 3600);
+    if (typeof window.gtag === "function") window.gtag("event", "pricing_click");
+  }));
+
   /* ---------------- resume: print ---------------- */
   const printBtn = $("#print-btn");
   printBtn && printBtn.addEventListener("click", () => window.print());
