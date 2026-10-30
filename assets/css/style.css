@@ -1245,3 +1245,24 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme="light"] .r-head__actions .t-label { color: rgba(10,10,10,.6); }
 [data-theme="light"] .paper { background: #fefefa; box-shadow: 0 24px 60px -20px rgba(0,0,0,.12); border: 1px solid rgba(10,10,10,.05); }
 [data-theme="light"] .r-stat { background: #f6f5f1; }
+
+/* nav bar controls on tablet / mobile: all 40px tall (Figma manual sizes) */
+@media (max-width: 1023px) {
+  .nav__menu-btn { width: 40px; height: 40px; border-radius: 8px; }
+}
+@media (max-width: 767px) {
+  .theme-tg__ico { border-radius: 7px; }
+}
+
+/* project + about buttons on mobile: always the same size —
+   side by side in two equal columns, or stacked full width if they don't fit */
+@media (max-width: 767px) {
+  .work__info .btn-row, .about__copy .btn-row {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(10.5em, 1fr)); gap: 8px; width: 100%; font-size: 14px;
+  }
+  .work__info .btn-row .btn, .about__copy .btn-row .btn { --pad-x: 12px; width: 100%; min-width: 0; }
+}
+@media (max-width: 767px) {
+  .work__info .btn-row:has(> .btn:only-child) { display: flex; }
+  .work__info .btn-row .btn:only-child { width: auto; --pad-x: 20px; }
+}
