@@ -86,8 +86,27 @@
 
   /* ---------------- typewriter: hero role + resume headline ---------------- */
   $$("[data-roles]").forEach((el) => {
-    if (reduced) return;
     const roles = el.dataset.roles.split("|");
+    // keep the typing line on ONE line: shrink it a little if the longest phrase
+    // wouldn't fit (small phones, large system text), so nothing below jumps
+    const line = el.closest(".r-rotator, .hero__role");
+    if (line) {
+      const fit = () => {
+        const keep = el.textContent;
+        line.style.fontSize = "";
+        const left = line.getBoundingClientRect().left;
+        let widest = 0;
+        roles.forEach((t) => { el.textContent = t; widest = Math.max(widest, line.lastElementChild.getBoundingClientRect().right - left); });
+        el.textContent = keep;
+        const box = line.closest(".container") || line.parentElement, cs = getComputedStyle(box);
+        const avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - 2;
+        if (widest > avail) line.style.fontSize = (Math.floor((avail / widest) * 1000) / 1000) + "em";
+      };
+      fit();
+      document.fonts && document.fonts.ready.then(fit);
+      let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(fit, 120); });
+    }
+    if (reduced) return;
     let r = 0, c = roles[0].length, deleting = true;
     const tick = () => {
       if (deleting) {

@@ -345,7 +345,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .hero__role { display: flex; align-items: center; gap: 0.2em; white-space: nowrap; }
 .hero__rotator { display: inline-flex; align-items: center; }
 .hero__rotator .grad-text { padding-bottom: 0.18em; margin-bottom: -0.18em; }
-.r-rotator { display: inline; }
+.r-rotator { display: inline-block; white-space: nowrap; min-height: 1em; vertical-align: top; }
 .r-rotator .caret { display: inline-block; width: 0.06em; height: 0.8em; margin-left: 0.08em; background: var(--orange); animation: blink 1s steps(1) infinite; }
 .hero__rotator .caret {
   display: inline-block; width: 4px; height: 0.85em; margin-left: 6px; background: var(--orange);
