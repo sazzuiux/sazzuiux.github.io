@@ -498,7 +498,7 @@
     const here = location.href.split("#")[0].split("?")[0];
     if (form._next) form._next.value = `${here}?sent=1#contact`;
     if (/[?&]sent=1/.test(location.search)) {
-      msg.textContent = "Thanks! Your message is on its way. I reply within 24 hours.";
+      msg.textContent = "Thanks! Your message is on its way. I reply within 1–4 hours.";
       msg.className = "form__status ok";
       history.replaceState(null, "", here + "#contact");
     }
@@ -523,7 +523,7 @@
         const out = await res.json().catch(() => ({}));
         if (!res.ok || String(out.success) !== "true") throw new Error(out.message || res.status);
         form.reset();
-        msg.textContent = "Thanks! Your message is on its way. I reply within 24 hours.";
+        msg.textContent = "Thanks! Your message is on its way. I reply within 1–4 hours.";
         msg.classList.add("ok");
         btn.disabled = false; btn.style.opacity = "";
       } catch (err) {
