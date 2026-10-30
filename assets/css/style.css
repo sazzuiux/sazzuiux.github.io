@@ -1154,7 +1154,7 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme="light"] .nav__links { background: #faf9f5; border-color: rgba(10,10,10,.05); }
 [data-theme="light"] .nav__links a { color: rgba(10,10,10,.65); }
 [data-theme="light"] .nav__links a:hover { color: var(--black); }
-[data-theme="light"] .nav__links a.is-active { color: var(--black); background: rgba(10,10,10,.06); }
+[data-theme="light"] .nav__links a.is-active { color: var(--white); background: var(--black); }
 [data-theme="light"] .nav__menu-btn { border-color: rgba(10,10,10,.14); background: #faf9f5; }
 [data-theme="light"] .nav__menu-btn span, [data-theme="light"] .nav__menu-btn span::before, [data-theme="light"] .nav__menu-btn span::after { background: var(--black); }
 [data-theme="light"] .nav.is-open .nav__menu-btn span { background: transparent; }
