@@ -425,18 +425,19 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .about__photo { position: relative; width: 100%; max-width: 440px; justify-self: center; padding: 20px 20px 0; }
 .photo-card {
-  background: var(--black); border-radius: var(--radius); padding: 12px 12px 22px; transform: rotate(-3deg);
-  box-shadow: 0 30px 60px -20px rgba(0,0,0,.35); transition: transform 0.6s var(--ease);
+  background: var(--light); border-radius: var(--radius); padding: 12px 12px 22px; transform: rotate(3deg);
+  border: 1px solid rgba(10,10,10,.05);
+  box-shadow: 0 30px 60px -24px rgba(0,0,0,.22); transition: transform 0.6s var(--ease);
 }
-.photo-card:hover { transform: rotate(-1deg) translateY(-4px); }
-.photo-card__img { border-radius: 12px; overflow: hidden; aspect-ratio: 376 / 480; }
+.photo-card:hover { transform: rotate(1deg) translateY(-4px); }
+.photo-card__img { border-radius: var(--radius); overflow: hidden; aspect-ratio: 376 / 480; }
 .photo-card__img img { width: 100%; height: 100%; object-fit: cover; }
-.photo-card__meta { padding: 16px 12px 0; color: var(--white); }
-.photo-card__meta .t-label { color: rgba(255,255,255,.5); }
+.photo-card__meta { padding: 14px 12px 0; color: var(--black); }
+.photo-card__meta .t-label { color: var(--black); }
 .photo-card__meta p { font-size: 14px; font-weight: 600; margin-top: 4px; }
 .sticker {
-  position: absolute; z-index: 2; top: 0; right: 0; transform: rotate(6deg);
-  padding: 10px 16px; border-radius: 12px; background: var(--grad-diag); color: var(--black);
+  position: absolute; z-index: 2; top: 7px; left: 50%; transform: translateX(-50%) rotate(3.3deg); white-space: nowrap;
+  padding: 10px 16px; border-radius: 16px; background: var(--orange); color: var(--white);
   font-size: 14px; font-weight: 600; box-shadow: 0 10px 24px -10px rgba(255,90,31,.7);
 }
 @media (max-width: 1023px) {
@@ -538,7 +539,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .work__pills { position: absolute; z-index: 2; inset: 18px 18px auto 18px; display: flex; justify-content: space-between; gap: 8px; }
 .pill { padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; }
 .pill--dark { background: rgba(10,10,10,.75); color: var(--white); }
-.pill--orange { background: var(--grad); color: var(--black); }
+.pill--orange { background: var(--grad); color: var(--white); }
 .work__info { display: flex; flex-direction: column; gap: var(--space-sm); padding-block: 4px; }
 .work__num { display: flex; align-items: flex-end; gap: 8px; }
 .work__num b { font-size: var(--t-h2); font-weight: 600; letter-spacing: -0.04em; line-height: 0.9; }
@@ -1138,9 +1139,9 @@ html[data-theme="dark"] { color-scheme: dark; }
 /* toggle + toast */
 [data-theme="light"] .theme-tg { background: #faf9f5; border-color: rgba(10,10,10,.05); color: var(--black); }
 [data-theme="light"] .theme-tg__switch { background: #faf9f5; border-color: rgba(10,10,10,.05); }
-[data-theme="light"] .theme-tg__ico { color: rgba(10,10,10,.45); }
+[data-theme="light"] .theme-tg__ico { color: var(--black); }
 [data-theme="light"] .theme-tg__ico--sun { order: 1; background: var(--grad-diag); color: var(--white); }
-[data-theme="light"] .theme-tg__ico--moon { order: 2; background: none; color: rgba(10,10,10,.45); }
+[data-theme="light"] .theme-tg__ico--moon { order: 2; background: none; color: var(--black); }
 [data-theme="light"] .theme-tg .if-light { display: inline; }
 [data-theme="light"] .theme-tg .if-dark { display: none; }
 [data-theme="light"] .toast { background: #fff; color: var(--black); border-color: rgba(10,10,10,.08); box-shadow: 0 20px 50px -20px rgba(0,0,0,.25); }
@@ -1171,7 +1172,7 @@ html[data-theme="dark"] { color-scheme: dark; }
 /* trusted by — logos gray, black on hover */
 [data-theme="light"] .trusted { background: #f6f5f1; border-top-color: rgba(10,10,10,.08); }
 [data-theme="light"] .trusted__label { color: var(--black); }
-[data-theme="light"] .logos img { filter: brightness(0); opacity: 0.4; }
+[data-theme="light"] .logos img { filter: brightness(0); opacity: 0.62; }
 [data-theme="light"] .logos img:hover { opacity: 1; }
 
 /* about / process / testimonials (already light) */
