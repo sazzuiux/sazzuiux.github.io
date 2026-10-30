@@ -91,16 +91,18 @@
     // wouldn't fit (small phones, large system text), so nothing below jumps
     const line = el.closest(".r-rotator, .hero__role");
     if (line) {
+      // the whole headline scales together, so both lines stay the same size
+      const head = line.closest("h1") || line.parentElement;
       const fit = () => {
         const keep = el.textContent;
-        line.style.fontSize = "";
+        head.style.fontSize = "";
         const left = line.getBoundingClientRect().left;
         let widest = 0;
         roles.forEach((t) => { el.textContent = t; widest = Math.max(widest, line.lastElementChild.getBoundingClientRect().right - left); });
         el.textContent = keep;
         const box = line.closest(".container") || line.parentElement, cs = getComputedStyle(box);
         const avail = box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - 2;
-        if (widest > avail) line.style.fontSize = (Math.floor((avail / widest) * 1000) / 1000) + "em";
+        if (widest > avail) head.style.fontSize = Math.floor(parseFloat(getComputedStyle(head).fontSize) * (avail / widest)) + "px";
       };
       fit();
       document.fonts && document.fonts.ready.then(fit);
