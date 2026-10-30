@@ -11,6 +11,9 @@
   const isDesktop = () => window.innerWidth >= 1024;
   const SITE = window.SITE || { services: [], steps: [] };
   const pad = (n) => String(n).padStart(2, "0");
+  // true while an in-page link is scrolling the page (scroll-driven effects hold still meanwhile)
+  let autoScrollUntil = 0;
+  const isAutoScrolling = () => performance.now() < autoScrollUntil;
 
   /* ---------------- loader: first visit of the session ---------------- */
   const loader = $("#loader");
@@ -221,6 +224,7 @@
       let prev = li.getBoundingClientRect().top + window.scrollY;
       const end = performance.now() + 800;
       const f = () => {
+        if (isAutoScrolling()) return;
         const cur = li.getBoundingClientRect().top + window.scrollY;
         const d = cur - prev;
         if (Math.abs(d) > 0.5) window.scrollTo(0, window.scrollY + d);
@@ -232,7 +236,7 @@
     let spyTick = false;
     const mobileSpy = () => {
       spyTick = false;
-      if (isDesktop() || performance.now() < lockUntil) return;
+      if (isDesktop() || performance.now() < lockUntil || isAutoScrolling()) return;
       const line = window.innerHeight * 0.42;
       let next = 0;
       items.forEach((li, k) => { if (li.getBoundingClientRect().top <= line) next = k; });
@@ -614,6 +618,53 @@
     toastTimer = setTimeout(() => toast.classList.remove("is-on"), 3600);
     if (typeof window.gtag === "function") window.gtag("event", "pricing_click");
   }));
+
+  /* ---------------- in-page links: smooth scroll that lands on the section ----------------
+     The target is re-measured every frame, so cards opening/closing or images loading
+     on the way can't make the page stop short of (or past) the section. */
+  const scrollToEl = (el, hash) => {
+    const target = () => Math.max(0, Math.min(el.getBoundingClientRect().top + window.scrollY, document.documentElement.scrollHeight - window.innerHeight));
+    const done = () => {
+      autoScrollUntil = 0; root.style.scrollBehavior = "";
+      ["wheel", "touchstart", "keydown"].forEach((ev) => window.removeEventListener(ev, cancel));
+    };
+    let stopped = false;
+    const cancel = () => { stopped = true; done(); };
+    ["wheel", "touchstart", "keydown"].forEach((ev) => window.addEventListener(ev, cancel, { passive: true }));
+    autoScrollUntil = performance.now() + 4000;
+    root.style.scrollBehavior = "auto";
+    if (hash) try { history.pushState(null, "", hash); } catch (e) {}
+    const start = window.scrollY, t0 = performance.now();
+    const dur = reduced ? 0 : clamp(Math.abs(target() - start) * 0.3, 450, 1100);
+    const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+    let settle = 0;
+    const step = (now) => {
+      if (stopped) return;
+      const t = dur ? Math.min(1, (now - t0) / dur) : 1;
+      const goal = target();
+      if (t < 1) {
+        window.scrollTo(0, start + (goal - start) * ease(t));
+        return requestAnimationFrame(step);
+      }
+      // hold on the section for a moment in case anything above is still settling
+      if (Math.abs(window.scrollY - goal) > 1) { window.scrollTo(0, goal); settle = 0; } else settle++;
+      if (settle < 12) return requestAnimationFrame(step);
+      done();
+    };
+    requestAnimationFrame(step);
+  };
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest('a[href^="#"], a[href^="/#"]');
+    if (!a || a.hasAttribute("data-soon") || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    const href = a.getAttribute("href");
+    if (href.startsWith("/#") && location.pathname !== "/") return; // other page: let the browser go
+    const hash = href.slice(href.indexOf("#"));
+    if (hash.length < 2) return;
+    const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (!el) return;
+    e.preventDefault();
+    scrollToEl(el, hash);
+  });
 
   /* ---------------- resume: print ---------------- */
   const printBtn = $("#print-btn");
