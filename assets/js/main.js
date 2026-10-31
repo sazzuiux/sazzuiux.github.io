@@ -69,6 +69,14 @@
     // on page load (e.g. coming from the other page), the active link's highlight grows in too
     const navLinks = $(".nav__links", nav);
     navLinks && setTimeout(() => navLinks.classList.add("nav-ready"), 250);
+    // links to the OTHER page: show the highlight growing first, then go
+    navLinks && $$("a", navLinks).forEach((a) => a.addEventListener("click", (e) => {
+      const url = new URL(a.href, location.href);
+      if (a.hasAttribute("data-soon") || url.pathname === location.pathname || e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      $$("a", navLinks).forEach((b) => b.classList.toggle("is-active", b === a));
+      setTimeout(() => { location.href = a.href; }, reduced ? 0 : 380);
+    }));
     // clicking a link highlights it right away (scroll spy confirms on arrival)
     $$("a[data-spy]", nav).forEach((a) => a.addEventListener("click", () => {
       $$("a[data-spy]", nav).forEach((b) => b.classList.toggle("is-active", b.dataset.spy === a.dataset.spy));
