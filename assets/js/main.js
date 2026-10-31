@@ -588,7 +588,7 @@
   if (wa) {
     const panel = $("#wa-panel", wa), fab = $(".wa__fab", wa), msgBox = $("#wa-msg", wa), reply = $("#wa-reply", wa);
     const go = $("#wa-go", wa), note = $("#wa-note", wa);
-    const WA = "https://wa.me/message/XKFCN6LQTQFNH1";
+    const WA = "https://wa.me/8801778968398"; // number link: lets the typed message pre-fill in WhatsApp
     const setOpen = (open) => {
       wa.classList.toggle("is-open", open);
       panel.hidden = !open;
@@ -615,11 +615,16 @@
       const r = replies[svc] || replies["something else"];
       reply.textContent = r[0]; msgBox.placeholder = r[1];
     }));
-    go.addEventListener("click", async () => {
-      const typed = msgBox.value.trim();
-      const text = typed || `Hi Sazzad, I'm interested in ${svc}.`;
-      try { await navigator.clipboard.writeText(text); note.textContent = "Message copied. Paste it in WhatsApp and hit send."; } catch (e) {}
-      // the link opens in a new tab on its own (href + target)
+    // the typed message goes straight into the WhatsApp chat box (?text=)
+    const msgText = () => msgBox.value.trim() || `Hi Sazzad, I'm interested in ${svc}.`;
+    const setHref = () => { go.href = `${WA}?text=${encodeURIComponent(msgText())}`; };
+    setHref();
+    msgBox.addEventListener("input", setHref);
+    go.addEventListener("pointerdown", setHref);
+    go.addEventListener("click", () => {
+      setHref(); // href is current before the browser follows it
+      try { navigator.clipboard.writeText(msgText()); } catch (e) {}
+      note.textContent = "Your message is ready in WhatsApp. Just hit send.";
     });
     if (typeof window.gtag === "function") fab.addEventListener("click", () => window.gtag("event", "whatsapp_open"));
   }
