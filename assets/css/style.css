@@ -1282,14 +1282,13 @@ html[data-theme="dark"] { color-scheme: dark; }
 .wa__foot .wa__msg { min-height: 72px; resize: none; }
 @media (max-height: 820px) { .wa__foot .wa__msg { min-height: 60px; } .wa__foot { gap: 8px; } }
 
-/* nav: one highlight pill that slides between links */
-.nav__links { position: relative; }
-.nav__links a { position: relative; z-index: 1; }
+/* nav: each link's highlight grows out from behind that link (no sliding across) */
+.nav__links a { position: relative; z-index: 0; transition: color 0.35s ease; }
 .nav__links a.is-active { background: none !important; }
-.nav__pill {
-  position: absolute; left: 0; top: 0; z-index: 0; border-radius: 12px; pointer-events: none; opacity: 0;
-  background: rgba(255, 255, 255, 0.1);
+.nav__links a::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: rgba(255, 255, 255, 0.1); opacity: 0; transform: scale(0.6);
+  transition: transform 0.45s var(--ease), opacity 0.3s ease;
 }
-.nav__links.pill-ready .nav__pill { transition: transform 0.45s var(--ease), width 0.45s var(--ease), opacity 0.3s ease, background-color 0.3s; }
-.nav__links a { transition: color 0.35s ease; }
-[data-theme="light"] .nav__pill { background: var(--black); }
+.nav__links a.is-active::before { opacity: 1; transform: scale(1); }
+[data-theme="light"] .nav__links a::before { background: var(--black); }

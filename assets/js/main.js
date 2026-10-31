@@ -65,23 +65,7 @@
     $$(".nav__panel a", nav).forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("keydown", (e) => e.key === "Escape" && setOpen(false));
 
-    // sliding highlight behind the active desktop link, so switching glides instead of jumping
-    const links = $(".nav__links", nav);
-    let pill = null;
-    const movePill = () => {
-      if (!links) return;
-      if (!pill) { pill = document.createElement("span"); pill.className = "nav__pill"; pill.setAttribute("aria-hidden", "true"); links.prepend(pill); }
-      const a = $("a.is-active", links);
-      if (!a) { pill.style.opacity = "0"; return; }
-      pill.style.opacity = "1";
-      pill.style.width = a.offsetWidth + "px";
-      pill.style.height = a.offsetHeight + "px";
-      pill.style.transform = `translate(${a.offsetLeft}px, ${a.offsetTop}px)`;
-    };
-    movePill();
-    requestAnimationFrame(() => links && links.classList.add("pill-ready"));
-    window.addEventListener("resize", movePill);
-    document.fonts && document.fonts.ready.then(movePill);
+    const movePill = () => {};
     // clicking a link highlights it right away (scroll spy confirms on arrival)
     $$("a[data-spy]", nav).forEach((a) => a.addEventListener("click", () => {
       $$("a[data-spy]", nav).forEach((b) => b.classList.toggle("is-active", b.dataset.spy === a.dataset.spy));
@@ -94,6 +78,7 @@
       const ids = [...new Set(spyLinks.map((a) => a.dataset.spy))];
       const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
       const spy = () => {
+        if (isAutoScrolling()) return; // don't flick through every section on the way
         const y = window.innerHeight * 0.35;
         let current = null;
         sections.forEach((s) => {
@@ -670,7 +655,7 @@
   const scrollToEl = (el, hash) => {
     const target = () => Math.max(0, Math.min(el.getBoundingClientRect().top + window.scrollY, document.documentElement.scrollHeight - window.innerHeight));
     const done = () => {
-      autoScrollUntil = 0; root.style.scrollBehavior = "";
+      autoScrollUntil = 0; root.style.scrollBehavior = ""; window.dispatchEvent(new Event("scroll"));
       ["wheel", "touchstart", "keydown"].forEach((ev) => window.removeEventListener(ev, cancel));
     };
     let stopped = false;
