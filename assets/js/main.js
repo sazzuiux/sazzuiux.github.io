@@ -65,7 +65,30 @@
     $$(".nav__panel a", nav).forEach((a) => a.addEventListener("click", () => setOpen(false)));
     document.addEventListener("keydown", (e) => e.key === "Escape" && setOpen(false));
 
-    // scroll spy (landing page only)
+    // sliding highlight behind the active desktop link, so switching glides instead of jumping
+    const links = $(".nav__links", nav);
+    let pill = null;
+    const movePill = () => {
+      if (!links) return;
+      if (!pill) { pill = document.createElement("span"); pill.className = "nav__pill"; pill.setAttribute("aria-hidden", "true"); links.prepend(pill); }
+      const a = $("a.is-active", links);
+      if (!a) { pill.style.opacity = "0"; return; }
+      pill.style.opacity = "1";
+      pill.style.width = a.offsetWidth + "px";
+      pill.style.height = a.offsetHeight + "px";
+      pill.style.transform = `translate(${a.offsetLeft}px, ${a.offsetTop}px)`;
+    };
+    movePill();
+    requestAnimationFrame(() => links && links.classList.add("pill-ready"));
+    window.addEventListener("resize", movePill);
+    document.fonts && document.fonts.ready.then(movePill);
+    // clicking a link highlights it right away (scroll spy confirms on arrival)
+    $$("a[data-spy]", nav).forEach((a) => a.addEventListener("click", () => {
+      $$("a[data-spy]", nav).forEach((b) => b.classList.toggle("is-active", b.dataset.spy === a.dataset.spy));
+      movePill();
+    }));
+
+    // scroll spy
     const spyLinks = $$("[data-spy]");
     if (spyLinks.length) {
       const ids = [...new Set(spyLinks.map((a) => a.dataset.spy))];
@@ -78,6 +101,7 @@
           if (r.top <= y && r.bottom > y) current = s.id;
         });
         spyLinks.forEach((a) => a.classList.toggle("is-active", a.dataset.spy === current));
+        movePill();
       };
       spy();
       window.addEventListener("scroll", spy, { passive: true });
