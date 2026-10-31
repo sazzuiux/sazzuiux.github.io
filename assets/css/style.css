@@ -1293,3 +1293,20 @@ html[data-theme="dark"] { color-scheme: dark; }
 .nav__links a.is-active::before { opacity: 1; transform: scale(1); }
 [data-theme="light"] .nav__links a::before { background: var(--black); }
 .nav__links:not(.nav-ready) a.is-active::before { opacity: 0; transform: scale(0.6); }
+
+/* =========================================================
+   PAGE SWITCH (Home <-> Resume): smooth cross-fade.
+   Modern browsers use cross-page View Transitions; others get a JS fade.
+   ========================================================= */
+@view-transition { navigation: auto; }
+.nav { view-transition-name: site-nav; }
+::view-transition-old(root) { animation: pageOut 0.35s var(--ease) both; }
+::view-transition-new(root) { animation: pageIn 0.5s var(--ease) both; }
+::view-transition-group(site-nav) { animation-duration: 0.35s; }
+@keyframes pageOut { to { opacity: 0; transform: translateY(-12px); } }
+@keyframes pageIn { from { opacity: 0; transform: translateY(16px); } }
+/* fallback fade */
+html.page-leave main, html.page-leave footer, html.page-leave .together { opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}

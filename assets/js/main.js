@@ -75,7 +75,9 @@
       if (a.hasAttribute("data-soon") || url.pathname === location.pathname || e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();
       $$("a", navLinks).forEach((b) => b.classList.toggle("is-active", b === a));
-      setTimeout(() => { location.href = a.href; }, reduced ? 0 : 380);
+      const vt = "onpagereveal" in window; // browser does the cross-page fade itself
+      if (!vt && !reduced) setTimeout(() => root.classList.add("page-leave"), 120);
+      setTimeout(() => { location.href = a.href; }, reduced ? 0 : vt ? 300 : 420);
     }));
     // clicking a link highlights it right away (scroll spy confirms on arrival)
     $$("a[data-spy]", nav).forEach((a) => a.addEventListener("click", () => {
@@ -624,6 +626,7 @@
 
   /* ---------------- theme: follows the system, the toggle overrides ---------------- */
   const root = document.documentElement;
+  window.addEventListener("pageshow", () => root.classList.remove("page-leave")); // back button: show the page again
   const sysLight = window.matchMedia("(prefers-color-scheme: light)");
   const themeMeta = $('meta[name="theme-color"]');
   const tg = $("#theme-toggle");
