@@ -66,6 +66,9 @@
     document.addEventListener("keydown", (e) => e.key === "Escape" && setOpen(false));
 
     const movePill = () => {};
+    // on page load (e.g. coming from the other page), the active link's highlight grows in too
+    const navLinks = $(".nav__links", nav);
+    navLinks && setTimeout(() => navLinks.classList.add("nav-ready"), 250);
     // clicking a link highlights it right away (scroll spy confirms on arrival)
     $$("a[data-spy]", nav).forEach((a) => a.addEventListener("click", () => {
       $$("a[data-spy]", nav).forEach((b) => b.classList.toggle("is-active", b.dataset.spy === a.dataset.spy));
