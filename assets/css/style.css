@@ -1336,28 +1336,39 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 
 /* desktop: standing, thumb flicks the coin */
 .persona--stand { top: 0; bottom: 0; aspect-ratio: 543 / 1473; right: calc(var(--cw) * 2 + 24px - 28px); }
-.persona--stand .persona__arm { transform-origin: 10.5% 31.4%; animation: armFlick 3.6s infinite; }
+.persona--stand .persona__arm { display: block; transform-origin: 10.7% 31.4%; animation: armFlick 3.6s infinite; }
+.persona__arm img { position: absolute; inset: 0; }
+.persona--stand .persona__thumb { transform-origin: 12.3% 21.3%; animation: thumbFlick 3.6s infinite; will-change: transform; }
 .persona--stand .coin { left: 4.2%; top: 12.6%; width: 15.6%; animation: coinFlyStand 3.6s infinite; }
 .persona--stand .coin img { animation: coinSpin 3.6s infinite; }
 .persona--sit { display: none; }
 
 @keyframes armFlick {
-  0%, 6% { transform: none; animation-timing-function: ease-in; }
-  12% { transform: translateY(0.5%) rotate(3deg); animation-timing-function: cubic-bezier(.2,.9,.3,1.3); }
-  17% { transform: translateY(-0.7%) rotate(-6deg); animation-timing-function: ease-out; }
-  28%, 68% { transform: none; }
-  74% { transform: translateY(0.45%) rotate(2deg); }
+  0%, 6% { transform: none; animation-timing-function: ease-in-out; }
+  13% { transform: rotate(2.5deg); animation-timing-function: cubic-bezier(.2,.9,.3,1.2); }
+  18% { transform: rotate(-4deg); animation-timing-function: ease-out; }
+  30%, 68% { transform: none; }
+  75% { transform: rotate(1.5deg); }
+  85%, 100% { transform: none; }
+}
+/* the thumb curls under, then snaps up to throw the coin */
+@keyframes thumbFlick {
+  0%, 4% { transform: none; animation-timing-function: ease-in-out; }
+  11%, 15% { transform: rotate(-26deg) scaleY(.8); animation-timing-function: cubic-bezier(.2,1.4,.4,1); }
+  18% { transform: rotate(7deg) scaleY(1.03); animation-timing-function: ease-out; }
+  26%, 70% { transform: none; }
+  75% { transform: rotate(-9deg) scaleY(.92); }
   84%, 100% { transform: none; }
 }
 @keyframes coinFlyStand {
-  0%, 15% { transform: none; animation-timing-function: cubic-bezier(.2,.75,.35,1); }
-  44% { transform: translateY(-56cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
+  0%, 17% { transform: none; animation-timing-function: cubic-bezier(.2,.75,.35,1); }
+  45% { transform: translateY(-56cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
   74% { transform: none; animation-timing-function: ease-out; }
   78% { transform: translateY(1.2cqw); }
   84%, 100% { transform: none; }
 }
 @keyframes coinSpin {
-  0%, 15% { transform: rotateX(0deg); animation-timing-function: linear; }
+  0%, 17% { transform: rotateX(0deg); animation-timing-function: linear; }
   74%, 100% { transform: rotateX(1440deg); }
 }
 
@@ -1523,21 +1534,21 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   .p-stage__glow { width: 360px; height: 360px; left: 10%; top: 0; }
 }
 @keyframes handFlick {
-  0%, 6% { transform: none; animation-timing-function: ease-in; }
-  12% { transform: rotate(6deg); animation-timing-function: cubic-bezier(.2,.9,.3,1.3); }
-  17% { transform: rotate(-12deg); animation-timing-function: ease-out; }
+  0%, 6% { transform: none; animation-timing-function: ease-in-out; }
+  13% { transform: rotate(5deg); animation-timing-function: cubic-bezier(.2,.9,.3,1.2); }
+  18% { transform: rotate(-8deg); animation-timing-function: ease-out; }
   30%, 68% { transform: none; }
-  74% { transform: rotate(4deg); }
-  84%, 100% { transform: none; }
+  75% { transform: rotate(3deg); }
+  85%, 100% { transform: none; }
 }
 @keyframes coinFlySit {
-  0%, 15% { transform: none; animation-timing-function: cubic-bezier(.2,.75,.35,1); }
-  44% { transform: translate(-4cqw, -46cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
+  0%, 17% { transform: none; animation-timing-function: cubic-bezier(.2,.75,.35,1); }
+  45% { transform: translate(-4cqw, -46cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
   74% { transform: none; animation-timing-function: ease-out; }
   78% { transform: translateY(1.5cqw); }
   84%, 100% { transform: none; }
 }
-@keyframes legSwing { from { transform: rotate(-2.5deg); } to { transform: rotate(3deg); } }
+@keyframes legSwing { from { transform: rotate(-2deg); } to { transform: rotate(2.5deg); } }
 
 @media (prefers-reduced-motion: reduce) {
   .persona *, .persona .coin img { animation: none !important; }
