@@ -949,7 +949,10 @@ html.is-loading .loader.is-done { opacity: 0; visibility: hidden; }
    TESTIMONIALS — two rows: top moves right, bottom moves left
    ========================================================= */
 .notes-rows { display: flex; flex-direction: column; gap: 8px; margin-top: calc(var(--space-xl) * -0.25); }
-.notes-row { -webkit-mask-image: none; mask-image: none; padding-block: 28px 18px; }
+.notes-row { -webkit-mask-image: none; mask-image: none; padding-block: 44px 64px; }
+/* rows clip their overflow (it's a drag marquee): give the card shadows room so they fade out softly
+   instead of being cut into hard gray bands, and pull the rows back together */
+.notes-row + .notes-row { margin-top: -56px; }
 .notes-row .notes { display: flex; flex-wrap: nowrap; justify-content: flex-start; align-items: stretch; gap: var(--space-md); padding: 0 var(--space-md) 0 0; }
 .notes-row .note { flex: none; width: 392px; }
 @media (max-width: 1023px) { .notes-row .note { width: 336px; min-width: 0; } }
