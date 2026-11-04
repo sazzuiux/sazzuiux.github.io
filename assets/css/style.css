@@ -1339,7 +1339,7 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 .persona--stand .persona__arm { display: block; transform-origin: 10.7% 31.4%; animation: armFlick 3.6s infinite; }
 .persona__arm img { position: absolute; inset: 0; }
 .persona--stand .persona__thumb { transform-origin: 12.3% 21.3%; animation: thumbFlick 3.6s infinite; will-change: transform; }
-.persona--stand .coin { left: 4.2%; top: 11.2%; width: 15.6%; animation: coinFlyStand 3.6s infinite; }
+.persona--stand .coin { left: 4.4%; top: 12.4%; width: 15.6%; animation: coinFlyStand 3.6s infinite; }
 .persona--stand .coin img { animation: coinSpin 3.6s infinite; }
 .persona--sit { display: none; }
 
@@ -1353,20 +1353,20 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 /* like a real coin toss: the thumb rests curled under the coin, snaps up to throw it,
    then folds back down as the coin lands on it */
 @keyframes thumbFlick {
-  0%, 6% { transform: rotate(-14deg) scaleY(.52); animation-timing-function: cubic-bezier(.3,1.6,.5,1); }
-  10% { transform: rotate(4deg) scaleY(1.05); animation-timing-function: ease-out; }
-  16%, 72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
-  77%, 100% { transform: rotate(-14deg) scaleY(.52); }
+  0%, 6% { transform: rotate(-10deg) scaleY(.64); animation-timing-function: cubic-bezier(.3,1.6,.5,1); }
+  10% { transform: rotate(3deg) scaleY(1.03); animation-timing-function: ease-out; }
+  16%, 70% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  74%, 100% { transform: rotate(-10deg) scaleY(.64); }
 }
 @keyframes coinFlyStand {
-  0%, 8% { transform: translate(-0.8cqw, 4.6cqw); animation-timing-function: cubic-bezier(.2,.75,.35,1); }
+  0%, 8% { transform: translate(-1cqw, 3cqw); animation-timing-function: cubic-bezier(.2,.75,.35,1); }
   40% { transform: translateY(-56cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
-  72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
-  77%, 100% { transform: translate(-0.8cqw, 4.6cqw); }
+  70% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  74%, 100% { transform: translate(-1cqw, 3cqw); }
 }
 @keyframes coinSpin {
   0%, 8% { transform: rotateX(0deg); animation-timing-function: linear; }
-  72%, 100% { transform: rotateX(1440deg); }
+  70%, 100% { transform: rotateX(1440deg); }
 }
 
 /* ---------- cards ---------- */
@@ -1520,9 +1520,10 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   .persona--sit .persona__hand { display: block; transform-origin: 39.8% 34.5%; animation: handFlick 3.2s infinite; }
   .persona__hand img { position: absolute; inset: 0; }
   .persona--sit .persona__finger { transform-origin: 51.6% 22.4%; animation: fingerFlick 3.2s infinite; will-change: transform; }
+  .persona--sit .persona__sthumb { transform-origin: 48.7% 21.4%; animation: sthumbFlick 3.2s infinite; will-change: transform; }
   .persona--sit .persona__leg { transform-origin: 42.4% 66.2%; animation: legSwing 3s ease-in-out infinite alternate; }
   .persona--sit .coin { left: 50.8%; top: 9.2%; width: 12%; animation: coinFlySit 3.2s infinite; }
-  .persona--sit .coin img { animation: coinSpin 3.2s infinite; }
+  .persona--sit .coin img { animation: coinSpinSit 3.2s infinite; }
   .pcard { --p: 28px; padding: var(--p); }
   /* two columns: the dangling shoe lands on the custom card's top-left, so its content starts below it */
   @media (min-width: 768px) { .pcard--custom { padding-top: calc(var(--sit-h) * .32 + 12px); } }
@@ -1544,18 +1545,27 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   77% { transform: rotate(3deg); animation-timing-function: ease-in-out; }
   86%, 100% { transform: none; }
 }
-/* the pointing finger bends under the coin, flicks it up, bends again to catch it */
+/* index finger and thumb pinch the coin, release together to flick it up, pinch again to catch it */
 @keyframes fingerFlick {
-  0%, 6% { transform: rotate(26deg) scaleX(.82); animation-timing-function: cubic-bezier(.3,1.6,.5,1); }
-  10% { transform: rotate(-6deg) scaleX(1.03); animation-timing-function: ease-out; }
-  16%, 72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
-  77%, 100% { transform: rotate(26deg) scaleX(.82); }
+  0%, 6% { transform: rotate(-40deg) scaleX(.7); animation-timing-function: cubic-bezier(.3,1.5,.5,1); }
+  10% { transform: rotate(5deg) scaleX(1.02); animation-timing-function: ease-out; }
+  16%, 68% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  73%, 100% { transform: rotate(-40deg) scaleX(.7); }
+}
+@keyframes sthumbFlick {
+  0%, 6% { transform: rotate(40deg); animation-timing-function: cubic-bezier(.3,1.5,.5,1); }
+  10% { transform: rotate(-6deg); animation-timing-function: ease-out; }
+  16%, 68% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  73%, 100% { transform: rotate(40deg); }
 }
 @keyframes coinFlySit {
-  0%, 8% { transform: translate(-0.4cqw, 2.1cqw); animation-timing-function: cubic-bezier(.2,.75,.35,1); }
-  40% { transform: translate(-4cqw, -46cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
-  72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
-  77%, 100% { transform: translate(-0.4cqw, 2.1cqw); }
+  0%, 8% { transform: translate(-4.2cqw, 0.8cqw); animation-timing-function: cubic-bezier(.2,.75,.35,1); }
+  40% { transform: translate(-6cqw, -46cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
+  73%, 100% { transform: translate(-4.2cqw, 0.8cqw); }
+}
+@keyframes coinSpinSit {
+  0%, 8% { transform: rotateX(0deg); animation-timing-function: linear; }
+  73%, 100% { transform: rotateX(1440deg); }
 }
 @keyframes legSwing { from { transform: rotate(-2deg); } to { transform: rotate(2.5deg); } }
 
@@ -1570,3 +1580,13 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 [data-theme="light"] .pcard--custom .btn--ghost-dark { color: #fff; --base: rgba(255,255,255,.25); }
 [data-theme="light"] .pcard--custom .btn--ghost-dark:hover { background: rgba(255,255,255,.08); }
 [data-theme="light"] .pstep { color: #fff; }
+
+/* home page: the Pricing link carries a spinning orange stroke so visitors notice it */
+.nav__links a.nav-hot::after, .nav__panel a.panel-link.nav-hot::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: conic-gradient(from var(--ang), #ff5a1f, #ffb07a 18%, rgba(255,90,31,.12) 36%, rgba(255,90,31,.12) 64%, #ffb07a 82%, #ff5a1f);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: borderSpin 3s linear infinite;
+}
+.nav__panel a.panel-link.nav-hot { position: relative; padding-inline: 14px; margin-block: 6px; border-radius: 14px; border-bottom-color: transparent; }
+@media (prefers-reduced-motion: reduce) { .nav-hot::after { animation: none !important; } }

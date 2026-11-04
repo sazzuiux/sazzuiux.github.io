@@ -153,6 +153,8 @@ def page(name, home, out_path):
     # from another page, "Home" goes to the clean site URL (no #top)
     html = html.replace("@@HOME@@#top", "#top" if name == "index.html" else "/")
     html = html.replace("@@HOME@@", home).replace("@@ROOT@@", "/")
+    if name == "pricing.html":  # no contact section here: contact links go to the home page one
+        html = html.replace('href="#contact"', 'href="/#contact"')
     html = html.replace('<ul class="svc-list" id="svc-list"></ul>', f'<ul class="svc-list" id="svc-list">{services_list()}</ul>')
     html = html.replace('<div class="works__list" id="works-list"></div>', f'<div class="works__list" id="works-list">{works()}</div>')
     html = html.replace('<div id="steps"></div>', f'<div id="steps">{steps()}</div>')
