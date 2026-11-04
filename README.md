@@ -1,6 +1,6 @@
 # sazzuiux.github.io
 
-Portfolio of **Sazzadul Kabir (Sazzuiux)** — live at https://sazzuiux.github.io
+Portfolio of **Sazzadul Kabir (Sazzuiux)** — live at https://sazzuiux.com
 
 Plain HTML/CSS/JS, no framework and no build server. GitHub Pages serves the repo root.
 

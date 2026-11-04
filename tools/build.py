@@ -182,7 +182,7 @@ page("resume.html", "/", "resume/index.html")
 page("pricing.html", "/", "pricing/index.html")
 (ROOT / "resume.html").write_text(
     '<!doctype html>\n<html lang="en"><head><meta charset="utf-8"><title>Resume — Sazzadul Kabir</title>'
-    '<link rel="canonical" href="https://sazzuiux.github.io/resume/"><meta name="robots" content="noindex">'
+    '<link rel="canonical" href="https://sazzuiux.com/resume/"><meta name="robots" content="noindex">'
     '<meta http-equiv="refresh" content="0; url=/resume/"><script>location.replace("/resume/"+location.hash)</script>'
     '</head><body><a href="/resume/">Resume moved here</a></body></html>\n', encoding="utf-8")
 print("built index.html, resume/index.html, pricing/index.html, assets/js/data.js")
