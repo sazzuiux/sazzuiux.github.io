@@ -11,7 +11,7 @@
 - Creative campaigns: monthly marketing kits with short reels, social media posts and ad creatives
 
 ## Pricing
-- The Launch Kit — $1,249 (was $1,449), live in 1–2 weeks: 5–6 responsive pages, custom Figma design, built with Claude AI (code on GitHub) or a CMS (WordPress, Framer, Webflow), SEO + AI search ready, SSL & secure forms, analytics setup, 60 days support
+- The Launch Kit — $1,249 (was $1,449), live in 1–2 weeks: 5–6 responsive pages, custom Figma design (no AI slop), built with Claude AI assistance (code on GitHub / VS Code) or a CMS (WordPress, Framer, Webflow), SEO + AI search ready, SSL & secure forms, analytics setup, 60 days support
 - Add-ons: brand identity +$69 · social media campaign (12 post designs, 1 month) +$99 · reels campaign (8–12 reels, 1 month) +$299 · extra page +$99/page
 - Payment: 10% to start, 40% after design approval, 50% on launch day
 - Custom work (websites beyond 6 pages, mobile apps & SaaS, logo & brand identity): custom quote within 24 hours
