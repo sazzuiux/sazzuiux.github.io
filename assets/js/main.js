@@ -717,6 +717,56 @@
     scrollToEl(el, hash);
   });
 
+  /* ---------------- pricing: add-ons, live total, WhatsApp hand-off ----------------
+     The visitor ticks extras; the total and the 10% deposit update live, and the
+     CTA opens WhatsApp with the whole order already written out. */
+  const pkg = $("#launch-kit");
+  if (pkg) {
+    const BASE = 1249, WA_NO = "https://wa.me/8801778968398";
+    const addons = $$(".addon", pkg), totalEl = $("#p-total"), sumEl = $("#p-sum"), depEl = $("#p-dep"), cta = $("#p-cta");
+    const money = (n) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 });
+    const picked = () => addons.filter((a) => a.getAttribute("aria-checked") === "true").map((a) => {
+      const qty = a.classList.contains("addon--qty") ? +a.dataset.qty : 1;
+      return { name: a.dataset.name, qty, price: +a.dataset.price * qty };
+    });
+    let last = BASE;
+    const update = () => {
+      const list = picked();
+      const total = BASE + list.reduce((s, x) => s + x.price, 0);
+      const dep = Math.round(total * 10) / 100;
+      totalEl.textContent = money(total);
+      depEl.textContent = money(dep);
+      const n = list.reduce((s, x) => s + x.qty, 0);
+      sumEl.textContent = list.length ? `Launch Kit + ${n} add-on${n > 1 ? "s" : ""}` : "The Launch Kit";
+      if (total !== last && !reduced) { totalEl.classList.remove("bump"); void totalEl.offsetWidth; totalEl.classList.add("bump"); }
+      last = total;
+      const lines = [`• The Launch Kit — $1,249`].concat(list.map((x) => `• ${x.name}${x.qty > 1 ? " × " + x.qty : ""} — +${money(x.price)}`));
+      const msg = `Hi Sazzad! I want to start with The Launch Kit 🚀\n\n${lines.join("\n")}\n\nTotal: ${money(total)}\n10% to start: ${money(dep)}\n\nPlease send me the payment details.`;
+      cta.href = `${WA_NO}?text=${encodeURIComponent(msg)}`;
+    };
+    const toggle = (a) => { a.setAttribute("aria-checked", String(a.getAttribute("aria-checked") !== "true")); update(); };
+    addons.forEach((a) => {
+      a.addEventListener("click", (e) => { if (!e.target.closest(".qty")) toggle(a); });
+      a.addEventListener("keydown", (e) => { if (e.key === " " || e.key === "Enter") { e.preventDefault(); toggle(a); } });
+      $$(".qty__btn", a).forEach((b) => b.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const q = Math.max(1, Math.min(20, +a.dataset.qty + +b.dataset.step));
+        a.dataset.qty = q; $(".qty__val", a).textContent = q;
+        $(".addon__copy small", a).textContent = q > 1 ? `${q} pages × $99` : "Add as many as you need";
+        update();
+      }));
+    });
+    update();
+    cta.addEventListener("click", () => {
+      if (typeof window.gtag === "function") window.gtag("event", "pricing_start", { value: +totalEl.textContent.replace(/[^0-9.]/g, ""), currency: "USD" });
+    });
+    const ccta = $("#c-cta");
+    if (ccta) {
+      ccta.href = `${WA_NO}?text=${encodeURIComponent("Hi Sazzad! 👋 My project is bigger than the Launch Kit. Here's what I need:\n\n")}`;
+      ccta.addEventListener("click", () => { if (typeof window.gtag === "function") window.gtag("event", "pricing_custom"); });
+    }
+  }
+
   /* ---------------- resume: print ---------------- */
   const printBtn = $("#print-btn");
   printBtn && printBtn.addEventListener("click", () => window.print());
