@@ -15,6 +15,15 @@
   let autoScrollUntil = 0;
   const isAutoScrolling = () => performance.now() < autoScrollUntil;
 
+  /* clean share-tracking junk (?fbclid=… from Facebook/Messenger, Instagram, Bing, TikTok) out of the address bar.
+     utm_* tags are kept so Google Analytics still sees where visitors came from. */
+  try {
+    const u = new URL(location.href);
+    let dirty = false;
+    ["fbclid", "igshid", "igsh", "msclkid", "ttclid", "mc_eid"].forEach((k) => { if (u.searchParams.has(k)) { u.searchParams.delete(k); dirty = true; } });
+    if (dirty) history.replaceState(history.state, "", u.pathname + (u.searchParams.toString() ? "?" + u.searchParams : "") + u.hash);
+  } catch (e) {}
+
   /* ---------------- loader: first visit of the session ---------------- */
   const loader = $("#loader");
   if (loader && document.documentElement.classList.contains("is-loading")) {
