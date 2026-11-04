@@ -1332,44 +1332,41 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 .persona__base { display: block; }
 .persona__part { position: absolute; inset: 0; will-change: transform; }
 .persona .coin { position: absolute; display: block; will-change: transform; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
-.persona .coin img { display: block; height: auto; backface-visibility: visible; will-change: transform; }
+.persona .coin img { display: block; width: 100%; height: auto; backface-visibility: visible; will-change: transform; }
 
 /* desktop: standing, thumb flicks the coin */
 .persona--stand { top: 0; bottom: 0; aspect-ratio: 543 / 1473; right: calc(var(--cw) * 2 + 24px - 28px); }
 .persona--stand .persona__arm { display: block; transform-origin: 10.7% 31.4%; animation: armFlick 3.6s infinite; }
 .persona__arm img { position: absolute; inset: 0; }
 .persona--stand .persona__thumb { transform-origin: 12.3% 21.3%; animation: thumbFlick 3.6s infinite; will-change: transform; }
-.persona--stand .coin { left: 4.2%; top: 12.6%; width: 15.6%; animation: coinFlyStand 3.6s infinite; }
+.persona--stand .coin { left: 4.2%; top: 11.2%; width: 15.6%; animation: coinFlyStand 3.6s infinite; }
 .persona--stand .coin img { animation: coinSpin 3.6s infinite; }
 .persona--sit { display: none; }
 
 @keyframes armFlick {
-  0%, 6% { transform: none; animation-timing-function: ease-in-out; }
-  13% { transform: rotate(2.5deg); animation-timing-function: cubic-bezier(.2,.9,.3,1.2); }
-  18% { transform: rotate(-4deg); animation-timing-function: ease-out; }
-  30%, 68% { transform: none; }
-  75% { transform: rotate(1.5deg); }
-  85%, 100% { transform: none; }
+  0%, 6% { transform: none; animation-timing-function: ease-in; }
+  9% { transform: rotate(-3deg); animation-timing-function: ease-out; }
+  16%, 72% { transform: none; animation-timing-function: ease-out; }
+  77% { transform: rotate(2deg); animation-timing-function: ease-in-out; }
+  86%, 100% { transform: none; }
 }
-/* the thumb curls under, then snaps up to throw the coin */
+/* like a real coin toss: the thumb rests curled under the coin, snaps up to throw it,
+   then folds back down as the coin lands on it */
 @keyframes thumbFlick {
-  0%, 4% { transform: none; animation-timing-function: ease-in-out; }
-  11%, 15% { transform: rotate(-26deg) scaleY(.8); animation-timing-function: cubic-bezier(.2,1.4,.4,1); }
-  18% { transform: rotate(7deg) scaleY(1.03); animation-timing-function: ease-out; }
-  26%, 70% { transform: none; }
-  75% { transform: rotate(-9deg) scaleY(.92); }
-  84%, 100% { transform: none; }
+  0%, 6% { transform: rotate(-14deg) scaleY(.52); animation-timing-function: cubic-bezier(.3,1.6,.5,1); }
+  10% { transform: rotate(4deg) scaleY(1.05); animation-timing-function: ease-out; }
+  16%, 72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  77%, 100% { transform: rotate(-14deg) scaleY(.52); }
 }
 @keyframes coinFlyStand {
-  0%, 17% { transform: none; animation-timing-function: cubic-bezier(.2,.75,.35,1); }
-  45% { transform: translateY(-56cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
-  74% { transform: none; animation-timing-function: ease-out; }
-  78% { transform: translateY(1.2cqw); }
-  84%, 100% { transform: none; }
+  0%, 8% { transform: translate(-0.8cqw, 4.6cqw); animation-timing-function: cubic-bezier(.2,.75,.35,1); }
+  40% { transform: translateY(-56cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
+  72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  77%, 100% { transform: translate(-0.8cqw, 4.6cqw); }
 }
 @keyframes coinSpin {
-  0%, 17% { transform: rotateX(0deg); animation-timing-function: linear; }
-  74%, 100% { transform: rotateX(1440deg); }
+  0%, 8% { transform: rotateX(0deg); animation-timing-function: linear; }
+  72%, 100% { transform: rotateX(1440deg); }
 }
 
 /* ---------- cards ---------- */
@@ -1377,12 +1374,18 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   --p: 32px; position: relative; display: flex; flex-direction: column; gap: 24px;
   padding: var(--p); border-radius: 24px; container-type: inline-size;
 }
-.pcard--pkg { background: #f6f5f1; color: #0a0a0a; }
+.pcard--pkg { background: #f6f5f1; color: #0a0a0a; isolation: isolate; }
+.pcard--pkg::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+  background: conic-gradient(from var(--ang), #ff5a1f, #ffb07a 18%, rgba(255,90,31,.08) 36%, rgba(255,90,31,.08) 64%, #ffb07a 82%, #ff5a1f);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: borderSpin 4s linear infinite;
+}
 .pcard--custom { background: #141414; color: #fff; border: 1px solid rgba(255,255,255,.14); overflow: hidden; }
 .pcard__glow { position: absolute; width: 420px; height: 420px; right: -140px; top: -220px; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, rgba(255,90,31,.3), rgba(255,90,31,0)); }
 .pcard > :not(.pcard__glow) { position: relative; }
 .pcard__top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.pcard__eta { font-size: 12px; font-weight: 500; color: rgba(10,10,10,.6); }
+.pcard__eta { font-size: 12px; font-weight: 500; color: rgba(10,10,10,.6); white-space: nowrap; }
 .pchip {
   display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 10px; border-radius: 999px;
   font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
@@ -1399,9 +1402,9 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 
 .pcard__price { display: flex; align-items: center; gap: 12px; }
 .pcard__price b { font-size: var(--t-h3); font-weight: 600; letter-spacing: -0.03em; line-height: 1; }
-.pcard__price span { display: flex; flex-direction: column; gap: 4px; }
-.pcard__price s { font-size: 16px; font-weight: 500; color: rgba(10,10,10,.6); }
-.pcard__price em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--orange); }
+.pcard__price span { display: flex; flex-direction: column; gap: 0; }
+.pcard__price s { font-size: var(--t-h5); font-weight: 500; line-height: 1.27; color: rgba(10,10,10,.6); text-decoration-thickness: 1.5px; }
+.pcard__price em { font-style: normal; font-size: 12px; font-weight: 600; line-height: 1.26; color: var(--orange); }
 .pcard hr { border: 0; height: 1px; margin: 0; background: rgba(10,10,10,.12); }
 
 .pcard__block { display: flex; flex-direction: column; gap: 14px; }
@@ -1471,10 +1474,10 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 .csvc small { display: block; margin-top: 4px; font-size: 12px; font-weight: 500; color: rgba(255,255,255,.65); }
 .process { display: flex; flex-direction: column; gap: 8px; }
 .process ol { margin: 0; padding: 0; list-style: none; }
-.process li { display: flex; align-items: flex-start; gap: 6px; padding: 12px 0; font-size: var(--t-h5); font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; transition: padding .35s var(--ease), color .3s; }
+.process li { display: flex; align-items: center; gap: 6px; padding: 12px 0; font-size: var(--t-h5); font-weight: 600; letter-spacing: -0.02em; line-height: 1.27; transition: padding .35s var(--ease), color .3s; }
 .process li + li { border-top: 1px solid rgba(255,255,255,.14); }
-.process sup { font-size: 11px; font-weight: 600; letter-spacing: 0; line-height: 1.6; color: rgba(255,255,255,.65); transition: color .3s; }
-.process li:first-child sup, .process li:hover sup { color: var(--orange); }
+.process__no { font-size: 11px; font-weight: 600; letter-spacing: 0; line-height: 1.27; color: rgba(255,255,255,.65); transition: color .3s; }
+.process li:first-child .process__no, .process li:hover .process__no { color: var(--orange); }
 .process li:hover { padding-left: 6px; }
 .pcard__cta { margin-top: auto; }
 
@@ -1513,40 +1516,46 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   .p-cards { --sit-h: 460px; display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-md); padding-top: calc(var(--sit-h) * .68); }
   .p-cards > .pcard { width: auto; }
   .persona--stand { display: none; }
-  .persona--sit { display: block; top: 0; left: 50%; height: var(--sit-h); aspect-ratio: 754 / 1000; transform: translateX(-50%); }
-  .persona--sit .persona__hand { transform-origin: 39.8% 34.5%; animation: handFlick 3.2s infinite; }
+  .persona--sit { display: block; top: 0; left: 50%; height: var(--sit-h); aspect-ratio: 754 / 1000; transform: translateX(calc(-50% + var(--sit-x, 12px))); }
+  .persona--sit .persona__hand { display: block; transform-origin: 39.8% 34.5%; animation: handFlick 3.2s infinite; }
+  .persona__hand img { position: absolute; inset: 0; }
+  .persona--sit .persona__finger { transform-origin: 51.6% 22.4%; animation: fingerFlick 3.2s infinite; will-change: transform; }
   .persona--sit .persona__leg { transform-origin: 42.4% 66.2%; animation: legSwing 3s ease-in-out infinite alternate; }
-  .persona--sit .coin { left: 50.4%; top: 11.5%; width: 12%; animation: coinFlySit 3.2s infinite; }
+  .persona--sit .coin { left: 50.8%; top: 9.2%; width: 12%; animation: coinFlySit 3.2s infinite; }
   .persona--sit .coin img { animation: coinSpin 3.2s infinite; }
   .pcard { --p: 28px; padding: var(--p); }
-  /* the dangling foot lands on the right card's top-left corner: start its content below the shoe */
-  .pcard--custom { padding-top: calc(var(--sit-h) * .32 + 12px); }
+  /* two columns: the dangling shoe lands on the custom card's top-left, so its content starts below it */
+  @media (min-width: 768px) { .pcard--custom { padding-top: calc(var(--sit-h) * .32 + 12px); } }
   .pay__steps { grid-template-columns: 1fr; gap: 16px; }
 }
 @media (max-width: 1023px) { .p-cards { --sit-h: 411px; } }
 @media (max-width: 767px) {
-  .p-cards { --sit-h: 285px; grid-template-columns: 1fr; gap: 16px; }
+  .p-cards { --sit-h: 285px; --sit-x: 10vw; grid-template-columns: 1fr; gap: 16px; }
   .pcard { --p: 22px; gap: 20px; border-radius: 22px; }
-  .pcard--custom { padding-top: var(--p); }
-  .pcard--pkg { padding-top: calc(var(--sit-h) * .32 + 14px); }
+
   .pstep { padding: 22px; }
   .pstep__pct { font-size: 48px; }
   .p-stage__glow { width: 360px; height: 360px; left: 10%; top: 0; }
 }
 @keyframes handFlick {
-  0%, 6% { transform: none; animation-timing-function: ease-in-out; }
-  13% { transform: rotate(5deg); animation-timing-function: cubic-bezier(.2,.9,.3,1.2); }
-  18% { transform: rotate(-8deg); animation-timing-function: ease-out; }
-  30%, 68% { transform: none; }
-  75% { transform: rotate(3deg); }
-  85%, 100% { transform: none; }
+  0%, 6% { transform: none; animation-timing-function: ease-in; }
+  9% { transform: rotate(-6deg); animation-timing-function: ease-out; }
+  16%, 72% { transform: none; animation-timing-function: ease-out; }
+  77% { transform: rotate(3deg); animation-timing-function: ease-in-out; }
+  86%, 100% { transform: none; }
+}
+/* the pointing finger bends under the coin, flicks it up, bends again to catch it */
+@keyframes fingerFlick {
+  0%, 6% { transform: rotate(26deg) scaleX(.82); animation-timing-function: cubic-bezier(.3,1.6,.5,1); }
+  10% { transform: rotate(-6deg) scaleX(1.03); animation-timing-function: ease-out; }
+  16%, 72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  77%, 100% { transform: rotate(26deg) scaleX(.82); }
 }
 @keyframes coinFlySit {
-  0%, 17% { transform: none; animation-timing-function: cubic-bezier(.2,.75,.35,1); }
-  45% { transform: translate(-4cqw, -46cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
-  74% { transform: none; animation-timing-function: ease-out; }
-  78% { transform: translateY(1.5cqw); }
-  84%, 100% { transform: none; }
+  0%, 8% { transform: translate(-0.4cqw, 2.1cqw); animation-timing-function: cubic-bezier(.2,.75,.35,1); }
+  40% { transform: translate(-4cqw, -46cqw) scale(1.12); animation-timing-function: cubic-bezier(.6,0,.85,.4); }
+  72% { transform: none; animation-timing-function: cubic-bezier(.3,0,.3,1); }
+  77%, 100% { transform: translate(-0.4cqw, 2.1cqw); }
 }
 @keyframes legSwing { from { transform: rotate(-2deg); } to { transform: rotate(2.5deg); } }
 
@@ -1557,7 +1566,7 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 
 /* light theme: page turns light, the cards stay exactly the same */
 [data-theme="light"] .p-stage { background: #f6f5f1; }
-[data-theme="light"] .pcard--pkg { box-shadow: 0 30px 60px -40px rgba(10,10,10,.35); border: 1px solid rgba(10,10,10,.06); }
+[data-theme="light"] .pcard--pkg { box-shadow: 0 30px 60px -40px rgba(10,10,10,.35); }
 [data-theme="light"] .pcard--custom .btn--ghost-dark { color: #fff; --base: rgba(255,255,255,.25); }
 [data-theme="light"] .pcard--custom .btn--ghost-dark:hover { background: rgba(255,255,255,.08); }
 [data-theme="light"] .pstep { color: #fff; }
