@@ -94,7 +94,7 @@ def notes(order, rots):
     for k, (idx, rot) in enumerate(zip(order, rots)):
         q, name, role, img = data["testimonials"][idx]
         cards.append(
-            f'<figure class="note water" style="--rot:{rot}deg;margin:0">'
+            f'<figure class="note" style="--rot:{rot}deg;margin:0">'
             f'<p class="t-label note__no">No. {idx + 1:02d}</p><span class="note__q" aria-hidden="true">{QUOTE}</span>'
             f'<blockquote>{e(q)}</blockquote>'
             f'<figcaption class="note__who"><img src="assets/img/avatars/{img}" alt="" width="44" height="44" loading="lazy">'
