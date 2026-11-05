@@ -1909,3 +1909,6 @@ html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: 
   .tabbar { column-gap: 6px; }
   .tabbar__side a, .tabbar__side a:first-child { padding-inline: 6px; }
 }
+
+/* desktop footer: room for the five social buttons (Instagram added) on one line, as before */
+@media (min-width: 1024px) { .footer__brand { max-width: 660px; } }
