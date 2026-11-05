@@ -29,8 +29,13 @@
   if (loader && document.documentElement.classList.contains("is-loading")) {
     const bar = $("#loader-bar"), pct = $("#loader-pct");
     const imgs = $$("img").filter((im) => !im.closest(".loader") && im.loading !== "lazy");
-    const t0 = performance.now(), MIN = 2600, MAX = 7000;
-    let shown = 0, done = false;
+    // The loader lasts exactly as long as the page really needs: it follows the real
+    // loading of images, fonts and the page itself. Fast connection = a blink, slow = longer.
+    // MIN only stops a jarring flash; MAX is a safety net so nobody waits forever.
+    const t0 = performance.now(), MIN = 450, MAX = 6000;
+    let shown = 0, done = false, pageLoaded = document.readyState === "complete", fontsReady = !document.fonts;
+    window.addEventListener("load", () => { pageLoaded = true; }, { once: true });
+    document.fonts && document.fonts.ready.then(() => { fontsReady = true; });
     const loadedShare = () => {
       if (!imgs.length) return 1;
       return imgs.filter((im) => im.complete).length / imgs.length;
@@ -43,15 +48,14 @@
     };
     const step = (now) => {
       const t = now - t0;
-      const timeShare = Math.min(1, t / MIN);
-      const ready = loadedShare();
-      // progress follows both time and real loading, so slow networks take longer
-      const target = Math.min(timeShare, 0.15 + ready * 0.85) * 100;
-      const goal = Math.max(target, t > MAX ? 100 : 0);
-      shown = Math.min(goal, shown + Math.max(0.6, (goal - shown) * 0.12));
-      const v = Math.min(100, Math.round(shown + 0.4));
+      const ready = loadedShare() * 0.8 + (fontsReady ? 0.1 : 0) + (pageLoaded ? 0.1 : 0);
+      const allDone = (ready >= 0.999 && t >= MIN) || t > MAX;
+      // real progress, held just below 100 until everything has actually arrived
+      const goal = allDone ? 100 : Math.min(96, 8 + ready * 88);
+      shown = Math.min(goal, shown + Math.max(allDone ? 4 : 0.4, (goal - shown) * (allDone ? 0.3 : 0.15)));
+      const v = Math.min(100, Math.round(shown));
       bar.style.width = v + "%"; pct.textContent = v + "%";
-      if (v >= 100) return setTimeout(finish, 250);
+      if (v >= 100) return setTimeout(finish, 120);
       requestAnimationFrame(step);
     };
     requestAnimationFrame(step);
