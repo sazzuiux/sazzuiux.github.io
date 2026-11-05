@@ -1594,3 +1594,57 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 }
 .nav__panel a.panel-link.nav-hot { position: relative; padding-inline: 14px; margin-block: 6px; border-radius: 14px; border-bottom-color: transparent; }
 @media (prefers-reduced-motion: reduce) { .nav-hot::after { animation: none !important; } }
+
+/* =========================================================
+   TABLET / MOBILE NAV (Figma): top = logo · theme · Let's talk, links in a bottom tab bar
+   ========================================================= */
+.tabbar { display: none; }
+@media (max-width: 1023px) {
+  .nav__menu-btn, .nav__panel { display: none !important; }
+  .nav.is-open { background: none; backdrop-filter: none; }
+  /* theme toggle: compact, no label (as on mobile) */
+  .theme-tg { padding: 3px; border-radius: 8px; gap: 0; }
+  .theme-tg__label { display: none; }
+  .theme-tg__switch { height: auto; padding: 0; border: 0; background: none; gap: 2px; }
+  .theme-tg__ico { width: 31px; height: 31px; border-radius: 50%; }
+  .theme-tg__ico svg { width: 21px; height: 21px; }
+  /* Let's talk: small outline button */
+  .nav__actions .btn, .nav__actions .btn--primary {
+    display: inline-flex; --pad-y: 10px; --pad-x: 10px; height: 40px; font-size: 14px; font-weight: 500;
+    color: var(--text-white-muted); background: transparent; box-shadow: none; border: 1px solid rgba(255,255,255,.2); border-radius: 8px;
+  }
+  .nav__actions .btn svg { display: none; }
+  .nav__actions .btn:hover { color: var(--white); border-color: rgba(255,255,255,.4); }
+
+  .tabbar {
+    position: fixed; z-index: 950; left: 50%; transform: translateX(-50%);
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px)); max-width: calc(100vw - 24px); width: max-content;
+    display: flex; gap: 6px; padding: 6px; border-radius: 16px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    background: rgba(26, 26, 26, 0.78); border: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 16px 40px -16px rgba(0,0,0,.6);
+  }
+  .tabbar::-webkit-scrollbar { display: none; }
+  .tabbar a {
+    position: relative; flex: none; padding: 10px 12px; border-radius: 8px; white-space: nowrap;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.08em; line-height: 1.25; color: var(--text-white-muted);
+    transition: color .25s, background .25s;
+  }
+  .tabbar a.is-active { color: var(--white); background: rgba(255,255,255,.1); }
+  .tabbar a.nav-hot::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
+    background: conic-gradient(from var(--ang), #ff5a1f, #ffb07a 18%, rgba(255,90,31,.12) 36%, rgba(255,90,31,.12) 64%, #ffb07a 82%, #ff5a1f);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+    animation: borderSpin 3s linear infinite;
+  }
+  /* room for the bar: page end and the WhatsApp button sit above it */
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+  .wa { bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important; }
+}
+@media (prefers-reduced-motion: reduce) { .tabbar a.nav-hot::after { animation: none; } }
+@media print { .tabbar { display: none !important; } }
+[data-theme="light"] .tabbar { background: rgba(250,249,245,.88); border-color: rgba(10,10,10,.06); box-shadow: 0 16px 40px -18px rgba(10,10,10,.25); }
+[data-theme="light"] .tabbar a { color: rgba(10,10,10,.65); }
+[data-theme="light"] .tabbar a.is-active { color: var(--white); background: var(--black); }
+@media (max-width: 1023px) {
+  [data-theme="light"] .nav__actions .btn { color: rgba(10,10,10,.65); border-color: rgba(10,10,10,.2); }
+}

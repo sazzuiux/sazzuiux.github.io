@@ -61,6 +61,26 @@
     requestAnimationFrame(step);
   }
 
+  /* ---------------- tablet / mobile: bottom tab bar (Figma) ----------------
+     A copy of the main links pinned to the bottom of the screen. Built here (not inside
+     the header) so the header's blur can't trap a position:fixed bar. Contact stays in
+     the top "Let's talk" button; Pricing keeps its spinning gradient stroke. */
+  const mainLinks = $(".nav__links");
+  if (mainLinks) {
+    const bar = mainLinks.cloneNode(true);
+    bar.className = "tabbar";
+    bar.setAttribute("aria-label", "Sections");
+    $$("a", bar).forEach((a) => {
+      if (/contact/i.test(a.textContent)) a.remove();
+      if (/pricing/i.test(a.textContent)) a.classList.add("nav-hot");
+    });
+    document.body.appendChild(bar);
+    // keep the active tab in view when the bar scrolls sideways
+    const showActive = () => { const a = $("a.is-active", bar); a && a.scrollIntoView({ block: "nearest", inline: "center" }); };
+    setTimeout(showActive, 400);
+    new MutationObserver(showActive).observe(bar, { subtree: true, attributes: true, attributeFilter: ["class"] });
+  }
+
   /* ---------------- nav ---------------- */
   const nav = $("#nav");
   if (nav) {
