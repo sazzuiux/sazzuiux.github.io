@@ -1868,3 +1868,15 @@ html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: 
     .nav__actions .btn:hover, [data-theme="light"] .nav__actions .btn:not(.is-active):hover { color: #fff; border-color: transparent; filter: brightness(1.06); }
   }
 }
+
+/* tablet/mobile "Contact": the orange gradient slowly flows, so the button feels alive */
+@media (max-width: 1023px) {
+  .nav__actions .btn, .nav__actions .btn--primary,
+  [data-theme="light"] .nav__actions .btn, [data-theme="light"] .nav__actions .btn--primary {
+    background: linear-gradient(90deg, #ff7a2e 0%, #ee4505 35%, #ff9a52 65%, #ff7a2e 100%);
+    background-size: 300% 100%;
+    animation: ctaFlow 4.5s ease-in-out infinite alternate;
+  }
+}
+@keyframes ctaFlow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+@media (prefers-reduced-motion: reduce) { .nav__actions .btn { animation: none !important; } }
