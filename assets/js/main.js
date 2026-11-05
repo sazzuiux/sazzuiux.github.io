@@ -101,7 +101,7 @@
       const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
       const spy = () => {
         if (isAutoScrolling()) return; // don't flick through every section on the way
-        const y = window.innerHeight * 0.35;
+        const y = document.documentElement.clientHeight * 0.35;
         let current = null;
         sections.forEach((s) => {
           const r = s.getBoundingClientRect();
@@ -209,17 +209,27 @@
     const words = p.textContent.trim().split(/\s+/);
     p.innerHTML = words.map((w) => `<span class="w">${w}</span>`).join(" ");
     const spans = $$(".w", p);
+    // one-way: words light up as you scroll down and STAY lit when you scroll back up,
+    // so the text is always readable. Uses the layout viewport (clientHeight), not
+    // innerHeight, so iOS Safari's collapsing URL bar doesn't shift the trigger points.
+    let lit = 0, ticking = false;
     const update = () => {
+      ticking = false;
+      if (lit >= spans.length) return;
       const r = p.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const start = vh * 0.85, end = vh * 0.3;
-      const prog = clamp((start - r.top) / (start - end + r.height * 0.6), 0, 1);
+      const vh = document.documentElement.clientHeight;
+      const start = vh * 0.9, end = vh * 0.45;
+      const prog = clamp((start - r.top) / (start - end + r.height * 0.5), 0, 1);
       const on = Math.round(prog * spans.length);
-      spans.forEach((s, i) => s.classList.toggle("on", i < on));
+      if (on <= lit) return;
+      for (let i = lit; i < on; i++) spans[i].classList.add("on");
+      lit = on;
     };
+    const queue = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
     update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
+    window.addEventListener("scroll", queue, { passive: true });
+    window.addEventListener("resize", queue);
+    window.addEventListener("load", queue);
   });
 
   /* ---------------- services ---------------- */
@@ -285,14 +295,20 @@
       };
       requestAnimationFrame(f);
     };
-    let spyTick = false;
+    let spyTick = false, lastSpyY = window.scrollY;
     const mobileSpy = () => {
       spyTick = false;
-      if (isDesktop() || performance.now() < lockUntil || isAutoScrolling()) return;
-      const line = window.innerHeight * 0.42;
+      // one-way: cards only open as you scroll DOWN. Scrolling back up leaves the open
+      // card where it is (no collapsing/re-opening under your finger), so it stays readable;
+      // tapping a row still opens it.
+      const y = window.scrollY, down = y > lastSpyY;
+      lastSpyY = y;
+      if (!down || isDesktop() || performance.now() < lockUntil || isAutoScrolling()) return;
+      // layout viewport, not innerHeight: iOS Safari's collapsing URL bar would move the line
+      const line = document.documentElement.clientHeight * 0.42;
       let next = 0;
       items.forEach((li, k) => { if (li.getBoundingClientRect().top <= line) next = k; });
-      if (next === active) return;
+      if (next <= active) return;
       keepStill(items[next]);
       setActive(next, false);
     };
