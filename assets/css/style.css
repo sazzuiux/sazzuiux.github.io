@@ -1816,9 +1816,9 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
 /* mobile tab bar: Pricing in the mathematical middle, "Works" + Services | About + Resume spaced evenly per side */
 .tabbar__side { display: contents; }
 @media (max-width: 767px) {
-  .tabbar { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; }
-  .tabbar__side { display: flex; justify-content: space-evenly; align-items: center; min-width: 0; }
-  .tabbar a, .tabbar a:first-child { flex: none; padding: 10px 8px; }
+  .tabbar { display: grid; grid-template-columns: 1fr auto 1fr; column-gap: 4px; } /* 4px keeps every highlight off the Pricing stroke */
+  .tabbar__side { display: flex; justify-content: space-evenly; align-items: center; min-width: 0; gap: 2px; }
+  .tabbar a, .tabbar a:first-child { flex: none; padding: 10px 6px; }
   .tabbar a.nav-hot { padding: 10px 10px; }
   .tabbar__my { display: none; }
 }
@@ -1831,3 +1831,8 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
    so show it straight away instead of growing it a second time */
 html.pt-in .nav__links:not(.nav-ready) a.is-active::before,
 html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: scale(1); transition: none; }
+/* very narrow phones (≤374px): a hair smaller so tabs never crowd the Pricing stroke */
+@media (max-width: 374px) { .tabbar a, .tabbar a:first-child { font-size: 12px; padding: 10px 5px; } }
+
+@media (max-width: 767px) { .tabbar a { font-size: var(--tab-fs, 13px); } }
+@media (max-width: 374px) { .tabbar a { font-size: var(--tab-fs, 12px); } }
