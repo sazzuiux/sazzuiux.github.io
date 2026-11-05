@@ -766,18 +766,29 @@
   {
     const up = document.createElement("button");
     up.type = "button"; up.className = "totop"; up.setAttribute("aria-label", "Back to top");
-    up.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V10"/><path d="M8 10l4-6 4 6z"/></svg>';
+    up.innerHTML = '<span class="totop__rocket" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M8 10l4-6 4 6z"/></svg><i class="totop__flame"></i></span><i class="totop__smoke" aria-hidden="true"></i><i class="totop__smoke" aria-hidden="true"></i><i class="totop__smoke" aria-hidden="true"></i>';
     document.body.appendChild(up);
     const check = () => {
       const left = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
       const foot = $(".footer");
       const near = foot ? foot.getBoundingClientRect().top < window.innerHeight : left < 400;
-      up.classList.toggle("is-shown", near && window.scrollY > 400);
+      const show = near && window.scrollY > 400;
+      if (show && !up.classList.contains("is-shown") && !up.classList.contains("is-launch")) up.classList.remove("is-spent"); // arrow is back for the next launch
+      up.classList.toggle("is-shown", show);
     };
     check();
     window.addEventListener("scroll", check, { passive: true });
     window.addEventListener("resize", check);
-    up.addEventListener("click", () => { up.blur(); scrollToEl(document.documentElement, "#top"); });
+    // tap = rocket launch: a little rumble, the arrow blasts off with a flame + smoke, the page follows it up
+    let launching = 0;
+    up.addEventListener("click", () => {
+      up.blur();
+      if (reduced) return scrollToEl(document.documentElement, "#top");
+      if (launching) return;
+      up.classList.add("is-launch");
+      setTimeout(() => scrollToEl(document.documentElement, "#top"), 260);
+      launching = setTimeout(() => { up.classList.add("is-spent"); up.classList.remove("is-launch"); launching = 0; check(); }, 1100);
+    });
   }
   if (location.hash === "#top") try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
   document.addEventListener("click", (e) => {

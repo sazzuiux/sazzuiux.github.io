@@ -1717,6 +1717,47 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 [data-theme="light"] .tabbar a::before { background: var(--black); }
 @media (hover: hover) { [data-theme="light"] .tabbar a:not(.is-active):hover { color: var(--black); } }
 [data-theme="light"] .totop { background: rgba(250,249,245,.9); }
+/* hover/press must beat the light background, or the white arrow vanishes on a white circle */
+@media (hover: hover) { [data-theme="light"] .totop:hover { background: var(--orange); color: #fff; } }
+[data-theme="light"] .totop:active, [data-theme="light"] .totop.is-launch { background: var(--orange); color: #fff; }
+
+/* back to top: rocket launch on tap */
+.totop__rocket { position: relative; display: grid; place-items: center; }
+.totop__flame {
+  position: absolute; left: 50%; top: 19px; width: 6px; height: 0; margin-left: -3px; border-radius: 3px 3px 50% 50%;
+  background: linear-gradient(#fff6c2, #ffb07a 35%, #ff5a1f 70%, rgba(255,90,31,0)); opacity: 0; pointer-events: none;
+}
+.totop__smoke {
+  position: absolute; left: 50%; bottom: -4px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+  background: rgba(160,160,160,.55); opacity: 0; pointer-events: none;
+}
+.totop.is-launch { opacity: 1 !important; visibility: visible !important; transform: none; background: var(--orange); color: #fff; overflow: visible; }
+.totop.is-launch::after, .totop.is-launch svg { animation: none !important; }
+.totop.is-spent:not(.is-shown) .totop__rocket { opacity: 0; }
+.totop__rocket { transition: opacity .3s ease .15s; }
+.totop.is-launch .totop__rocket { animation: rocketLift 1s cubic-bezier(.55,0,.75,.2) forwards; }
+.totop.is-launch .totop__flame { animation: rocketFlame 1s ease-out forwards; }
+.totop.is-launch .totop__smoke { animation: rocketSmoke .9s ease-out forwards; }
+.totop.is-launch .totop__smoke:nth-of-type(2) { --dx: -16px; animation-delay: .08s; }
+.totop.is-launch .totop__smoke:nth-of-type(3) { --dx: 16px; animation-delay: .14s; }
+@keyframes rocketLift {
+  0% { transform: none; }
+  6% { transform: translate(-1px, 1px); } 12% { transform: translate(1px, 0); } 18% { transform: translate(-1px, 1px); } 24% { transform: translate(1px, 1px); }
+  30% { transform: translateY(2px) scaleY(.9); }
+  100% { transform: translateY(-110vh) scaleY(1.1); }
+}
+@keyframes rocketFlame {
+  0%, 22% { height: 0; opacity: 0; }
+  32% { height: 10px; opacity: 1; }
+  60% { height: 26px; opacity: 1; }
+  100% { height: 40px; opacity: 0; }
+}
+@keyframes rocketSmoke {
+  0%, 25% { opacity: 0; transform: translate(0, 0) scale(.4); }
+  45% { opacity: .9; }
+  100% { opacity: 0; transform: translate(var(--dx, 0), 14px) scale(2.4); }
+}
+@media (prefers-reduced-motion: reduce) { .totop.is-launch .totop__rocket, .totop.is-launch .totop__flame, .totop.is-launch .totop__smoke { animation: none !important; } }
 @media (max-width: 1023px) {
   [data-theme="light"] .nav__actions .btn { color: rgba(10,10,10,.65); border-color: rgba(10,10,10,.2); }
 }
