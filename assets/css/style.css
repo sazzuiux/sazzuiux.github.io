@@ -1712,7 +1712,7 @@ html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,
 }
 /* back to top — Figma "Nav / Back to top": shows at the end of the page, 20px above the bar */
 .totop {
-  position: fixed; z-index: 940; left: 34px; bottom: 104px; /* desktop: bottom-left, raised above the footer line so it gets noticed */
+  position: fixed; z-index: 940; left: 34px; bottom: 116px; /* desktop: bottom-left, raised above the footer line so it gets noticed */
   width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer;
   color: var(--orange); background: rgba(26,26,26,.82); border: 0; -webkit-tap-highlight-color: transparent;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
