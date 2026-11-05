@@ -75,10 +75,17 @@
       if (/pricing/i.test(a.textContent)) a.classList.add("nav-hot");
     });
     document.body.appendChild(bar);
-    // keep the active tab in view when the bar scrolls sideways
-    const showActive = () => { const a = $("a.is-active", bar); a && a.scrollIntoView({ block: "nearest", inline: "center" }); };
-    setTimeout(showActive, 400);
-    new MutationObserver(showActive).observe(bar, { subtree: true, attributes: true, attributeFilter: ["class"] });
+    // like the desktop nav: the active highlight grows in on load, and a tapped tab lights up right away
+    setTimeout(() => bar.classList.add("nav-ready"), 250);
+    $$("a", bar).forEach((a) => a.addEventListener("click", (e) => {
+      $$("a", bar).forEach((b) => b.classList.toggle("is-active", b === a));
+      const url = new URL(a.href, location.href);
+      if (url.pathname === location.pathname || e.metaKey || e.ctrlKey || e.shiftKey) return; // same page: smooth scroll handles it
+      e.preventDefault(); // other page: let the highlight grow first, then go
+      const vt = "onpagereveal" in window;
+      if (!vt && !reduced) setTimeout(() => root.classList.add("page-leave"), 120);
+      setTimeout(() => { location.href = a.href; }, reduced ? 0 : vt ? 300 : 420);
+    }));
   }
 
   /* ---------------- nav ---------------- */
@@ -752,6 +759,24 @@
     };
     requestAnimationFrame(step);
   };
+  /* ---------------- tablet / mobile: back to top (Figma "Nav / Back to top") ----------------
+     Hidden while reading; fades up once the visitor reaches the end of the page. Tap → smooth scroll to top. */
+  {
+    const up = document.createElement("button");
+    up.type = "button"; up.className = "totop"; up.setAttribute("aria-label", "Back to top");
+    up.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20V10"/><path d="M8 10l4-6 4 6z"/></svg>';
+    document.body.appendChild(up);
+    const check = () => {
+      const left = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+      const foot = $(".footer");
+      const near = foot ? foot.getBoundingClientRect().top < window.innerHeight : left < 400;
+      up.classList.toggle("is-shown", near && window.scrollY > 400);
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    up.addEventListener("click", () => { up.blur(); scrollToEl(document.documentElement, "#top"); });
+  }
   if (location.hash === "#top") try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
   document.addEventListener("click", (e) => {
     const a = e.target.closest && e.target.closest('a[href^="#"], a[href^="/#"]');

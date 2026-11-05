@@ -1616,35 +1616,92 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   .nav__actions .btn svg { display: none; }
   .nav__actions .btn:hover { color: var(--white); border-color: rgba(255,255,255,.4); }
 
+  /* bottom tab bar — Figma "Nav / Tab bar v2": mobile 18px margins · 13px labels, tablet 474px · 16px */
   .tabbar {
     position: fixed; z-index: 950; left: 50%; transform: translateX(-50%);
-    bottom: calc(14px + env(safe-area-inset-bottom, 0px)); max-width: calc(100vw - 24px); width: max-content;
-    display: flex; gap: 6px; padding: 6px; border-radius: 16px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
-    background: rgba(26, 26, 26, 0.78); border: 1px solid rgba(255,255,255,.1);
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px)); width: min(calc(100vw - 36px), 420px);
+    display: flex; align-items: center; gap: 4px; padding: 3px; border-radius: 12px; /* 3px + 1px border = Figma's 4px with inside stroke */
+    background: linear-gradient(rgba(255,255,255,.06), rgba(255,255,255,.06)), rgba(10,10,10,.72);
+    border: 1px solid rgba(255,255,255,.1);
     backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); box-shadow: 0 16px 40px -16px rgba(0,0,0,.6);
   }
-  .tabbar::-webkit-scrollbar { display: none; }
   .tabbar a {
-    position: relative; flex: none; padding: 10px 12px; border-radius: 8px; white-space: nowrap;
-    font-size: 12px; font-weight: 500; letter-spacing: 0.08em; line-height: 1.25; color: var(--text-white-muted);
-    transition: color .25s, background .25s;
+    position: relative; z-index: 0; flex: 1 1 0; min-width: 0; padding: 10px 4px; border-radius: 8px;
+    text-align: center; white-space: nowrap; -webkit-tap-highlight-color: transparent;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.02em; line-height: 16px; color: var(--text-white-muted);
+    transition: color .35s ease, transform .2s var(--ease);
   }
-  .tabbar a.is-active { color: var(--white); background: rgba(255,255,255,.1); }
+  .tabbar a:first-child { flex: none; } /* "My Works" hugs its label (Figma) */
+  /* same as the desktop nav: the highlight grows out from behind the tab, no sliding */
+  .tabbar a::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+    background: rgba(255,255,255,.1); opacity: 0; transform: scale(0.6);
+    transition: transform .45s var(--ease), opacity .3s ease;
+  }
+  .tabbar a.is-active { color: var(--white); }
+  .tabbar a.is-active::before { opacity: 1; transform: scale(1); }
+  .tabbar:not(.nav-ready) a.is-active::before { opacity: 0; transform: scale(0.6); }
+  .tabbar a:active { transform: scale(.96); }
+  @media (hover: hover) { .tabbar a:hover { color: var(--white); } }
   .tabbar a.nav-hot::after {
     content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none;
     background: conic-gradient(from var(--ang), #ff5a1f, #ffb07a 18%, rgba(255,90,31,.12) 36%, rgba(255,90,31,.12) 64%, #ffb07a 82%, #ff5a1f);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
     animation: borderSpin 3s linear infinite;
   }
+
+  /* back to top — Figma "Nav / Back to top": shows at the end of the page, 20px above the bar */
+  .totop {
+    position: fixed; z-index: 940; left: 18px; bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+    width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer;
+    color: var(--orange); background: rgba(26,26,26,.82); border: 0; -webkit-tap-highlight-color: transparent;
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    opacity: 0; transform: translateY(16px); visibility: hidden; pointer-events: none;
+    transition: opacity .3s ease-out, transform .3s var(--ease), visibility 0s .3s, background .25s, color .25s;
+  }
+  .totop::before { /* gradient ring */
+    content: ""; position: absolute; inset: 0; border-radius: 50%; padding: 1.5px; pointer-events: none;
+    background: linear-gradient(135deg, #ff7a2e, #ed4505);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  }
+  .totop::after { /* pulse ring: "go up" hint */
+    content: ""; position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--orange); opacity: 0; pointer-events: none;
+  }
+  .totop svg { width: 24px; height: 24px; }
+  .totop.is-shown { opacity: 1; transform: none; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+  .totop.is-shown svg { animation: totopBounce 1.6s var(--ease) infinite; }
+  .totop.is-shown::after { animation: totopPulse 1.6s ease-out infinite .3s; }
+  @media (hover: hover) { .totop:hover { background: var(--orange); color: #fff; } .totop:hover svg, .totop:hover::after { animation: none; } }
+  .totop:active { transform: scale(.92); background: var(--orange); color: #fff; }
+
   /* room for the bar: page end and the WhatsApp button sit above it */
-  body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
-  .wa { bottom: calc(80px + env(safe-area-inset-bottom, 0px)) !important; }
+  body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  .wa { bottom: calc(82px + env(safe-area-inset-bottom, 0px)) !important; }
 }
-@media (prefers-reduced-motion: reduce) { .tabbar a.nav-hot::after { animation: none; } }
-@media print { .tabbar { display: none !important; } }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .tabbar { width: 474px; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+  .tabbar a { font-size: 16px; line-height: 20px; padding: 10px 4px; }
+  .tabbar a:first-child { flex: 1 1 0; }
+  .totop { left: 24px; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+  body { padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+  .wa { bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important; }
+}
+.totop { display: none; }
+@media (max-width: 1023px) { .totop { display: grid; } }
+@keyframes totopBounce { 0%, 75%, 100% { transform: translateY(0); } 28% { transform: translateY(-5px); } 56% { transform: translateY(0); } 66% { transform: translateY(-1.5px); } }
+@keyframes totopPulse { 0% { opacity: .6; transform: scale(1); } 100% { opacity: 0; transform: scale(1.45); } }
+@media (prefers-reduced-motion: reduce) {
+  .tabbar a.nav-hot::after { animation: none; }
+  .totop.is-shown svg, .totop.is-shown::after { animation: none !important; }
+  .tabbar a::before, .totop { transition-duration: .01s !important; }
+}
+@media print { .tabbar, .totop { display: none !important; } }
 [data-theme="light"] .tabbar { background: rgba(250,249,245,.88); border-color: rgba(10,10,10,.06); box-shadow: 0 16px 40px -18px rgba(10,10,10,.25); }
 [data-theme="light"] .tabbar a { color: rgba(10,10,10,.65); }
-[data-theme="light"] .tabbar a.is-active { color: var(--white); background: var(--black); }
+[data-theme="light"] .tabbar a.is-active { color: var(--white); }
+[data-theme="light"] .tabbar a::before { background: var(--black); }
+@media (hover: hover) { [data-theme="light"] .tabbar a:not(.is-active):hover { color: var(--black); } }
+[data-theme="light"] .totop { background: rgba(250,249,245,.9); }
 @media (max-width: 1023px) {
   [data-theme="light"] .nav__actions .btn { color: rgba(10,10,10,.65); border-color: rgba(10,10,10,.2); }
 }
