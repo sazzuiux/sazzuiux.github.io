@@ -44,7 +44,7 @@
     const a = e.target.closest && e.target.closest("a[href]");
     if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     if (a.target && a.target !== "_self") return;
-    if (a.hasAttribute("download") || a.hasAttribute("data-soon")) return;
+    if (a.hasAttribute("download") || a.hasAttribute("data-soon") || a.hasAttribute("data-to")) return;
     const url = new URL(a.href, location.href);
     if (url.origin !== location.origin) return;
     // a link to the page you're already on (e.g. "Resume" while reading Resume): glide back to the top, no reload
@@ -145,7 +145,7 @@
     }
     document.body.appendChild(bar);
     // top "Let's talk" lights up like a tab while the contact section is on screen (scroll spy below)
-    $$(".nav__actions .btn").forEach((b) => { if (/#contact$/.test(b.getAttribute("href") || "")) b.dataset.spy = "contact"; });
+    $$(".nav__actions .btn").forEach((b) => { if (b.dataset.to === "contact" || /#contact$/.test(b.getAttribute("href") || "")) b.dataset.spy = "contact"; });
     // like the desktop nav: the active highlight grows in on load, and a tapped tab lights up right away
     setTimeout(() => bar.classList.add("nav-ready"), 250);
     $$("a", bar).forEach((a) => a.addEventListener("click", (e) => {
@@ -855,7 +855,36 @@
       launching = setTimeout(() => { up.classList.add("is-spent"); up.classList.remove("is-launch"); launching = 0; check(); }, 1100);
     });
   }
-  // arriving with a #section (e.g. /#works from Resume): let the browser land on it, then tidy the address
+  /* ---------------- section links without "#": <a href="/" data-to="works"> ----------------
+     Same page: smooth scroll (as before). Other page: remember the section, open the page, land on it. */
+  const sectionEl = (id) => (id === "top" ? document.documentElement : document.getElementById(id));
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a[data-to]");
+    if (!a || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const url = new URL(a.href, location.href);
+    if (url.pathname !== location.pathname) { try { sessionStorage.setItem("szTo", a.dataset.to); } catch (err) {} }
+  }, true); // capture: stored before any nav handler starts the page switch
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a[data-to]");
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const url = new URL(a.href, location.href);
+    e.preventDefault();
+    if (url.pathname !== location.pathname) { location.href = url.pathname; return; }
+    const el = sectionEl(a.dataset.to);
+    if (el) scrollToEl(el, null);
+    if (el && a.classList.contains("skip-link")) { el.setAttribute("tabindex", "-1"); el.focus({ preventScroll: true }); }
+  });
+  {
+    let to = null;
+    try { to = sessionStorage.getItem("szTo"); sessionStorage.removeItem("szTo"); } catch (e) {}
+    const el = to && sectionEl(to);
+    if (el && to !== "top") {
+      const jump = () => { root.style.scrollBehavior = "auto"; window.scrollTo(0, el.getBoundingClientRect().top + window.scrollY); root.style.scrollBehavior = ""; };
+      jump();
+      if (document.readyState !== "complete") window.addEventListener("load", () => setTimeout(jump, 30), { once: true });
+    }
+  }
+  // arriving with a #section in an old/shared link: let the browser land on it, then tidy the address
   if (location.hash) {
     const clean = () => setTimeout(() => { try { history.replaceState(history.state, "", location.pathname + location.search); } catch (e) {} }, 800);
     if (document.readyState === "complete") clean(); else window.addEventListener("load", clean, { once: true });

@@ -155,6 +155,12 @@ def page(name, home, out_path):
     html = html.replace("@@HOME@@", home).replace("@@ROOT@@", "/")
     if name == "pricing.html":  # no contact section here: contact links go to the home page one
         html = html.replace('href="#contact"', 'href="/#contact"')
+    # no "#" in any link: section links become href="<page>" data-to="<section id>" (main.js scrolls there)
+    page_path = {"index.html": "/", "resume.html": "/resume/", "pricing.html": "/pricing/"}[name]
+    def _to(m):
+        other, sec = m.group(2), m.group(3)
+        return f'{m.group(1)}href="{"/" if other else page_path}" data-to="{sec}"'
+    html = re.sub(r'(<a\b[^>]*?)href="(/?)#([\w-]+)"', _to, html)
     html = html.replace('<ul class="svc-list" id="svc-list"></ul>', f'<ul class="svc-list" id="svc-list">{services_list()}</ul>')
     html = html.replace('<div class="works__list" id="works-list"></div>', f'<div class="works__list" id="works-list">{works()}</div>')
     html = html.replace('<div id="steps"></div>', f'<div id="steps">{steps()}</div>')
