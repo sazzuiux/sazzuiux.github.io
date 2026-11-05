@@ -1712,7 +1712,7 @@ html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,
 }
 /* back to top — Figma "Nav / Back to top": shows at the end of the page, 20px above the bar */
 .totop {
-  position: fixed; z-index: 940; right: 34px; bottom: 104px; /* desktop: centred above the WhatsApp button */
+  position: fixed; z-index: 940; left: 34px; bottom: 104px; /* desktop: bottom-left, opposite the WhatsApp button */
   width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0; cursor: pointer;
   color: var(--orange); background: rgba(26,26,26,.82); border: 0; -webkit-tap-highlight-color: transparent;
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -1734,7 +1734,7 @@ html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,
 @media (hover: hover) { .totop:hover { background: var(--orange); color: #fff; } .totop:hover svg, .totop:hover::after { animation: none; } }
 .totop:active { transform: scale(.92); background: var(--orange); color: #fff; }
 @media (max-width: 1023px) {
-  .totop { right: auto; left: 18px; bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
+  .totop { left: 18px; bottom: calc(82px + env(safe-area-inset-bottom, 0px)); }
 }
 @media (min-width: 768px) and (max-width: 1023px) { .totop { left: 24px; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); } }
 body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-events: none !important; }
@@ -1814,13 +1814,4 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
   .tabbar a, .tabbar a:first-child { flex: none; padding: 10px 8px; }
   .tabbar a.nav-hot { padding: 10px 10px; }
   .tabbar__my { display: none; }
-}
-
-/* back to top on a computer (mouse/trackpad): always on the right, centred above the WhatsApp button,
-   even when the browser window is narrow enough to show the tablet/mobile layout */
-@media (hover: hover) and (pointer: fine) and (max-width: 1023px) {
-  .totop { left: auto; right: 34px; bottom: calc(92px + 64px + 16px); }
-}
-@media (hover: hover) and (pointer: fine) and (max-width: 767px) {
-  .totop { right: 22px; bottom: calc(82px + 56px + 16px); }
 }

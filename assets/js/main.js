@@ -16,11 +16,14 @@
   const isAutoScrolling = () => performance.now() < autoScrollUntil;
 
   /* ---------------- page switch: curtain transition (every device, every browser) ---------------- */
+  // a visitor who already opened Resume/Pricing doesn't get the first-visit loader again on Home
+  if (!document.getElementById("loader")) try { sessionStorage.setItem("szLoaded", "1"); } catch (e) {}
   const pageName = (path) => (/resume/.test(path) ? "Resume" : /pricing/.test(path) ? "Pricing" : "Home");
   const pageGo = (href) => {
     const url = new URL(href, location.href);
+    // only Resume and Pricing get the curtain; going back Home (My Works, Services, About…) is a plain jump
+    if (reduced || pageName(url.pathname) === "Home") { location.href = url.href; return; }
     try { sessionStorage.setItem("szPT", pageName(url.pathname)); sessionStorage.setItem("szLoaded", "1"); } catch (e) {}
-    if (reduced) { location.href = url.href; return; }
     if ($(".pt")) return;
     const pt = document.createElement("div");
     pt.className = "pt"; pt.setAttribute("aria-hidden", "true");
@@ -43,7 +46,7 @@
     if (a.target && a.target !== "_self") return;
     if (a.hasAttribute("download") || a.hasAttribute("data-soon")) return;
     const url = new URL(a.href, location.href);
-    if (url.origin !== location.origin || url.pathname === location.pathname) return;
+    if (url.origin !== location.origin || url.pathname === location.pathname || pageName(url.pathname) === "Home") return;
     e.preventDefault();
     pageGo(url.href);
   });
