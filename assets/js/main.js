@@ -75,6 +75,8 @@
       if (/pricing/i.test(a.textContent)) a.classList.add("nav-hot");
     });
     document.body.appendChild(bar);
+    // top "Let's talk" lights up like a tab while the contact section is on screen (scroll spy below)
+    $$(".nav__actions .btn").forEach((b) => { if (/#contact$/.test(b.getAttribute("href") || "")) b.dataset.spy = "contact"; });
     // like the desktop nav: the active highlight grows in on load, and a tapped tab lights up right away
     setTimeout(() => bar.classList.add("nav-ready"), 250);
     $$("a", bar).forEach((a) => a.addEventListener("click", (e) => {

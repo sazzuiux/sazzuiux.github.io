@@ -1603,7 +1603,7 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   .nav__menu-btn, .nav__panel { display: none !important; }
   .nav.is-open { background: none; backdrop-filter: none; }
   /* theme toggle: compact, no label (as on mobile) */
-  .theme-tg { padding: 3px; border-radius: 8px; gap: 0; }
+  .theme-tg { padding: 3px; border-radius: 7px; gap: 0; }
   .theme-tg__label { display: none; }
   .theme-tg__switch { height: auto; padding: 0; border: 0; background: none; gap: 2px; }
   .theme-tg__ico { width: 31px; height: 31px; border-radius: 50%; }
@@ -1612,9 +1612,20 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   .nav__actions .btn, .nav__actions .btn--primary {
     display: inline-flex; --pad-y: 10px; --pad-x: 10px; height: 40px; font-size: 14px; font-weight: 500;
     color: var(--text-white-muted); background: transparent; box-shadow: none; border: 1px solid rgba(255,255,255,.2); border-radius: 8px;
+    position: relative; z-index: 0; isolation: isolate; -webkit-tap-highlight-color: transparent;
+    transition: color .35s ease, border-color .35s ease, transform .2s var(--ease);
   }
   .nav__actions .btn svg { display: none; }
-  .nav__actions .btn:hover { color: var(--white); border-color: rgba(255,255,255,.4); }
+  /* same feel as the tab bar: a highlight grows out from behind the button */
+  .nav__actions .btn::before {
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+    background: rgba(255,255,255,.1); opacity: 0; transform: scale(0.6);
+    transition: transform .45s var(--ease), opacity .3s ease;
+  }
+  .nav__actions .btn.is-active, .nav__actions .btn:active { color: var(--white); border-color: rgba(255,255,255,.2); }
+  .nav__actions .btn.is-active::before, .nav__actions .btn:active::before { opacity: 1; transform: scale(1); }
+  .nav__actions .btn:active { transform: scale(.96); }
+  @media (hover: hover) { .nav__actions .btn:hover { color: var(--white); border-color: var(--orange); } }
 
   /* bottom tab bar — Figma "Nav / Tab bar v2": mobile 18px margins · 13px labels, tablet 474px · 16px */
   .tabbar {
@@ -1676,6 +1687,8 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 
   /* room for the bar: page end and the WhatsApp button sit above it */
   body { padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px)); }
+  body:has(.footer) { padding-bottom: 0; }
+  .footer { padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px)); }
   .wa { bottom: calc(82px + env(safe-area-inset-bottom, 0px)) !important; }
 }
 @media (min-width: 768px) and (max-width: 1023px) {
@@ -1684,6 +1697,8 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
   .tabbar a:first-child { flex: 1 1 0; }
   .totop { left: 24px; bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
   body { padding-bottom: calc(92px + env(safe-area-inset-bottom, 0px)); }
+  body:has(.footer) { padding-bottom: 0; }
+  .footer { padding-bottom: calc(160px + env(safe-area-inset-bottom, 0px)); }
   .wa { bottom: calc(92px + env(safe-area-inset-bottom, 0px)) !important; }
 }
 .totop { display: none; }
@@ -1704,4 +1719,13 @@ html.page-leave main, html.page-leave footer, html.page-leave .together { opacit
 [data-theme="light"] .totop { background: rgba(250,249,245,.9); }
 @media (max-width: 1023px) {
   [data-theme="light"] .nav__actions .btn { color: rgba(10,10,10,.65); border-color: rgba(10,10,10,.2); }
+}
+
+/* Figma radius/default — Desktop 16 · Tablet 12 · Mobile 8 (buttons, cards, labels) */
+@media (max-width: 1023px) { :root { --radius: 12px; } }
+@media (max-width: 767px) { :root { --radius: 8px; } .socials a { border-radius: var(--radius); } }
+[data-theme="light"] .nav__actions .btn::before { background: var(--black); }
+@media (max-width: 1023px) {
+  [data-theme="light"] .nav__actions .btn.is-active, [data-theme="light"] .nav__actions .btn:active { color: var(--white); }
+  @media (hover: hover) { [data-theme="light"] .nav__actions .btn:not(.is-active):hover { color: var(--black); border-color: var(--orange); } }
 }
