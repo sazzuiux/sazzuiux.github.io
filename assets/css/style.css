@@ -1902,3 +1902,10 @@ html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: 
      phones, so add a hair of stroke to match the Figma weight without changing the label's width */
   .tabbar a.is-active { -webkit-text-stroke: 0.3px currentColor; }
 }
+
+/* mobile tab bar: a little breathing room between the halves and the Pricing pill, so a selected
+   Services/About pill never sits on the Pricing stroke (font size unchanged) */
+@media (max-width: 767px) {
+  .tabbar { column-gap: 6px; }
+  .tabbar__side a, .tabbar__side a:first-child { padding-inline: 6px; }
+}
