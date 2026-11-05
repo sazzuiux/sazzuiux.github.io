@@ -7,8 +7,8 @@
   <script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t)})()</script>
   <script>try{var p=sessionStorage.getItem("szPT");if(p){sessionStorage.removeItem("szPT");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){var d=document.documentElement;d.classList.add("pt-in");d.style.setProperty("--pt-label",JSON.stringify(p))}}}catch(e){}</script>
   <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E7JFSQL59W"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E7JFSQL59W');</script>
+  <!-- Google Analytics: page view is queued now, the library loads after the page is ready (doesn't slow the first view) -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E7JFSQL59W');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-E7JFSQL59W';document.head.appendChild(s)},1200)});</script>
   <title>Sazzuiux — Sazzadul Kabir | Web Designer &amp; Developer, UI UX &amp; Product Designer</title>
   <meta name="description" content="Sazzadul Kabir (Sazzuiux) — Top Rated web designer &amp; developer, UI UX designer, product designer, design engineer and brand designer. Websites, SaaS, AI products and brands that grow sales. 350+ projects.">
   <meta name="theme-color" content="#0a0a0a">
@@ -34,11 +34,9 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="assets/img/hero-human.webp">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/PlusJakartaSans-SemiBold.woff2" crossorigin>
+  <link rel="preload" as="image" href="assets/img/hero-human.webp" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/style.min.css">
 </head>
 <body>
   <script>try{if(!sessionStorage.getItem("szLoaded")&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("is-loading")}catch(e){}</script>
@@ -51,7 +49,7 @@
           <defs><path id="loader-path" d="M150 45 a105 105 0 0 1 105 105 v420 a105 105 0 0 1 -210 0 v-420 a105 105 0 0 1 105 -105 z"/></defs>
           <text><textPath href="#loader-path" startOffset="0" textLength="2999" lengthAdjust="spacingAndGlyphs">Hire me * Shape your brand * Build your product * Grow your business * Hire me * Shape your brand * Build your product * Grow your business *&#160;<animate attributeName="startOffset" from="0" to="-1499.5" dur="9s" repeatCount="indefinite"/></textPath></text>
         </svg>
-        <img class="loader__avatar" src="assets/img/loader-avatar.webp" alt="" width="327" height="999">
+        <img class="loader__avatar" src="assets/img/loader-avatar.webp" alt="" width="327" height="999" fetchpriority="high">
       </div>
       <div class="loader__bar"><span id="loader-bar"></span></div>
       <p class="loader__pct" id="loader-pct">0%</p>
@@ -132,24 +130,24 @@
         <div class="marquee">
           <div class="marquee__track pause-hover" style="--dur:20s">
             <div class="logos">
-              <img src="assets/img/logos/buyamia.webp" alt="Buyamia" height="30" loading="lazy">
-              <img src="assets/img/logos/neuture.webp" alt="Neuture.ai" height="30" loading="lazy">
-              <img src="assets/img/logos/jasi.webp" alt="JASI" height="30" loading="lazy">
-              <img src="assets/img/logos/lobab.webp" alt="Lobab" height="30" loading="lazy">
-              <img src="assets/img/logos/efc.webp" alt="European Fuel Consultants" height="30" loading="lazy">
-              <img src="assets/img/logos/baldwin.webp" alt="Baldwin" height="30" loading="lazy">
-              <img src="assets/img/logos/mintro.webp" alt="Mintro" height="30" loading="lazy">
-              <img src="assets/img/logos/tali.webp" alt="Tali" height="30" loading="lazy">
+              <img src="assets/img/logos/buyamia.webp" alt="Buyamia" width="100" height="30" loading="lazy">
+              <img src="assets/img/logos/neuture.webp" alt="Neuture.ai" width="200" height="30" loading="lazy">
+              <img src="assets/img/logos/jasi.webp" alt="JASI" width="96" height="30" loading="lazy">
+              <img src="assets/img/logos/lobab.webp" alt="Lobab" width="126" height="30" loading="lazy">
+              <img src="assets/img/logos/efc.webp" alt="European Fuel Consultants" width="185" height="30" loading="lazy">
+              <img src="assets/img/logos/baldwin.webp" alt="Baldwin" width="101" height="30" loading="lazy">
+              <img src="assets/img/logos/mintro.webp" alt="Mintro" width="125" height="30" loading="lazy">
+              <img src="assets/img/logos/tali.webp" alt="Tali" width="54" height="30" loading="lazy">
             </div>
             <div class="logos" aria-hidden="true">
-              <img src="assets/img/logos/buyamia.webp" alt="" height="30" loading="lazy">
-              <img src="assets/img/logos/neuture.webp" alt="" height="30" loading="lazy">
-              <img src="assets/img/logos/jasi.webp" alt="" height="30" loading="lazy">
-              <img src="assets/img/logos/lobab.webp" alt="" height="30" loading="lazy">
-              <img src="assets/img/logos/efc.webp" alt="" height="30" loading="lazy">
-              <img src="assets/img/logos/baldwin.webp" alt="" height="30" loading="lazy">
-              <img src="assets/img/logos/mintro.webp" alt="" height="30" loading="lazy">
-              <img src="assets/img/logos/tali.webp" alt="" height="30" loading="lazy">
+              <img src="assets/img/logos/buyamia.webp" alt="" width="100" height="30" loading="lazy">
+              <img src="assets/img/logos/neuture.webp" alt="" width="200" height="30" loading="lazy">
+              <img src="assets/img/logos/jasi.webp" alt="" width="96" height="30" loading="lazy">
+              <img src="assets/img/logos/lobab.webp" alt="" width="126" height="30" loading="lazy">
+              <img src="assets/img/logos/efc.webp" alt="" width="185" height="30" loading="lazy">
+              <img src="assets/img/logos/baldwin.webp" alt="" width="101" height="30" loading="lazy">
+              <img src="assets/img/logos/mintro.webp" alt="" width="125" height="30" loading="lazy">
+              <img src="assets/img/logos/tali.webp" alt="" width="54" height="30" loading="lazy">
             </div>
           </div>
         </div>
@@ -175,7 +173,7 @@
         <div class="about__photo reveal-up">
           <span class="sticker">Design × Engineering</span>
           <figure class="photo-card" style="margin:0">
-            <div class="photo-card__img"><img class="water" src="assets/img/about.jpg" alt="Sazzadul Kabir at the beach" width="752" height="960" loading="lazy"></div>
+            <div class="photo-card__img"><img class="water" src="assets/img/about.webp" alt="Sazzadul Kabir at the beach" width="752" height="960" loading="lazy"></div>
             <figcaption class="photo-card__meta"><span class="t-label">Currently</span><p>Lead Product Designer @ Buyamia International</p></figcaption>
           </figure>
         </div>

@@ -1,3 +1,7 @@
+/* Plus Jakarta Sans, self-hosted (SIL Open Font License, assets/fonts/OFL.txt) */
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 400; font-display: swap; src: url("/assets/fonts/PlusJakartaSans-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 500; font-display: swap; src: url("/assets/fonts/PlusJakartaSans-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Plus Jakarta Sans"; font-style: normal; font-weight: 600; font-display: swap; src: url("/assets/fonts/PlusJakartaSans-SemiBold.woff2") format("woff2"); }
 /* =========================================================
    Sazzuiux — design tokens (mirrors the Figma variables)
    Desktop ≥1024 · Tablet 768–1023 · Mobile <768

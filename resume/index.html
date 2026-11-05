@@ -9,8 +9,8 @@
   <script>(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.setAttribute("data-theme",t)})()</script>
   <script>try{var p=sessionStorage.getItem("szPT");if(p){sessionStorage.removeItem("szPT");if(!matchMedia("(prefers-reduced-motion: reduce)").matches){var d=document.documentElement;d.classList.add("pt-in");d.style.setProperty("--pt-label",JSON.stringify(p))}}}catch(e){}</script>
   <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-E7JFSQL59W"></script>
-  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E7JFSQL59W');</script>
+  <!-- Google Analytics: page view is queued now, the library loads after the page is ready (doesn't slow the first view) -->
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-E7JFSQL59W');addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-E7JFSQL59W';document.head.appendChild(s)},1200)});</script>
   <title>Resume | Sazzadul Kabir — Web Designer &amp; Developer, UI UX &amp; Product Designer</title>
   <meta name="description" content="Resume of Sazzadul Kabir — web designer & developer, senior UI UX designer, product designer, design engineer and brand designer for websites, apps and AI-powered products. Experience, skills, education. Print or download as PDF.">
   <meta name="theme-color" content="#0a0a0a">
@@ -31,10 +31,8 @@
   <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/assets/img/favicon-192.png" type="image/png" sizes="192x192">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/style.css?v=82ac3150">
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/PlusJakartaSans-SemiBold.woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/style.min.css?v=477ec277">
 </head>
 <body>
   <a class="skip-link" href="/resume/" data-to="main">Skip to content</a>
