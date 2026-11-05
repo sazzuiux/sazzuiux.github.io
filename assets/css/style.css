@@ -898,7 +898,12 @@ html.cursor-off .cursor { opacity: 0; }
 @media (max-width: 1023px) {
   .hero__photo .fade { height: 11%; }
   .hero__ring, .hero__orbit { left: -2.3%; right: auto; width: 92%; top: 4.65%; }
-  .orb { width: calc(12.5cqw / 0.92); }
+  .hero__orbit .orb { width: calc(12.5cqw / 0.92); }
+}
+/* tablet only: ring/orbit 95% (5% smaller), same centre on the face; icons keep their size and ride on the ring */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero__ring, .hero__orbit { left: -3.8%; width: 95%; top: 3.65%; }
+  .hero__orbit .orb { width: calc(12.5cqw / 0.95); }
 }
 @media (max-width: 767px) { .note { transform: rotate(calc(var(--rot) * 0.4)); } }
 
