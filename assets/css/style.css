@@ -1818,3 +1818,8 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
 /* nav CTA: "Let's Talk" on desktop, "Contact" on tablet/mobile */
 .cta-m { display: none; }
 @media (max-width: 1023px) { .cta-d { display: none; } .cta-m { display: inline; } }
+
+/* arriving through the curtain: the tapped link's highlight already grew on the previous page,
+   so show it straight away instead of growing it a second time */
+html.pt-in .nav__links:not(.nav-ready) a.is-active::before,
+html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: scale(1); transition: none; }
