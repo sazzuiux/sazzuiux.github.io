@@ -670,7 +670,7 @@
     if (/[?&]sent=1/.test(location.search)) {
       msg.textContent = "Thanks! Your message is on its way. I reply within 1–4 hours.";
       msg.className = "form__status ok";
-      history.replaceState(null, "", here + "#contact");
+      history.replaceState(null, "", here);
     }
     let nativeOk = false;
     form.addEventListener("submit", async (e) => {
@@ -806,7 +806,7 @@
     autoScrollUntil = performance.now() + 4000;
     root.style.scrollBehavior = "auto";
     // the home/logo link (#top) keeps the address clean: just the site URL
-    if (hash) try { history.pushState(null, "", hash === "#top" ? location.pathname + location.search : hash); } catch (e) {}
+    if (location.hash) try { history.replaceState(history.state, "", location.pathname + location.search); } catch (e) {} // keep the address clean (no #section)
     const start = window.scrollY, t0 = performance.now();
     const dur = reduced ? 0 : clamp(Math.abs(target() - start) * 0.3, 450, 1100);
     const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
@@ -855,7 +855,11 @@
       launching = setTimeout(() => { up.classList.add("is-spent"); up.classList.remove("is-launch"); launching = 0; check(); }, 1100);
     });
   }
-  if (location.hash === "#top") try { history.replaceState(null, "", location.pathname + location.search); } catch (e) {}
+  // arriving with a #section (e.g. /#works from Resume): let the browser land on it, then tidy the address
+  if (location.hash) {
+    const clean = () => setTimeout(() => { try { history.replaceState(history.state, "", location.pathname + location.search); } catch (e) {} }, 800);
+    if (document.readyState === "complete") clean(); else window.addEventListener("load", clean, { once: true });
+  }
   document.addEventListener("click", (e) => {
     const a = e.target.closest && e.target.closest('a[href^="#"], a[href^="/#"]');
     if (!a || a.hasAttribute("data-soon") || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
