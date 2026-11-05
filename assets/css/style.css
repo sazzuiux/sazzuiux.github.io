@@ -893,8 +893,10 @@ html.cursor-off .cursor { opacity: 0; }
 @media (max-width: 767px) {
   /* portrait runs right to the screen edge (no empty strip on the right); icons, ring, glow and lens scale with it */
   .hero__photo { width: calc(100% + var(--margin)); max-width: none; margin-left: 0; margin-right: calc(var(--margin) * -1); justify-self: end; }
-  .hero__photo .fade { height: 11%; } /* softer bottom fade: stays below the chest */
-  /* ring + orbit a touch smaller (92%) and centred on the face; icons keep their size */
+}
+/* tablet + mobile: softer bottom fade, ring/orbit a touch smaller (92%) and centred on the face; icons keep their size */
+@media (max-width: 1023px) {
+  .hero__photo .fade { height: 11%; }
   .hero__ring, .hero__orbit { left: -2.3%; right: auto; width: 92%; top: 4.65%; }
   .orb { width: calc(12.5cqw / 0.92); }
 }
