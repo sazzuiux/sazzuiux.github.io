@@ -46,7 +46,13 @@
     if (a.target && a.target !== "_self") return;
     if (a.hasAttribute("download") || a.hasAttribute("data-soon")) return;
     const url = new URL(a.href, location.href);
-    if (url.origin !== location.origin || url.pathname === location.pathname || pageName(url.pathname) === "Home") return;
+    if (url.origin !== location.origin) return;
+    // a link to the page you're already on (e.g. "Resume" while reading Resume): glide back to the top, no reload
+    if (url.pathname === location.pathname) {
+      if (!url.hash && url.search === location.search) { e.preventDefault(); scrollToEl(document.documentElement, "#top"); }
+      return;
+    }
+    if (pageName(url.pathname) === "Home") return;
     e.preventDefault();
     pageGo(url.href);
   });
