@@ -1883,7 +1883,22 @@ html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: 
 
 /* tablet/mobile tab bar: Pricing gets a solid white pill inside the frosted bar; the spinning gradient stroke stays */
 @media (max-width: 1023px) {
-  .tabbar a.nav-hot, [data-theme="light"] .tabbar a.nav-hot { background: #fff; color: #0a0a0a; }
+  .tabbar a.nav-hot, [data-theme="light"] .tabbar a.nav-hot { background: var(--light); color: #0a0a0a; } /* brand cream, not pure white */
   .tabbar a.nav-hot.is-active { color: #0a0a0a; }               /* dark mode: the light highlight would hide white text */
   [data-theme="light"] .tabbar a.nav-hot.is-active { color: #fff; } /* light mode: black highlight grows over it, as on other tabs */
+}
+
+/* tablet/mobile tab bar: soft brand-orange glow at both ends + orange shadow (option C) */
+@media (max-width: 1023px) {
+  .tabbar {
+    background-image: linear-gradient(90deg, rgba(255,90,31,.16), rgba(255,90,31,0) 30%, rgba(255,90,31,0) 70%, rgba(255,90,31,.16));
+    box-shadow: 0 12px 32px -12px rgba(255, 90, 31, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+  [data-theme="light"] .tabbar {
+    background-image: linear-gradient(90deg, rgba(255,90,31,.12), rgba(255,90,31,0) 30%, rgba(255,90,31,0) 70%, rgba(255,90,31,.12));
+    box-shadow: 0 12px 32px -12px rgba(255, 90, 31, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+  /* the selected label is Medium (500) like the Figma component; light text on a dark pill looks thinner on
+     phones, so add a hair of stroke to match the Figma weight without changing the label's width */
+  .tabbar a.is-active { -webkit-text-stroke: 0.3px currentColor; }
 }
