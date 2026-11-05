@@ -15,6 +15,57 @@
   let autoScrollUntil = 0;
   const isAutoScrolling = () => performance.now() < autoScrollUntil;
 
+  /* ---------------- page switch: curtain transition (every device, every browser) ---------------- */
+  const pageName = (path) => (/resume/.test(path) ? "Resume" : /pricing/.test(path) ? "Pricing" : "Home");
+  const pageGo = (href) => {
+    const url = new URL(href, location.href);
+    try { sessionStorage.setItem("szPT", pageName(url.pathname)); sessionStorage.setItem("szLoaded", "1"); } catch (e) {}
+    if (reduced) { location.href = url.href; return; }
+    if ($(".pt")) return;
+    const pt = document.createElement("div");
+    pt.className = "pt"; pt.setAttribute("aria-hidden", "true");
+    pt.innerHTML = '<i class="pt__o"></i><i class="pt__k"></i><span class="pt__label"><b>' + pageName(url.pathname) + "</b></span>";
+    document.body.appendChild(pt);
+    document.documentElement.classList.add("pt-leave");
+    requestAnimationFrame(() => requestAnimationFrame(() => pt.classList.add("is-on")));
+    setTimeout(() => { location.href = url.href; }, 900);
+  };
+  // arriving through the curtain: lift it once the page is ready to show
+  if (document.documentElement.classList.contains("pt-in")) {
+    const h = document.documentElement;
+    requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add("pt-out")));
+    setTimeout(() => { h.classList.remove("pt-in", "pt-out"); h.style.removeProperty("--pt-label"); }, 1500);
+  }
+  // any other link to another page of the site uses the curtain too (logo, footer, CTAs…)
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    if (a.target && a.target !== "_self") return;
+    if (a.hasAttribute("download") || a.hasAttribute("data-soon")) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname === location.pathname) return;
+    e.preventDefault();
+    pageGo(url.href);
+  });
+  // back/forward from the browser cache: no curtain left on screen
+  window.addEventListener("pageshow", (e) => {
+    if (!e.persisted) return;
+    $$(".pt").forEach((n) => n.remove());
+    document.documentElement.classList.remove("pt-leave", "pt-in", "pt-out");
+  });
+  // warm up the next page while the finger/mouse is on its link
+  const warmed = new Set();
+  const warm = (e) => {
+    const a = e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname === location.pathname || warmed.has(url.pathname)) return;
+    warmed.add(url.pathname);
+    const l = document.createElement("link"); l.rel = "prefetch"; l.href = url.pathname; document.head.appendChild(l);
+  };
+  document.addEventListener("pointerover", warm, { passive: true });
+  document.addEventListener("touchstart", warm, { passive: true });
+
   /* clean share-tracking junk (?fbclid=… from Facebook/Messenger, Instagram, Bing, TikTok) out of the address bar.
      utm_* tags are kept so Google Analytics still sees where visitors came from. */
   try {
@@ -92,10 +143,8 @@
       $$("a", bar).forEach((b) => b.classList.toggle("is-active", b === a));
       const url = new URL(a.href, location.href);
       if (url.pathname === location.pathname || e.metaKey || e.ctrlKey || e.shiftKey) return; // same page: smooth scroll handles it
-      e.preventDefault(); // other page: let the highlight grow first, then go
-      const vt = "onpagereveal" in window;
-      if (!vt && !reduced) setTimeout(() => root.classList.add("page-leave"), 120);
-      setTimeout(() => { location.href = a.href; }, reduced ? 0 : vt ? 300 : 420);
+      e.preventDefault(); // other page: the highlight grows while the curtain comes up
+      pageGo(a.href);
     }));
   }
 
@@ -126,9 +175,7 @@
       if (a.hasAttribute("data-soon") || url.pathname === location.pathname || e.metaKey || e.ctrlKey || e.shiftKey) return;
       e.preventDefault();
       $$("a", navLinks).forEach((b) => b.classList.toggle("is-active", b === a));
-      const vt = "onpagereveal" in window; // browser does the cross-page fade itself
-      if (!vt && !reduced) setTimeout(() => root.classList.add("page-leave"), 120);
-      setTimeout(() => { location.href = a.href; }, reduced ? 0 : vt ? 300 : 420);
+      pageGo(a.href);
     }));
     // clicking a link highlights it right away (scroll spy confirms on arrival)
     $$("a[data-spy]", nav).forEach((a) => a.addEventListener("click", () => {

@@ -1301,18 +1301,51 @@ html[data-theme="dark"] { color-scheme: dark; }
    PAGE SWITCH (Home <-> Resume): smooth cross-fade.
    Modern browsers use cross-page View Transitions; others get a JS fade.
    ========================================================= */
-@view-transition { navigation: auto; }
-.nav { view-transition-name: site-nav; }
-::view-transition-old(root) { animation: pageOut 0.35s var(--ease) both; }
-::view-transition-new(root) { animation: pageIn 0.5s var(--ease) both; }
-::view-transition-group(site-nav) { animation-duration: 0.35s; }
-@keyframes pageOut { to { opacity: 0; transform: translateY(-12px); } }
-@keyframes pageIn { from { opacity: 0; transform: translateY(16px); } }
-/* fallback fade */
-html.page-leave main, html.page-leave footer, html.page-leave .together { opacity: 0; transform: translateY(-10px); transition: opacity 0.3s ease, transform 0.3s ease; }
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+/* Curtain: an orange wave then the page colour sweep up over the page, the next page's name
+   rises in, and on the new page the curtain lifts away with a curved orange edge while the
+   content floats up. Nav + tab bar stay on top the whole time, so the site feels continuous. */
+.pt { position: fixed; inset: 0; z-index: 2990; pointer-events: all; overflow: hidden; }
+.pt__o, .pt__k {
+  position: absolute; left: -15%; width: 130%; top: 0; height: 100%;
+  transform: translateY(105%); border-radius: 50% 50% 0 0 / 160px 160px 0 0; will-change: transform;
 }
+.pt__o { background: linear-gradient(120deg, #ffb07a, #ff5a1f 45%, #eb4000); }
+.pt__k { background: var(--pt-bg, #0a0a0a); }
+.pt__label {
+  position: absolute; inset: 0; display: grid; place-items: center; overflow: hidden;
+}
+.pt__label b, html.pt-in::after {
+  font-family: var(--font); font-weight: 600; letter-spacing: -0.04em; line-height: 1;
+  font-size: clamp(44px, 9vw, 120px);
+  background: linear-gradient(120deg, #ffb07a, #ff5a1f 55%, #eb4000); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.pt__label b { display: block; opacity: 0; transform: translateY(48px); clip-path: inset(0 0 100% 0); }
+.pt.is-on .pt__o { animation: ptSweep .62s cubic-bezier(.76,0,.24,1) forwards; }
+.pt.is-on .pt__k { animation: ptSweep .62s cubic-bezier(.76,0,.24,1) .09s forwards; }
+.pt.is-on .pt__label b { animation: ptWord .45s cubic-bezier(.22,1,.36,1) .5s forwards; }
+@keyframes ptSweep { to { transform: translateY(0); border-radius: 0; } }
+@keyframes ptWord { to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); } }
+html.pt-leave .nav, html.pt-in .nav { z-index: 3000; }
+html.pt-leave .tabbar, html.pt-in .tabbar { z-index: 3001; }
+
+/* arriving: the cover is there from the first paint (html::before), with the page name (html::after) */
+html.pt-in::before {
+  content: ""; position: fixed; z-index: 2990; left: -15%; width: 130%; top: 0; height: 100vh; pointer-events: none;
+  background: var(--pt-bg, #0a0a0a); box-shadow: 0 56px 0 0 #ff5a1f;
+  border-radius: 0; will-change: transform;
+}
+html.pt-in::after {
+  content: var(--pt-label, ""); position: fixed; z-index: 2991; inset: 0; display: grid; place-items: center; pointer-events: none;
+}
+html.pt-out::before {
+  transform: translateY(calc(-100% - 80px)); border-radius: 0 0 50% 50% / 0 0 180px 180px;
+  transition: transform .85s cubic-bezier(.76,0,.24,1) .12s, border-radius .85s cubic-bezier(.76,0,.24,1) .12s;
+}
+html.pt-out::after { opacity: 0; transform: translateY(-48px); transition: opacity .35s ease, transform .5s cubic-bezier(.76,0,.24,1); }
+html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,.36,1) .3s both; }
+@keyframes ptRise { from { opacity: 0; transform: translateY(70px); } }
+[data-theme="light"] { --pt-bg: #f6f5f1; }
+@media (prefers-reduced-motion: reduce) { .pt, html.pt-in::before, html.pt-in::after { display: none !important; } }
 
 /* =========================================================
    PRICING PAGE
@@ -1781,4 +1814,13 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
   .tabbar a, .tabbar a:first-child { flex: none; padding: 10px 8px; }
   .tabbar a.nav-hot { padding: 10px 10px; }
   .tabbar__my { display: none; }
+}
+
+/* back to top on a computer (mouse/trackpad): always on the right, centred above the WhatsApp button,
+   even when the browser window is narrow enough to show the tablet/mobile layout */
+@media (hover: hover) and (pointer: fine) and (max-width: 1023px) {
+  .totop { left: auto; right: 34px; bottom: calc(92px + 64px + 16px); }
+}
+@media (hover: hover) and (pointer: fine) and (max-width: 767px) {
+  .totop { right: 22px; bottom: calc(82px + 56px + 16px); }
 }
