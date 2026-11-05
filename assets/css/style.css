@@ -897,8 +897,13 @@ html.cursor-off .cursor { opacity: 0; }
 /* mobile only: softer bottom fade, ring/orbit a touch smaller (92%) and centred on the face; icons keep their size */
 @media (max-width: 767px) {
   .hero__photo .fade { height: 11%; }
-  .hero__ring, .hero__orbit { left: -2.3%; right: auto; width: 92%; top: 4.65%; }
+  .hero__photo .hero__ring, .hero__photo .hero__orbit { left: -2.3%; right: auto; width: 92%; top: 4.65%; }
   .hero__orbit .orb { width: calc(12.5cqw / 0.92); }
+  /* the crown sits on top of each tile, so the tile's centre is at 60.5% of the image height:
+     put that point (not the image centre) on the ring, and spin it around that point */
+  .hero__orbit .orb { transform: translate(-50%, -60.5%) rotate(var(--a)) translateX(50cqw) rotate(calc(var(--a) * -1)); }
+  .hero__orbit .orb img { transform-origin: 50% 60.5%; }
+  .hero__photo .fade { opacity: .6; } /* lighter white fade over the blazer */
 }
 
 @media (max-width: 767px) { .note { transform: rotate(calc(var(--rot) * 0.4)); } }
