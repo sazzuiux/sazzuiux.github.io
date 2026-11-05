@@ -1652,10 +1652,10 @@ html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,
   /* same feel as the tab bar: a highlight grows out from behind the button */
   .nav__actions .btn::before {
     content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
-    background: rgba(255,255,255,.1); opacity: 0; transform: scale(0.6);
+    background: var(--grad); opacity: 0; transform: scale(0.6);
     transition: transform .45s var(--ease), opacity .3s ease;
   }
-  .nav__actions .btn.is-active, .nav__actions .btn:active { color: var(--white); border-color: rgba(255,255,255,.2); }
+  .nav__actions .btn.is-active, .nav__actions .btn:active { color: var(--white); border-color: transparent; }
   .nav__actions .btn.is-active::before, .nav__actions .btn:active::before { opacity: 1; transform: scale(1); }
   .nav__actions .btn:active { transform: scale(.96); }
   @media (hover: hover) { .nav__actions .btn:hover { color: var(--white); border-color: var(--orange); } }
@@ -1800,9 +1800,8 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
 /* Figma radius/default — Desktop 16 · Tablet 12 · Mobile 8 (buttons, cards, labels) */
 @media (max-width: 1023px) { :root { --radius: 12px; } }
 @media (max-width: 767px) { :root { --radius: 8px; } .socials a { border-radius: var(--radius); } }
-[data-theme="light"] .nav__actions .btn::before { background: var(--black); }
 @media (max-width: 1023px) {
-  [data-theme="light"] .nav__actions .btn.is-active, [data-theme="light"] .nav__actions .btn:active { color: var(--white); }
+  [data-theme="light"] .nav__actions .btn.is-active, [data-theme="light"] .nav__actions .btn:active { color: var(--white); border-color: transparent; }
   @media (hover: hover) { [data-theme="light"] .nav__actions .btn:not(.is-active):hover { color: var(--black); border-color: var(--orange); } }
 }
 
@@ -1815,3 +1814,7 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
   .tabbar a.nav-hot { padding: 10px 10px; }
   .tabbar__my { display: none; }
 }
+
+/* nav CTA: "Let's Talk" on desktop, "Contact" on tablet/mobile */
+.cta-m { display: none; }
+@media (max-width: 1023px) { .cta-d { display: none; } .cta-m { display: inline; } }
