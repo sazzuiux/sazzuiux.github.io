@@ -1772,3 +1772,13 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
   [data-theme="light"] .nav__actions .btn.is-active, [data-theme="light"] .nav__actions .btn:active { color: var(--white); }
   @media (hover: hover) { [data-theme="light"] .nav__actions .btn:not(.is-active):hover { color: var(--black); border-color: var(--orange); } }
 }
+
+/* mobile tab bar: Pricing in the mathematical middle, "Works" + Services | About + Resume spaced evenly per side */
+.tabbar__side { display: contents; }
+@media (max-width: 767px) {
+  .tabbar { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; }
+  .tabbar__side { display: flex; justify-content: space-evenly; align-items: center; min-width: 0; }
+  .tabbar a, .tabbar a:first-child { flex: none; padding: 10px 8px; }
+  .tabbar a.nav-hot { padding: 10px 10px; }
+  .tabbar__my { display: none; }
+}

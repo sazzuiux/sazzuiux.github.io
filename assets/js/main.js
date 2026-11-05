@@ -73,7 +73,16 @@
     $$("a", bar).forEach((a) => {
       if (/contact/i.test(a.textContent)) a.remove();
       if (/pricing/i.test(a.textContent)) a.classList.add("nav-hot");
+      if (/^\s*my works\s*$/i.test(a.textContent)) a.innerHTML = '<span class="tabbar__my">My </span>Works'; // mobile shows "Works" so both sides balance
     });
+    // two halves around Pricing: on mobile Pricing sits in the exact middle and each half is spaced evenly
+    const hot = $("a.nav-hot", bar);
+    if (hot) {
+      const left = document.createElement("span"), right = document.createElement("span");
+      left.className = right.className = "tabbar__side";
+      [...bar.children].forEach((a, i, all) => { const k = all.indexOf(hot); if (i < k) left.appendChild(a); else if (i > k) right.appendChild(a); });
+      bar.prepend(left); bar.appendChild(right);
+    }
     document.body.appendChild(bar);
     // top "Let's talk" lights up like a tab while the contact section is on screen (scroll spy below)
     $$(".nav__actions .btn").forEach((b) => { if (/#contact$/.test(b.getAttribute("href") || "")) b.dataset.spy = "contact"; });
