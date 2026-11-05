@@ -1880,3 +1880,10 @@ html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: 
 }
 @keyframes ctaFlow { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
 @media (prefers-reduced-motion: reduce) { .nav__actions .btn { animation: none !important; } }
+
+/* tablet/mobile tab bar: Pricing gets a solid white pill inside the frosted bar; the spinning gradient stroke stays */
+@media (max-width: 1023px) {
+  .tabbar a.nav-hot, [data-theme="light"] .tabbar a.nav-hot { background: #fff; color: #0a0a0a; }
+  .tabbar a.nav-hot.is-active { color: #0a0a0a; }               /* dark mode: the light highlight would hide white text */
+  [data-theme="light"] .tabbar a.nav-hot.is-active { color: #fff; } /* light mode: black highlight grows over it, as on other tabs */
+}
