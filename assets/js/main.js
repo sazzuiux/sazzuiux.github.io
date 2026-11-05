@@ -142,18 +142,6 @@
       left.className = right.className = "tabbar__side";
       [...bar.children].forEach((a, i, all) => { const k = all.indexOf(hot); if (i < k) left.appendChild(a); else if (i > k) right.appendChild(a); });
       bar.prepend(left); bar.appendChild(right);
-      // phones with a bigger system font: shrink the labels a little until both halves fit,
-      // so no highlight ever runs into the Pricing stroke
-      const fit = () => {
-        bar.style.removeProperty("--tab-fs");
-        if (getComputedStyle(left).display !== "flex") return; // tablet: halves are not used
-        const need = () => [left, right].some((s) => [...s.children].reduce((w, a) => w + a.offsetWidth, 0) + 4 * (s.children.length + 1) > s.clientWidth);
-        let fs = parseFloat(getComputedStyle(bar.querySelector("a")).fontSize);
-        while (need() && fs > 10) { fs -= 0.5; bar.style.setProperty("--tab-fs", fs + "px"); }
-      };
-      fit();
-      window.addEventListener("resize", fit);
-      document.fonts && document.fonts.ready.then(fit);
     }
     document.body.appendChild(bar);
     // top "Let's talk" lights up like a tab while the contact section is on screen (scroll spy below)
