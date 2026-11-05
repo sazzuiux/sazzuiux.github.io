@@ -891,7 +891,8 @@ html.cursor-off .cursor { opacity: 0; }
   .hero .glow--1 { width: 520px; height: 520px; right: -10%; top: auto; bottom: 10%; }
 }
 @media (max-width: 767px) {
-  .hero__photo { width: 100%; max-width: 420px; margin-inline: auto; justify-self: center; }
+  /* portrait runs right to the screen edge (no empty strip on the right); icons, ring, glow and lens scale with it */
+  .hero__photo { width: calc(100% + var(--margin)); max-width: none; margin-left: 0; margin-right: calc(var(--margin) * -1); justify-self: end; }
 }
 @media (max-width: 767px) { .note { transform: rotate(calc(var(--rot) * 0.4)); } }
 
