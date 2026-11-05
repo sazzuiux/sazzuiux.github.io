@@ -1836,3 +1836,19 @@ body:has(.wa.is-open) .totop:not(.is-launch) { opacity: 0 !important; pointer-ev
    so show it straight away instead of growing it a second time */
 html.pt-in .nav__links:not(.nav-ready) a.is-active::before,
 html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: scale(1); transition: none; }
+
+/* tablet/mobile tab bar: frosted glass (option 2) — translucent, blurred and a little saturated,
+   opaque enough that the labels stay readable over photos and over light or dark sections */
+@media (max-width: 1023px) {
+  .tabbar {
+    background: rgba(22, 22, 22, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(22px) saturate(180%); -webkit-backdrop-filter: blur(22px) saturate(180%);
+    box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  }
+  [data-theme="light"] .tabbar {
+    background: rgba(255, 255, 255, 0.55);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 12px 32px -12px rgba(10, 10, 10, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+}
