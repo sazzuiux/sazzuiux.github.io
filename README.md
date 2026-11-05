@@ -21,4 +21,4 @@ Then commit and push — the site updates in about a minute.
 ## Contact form
 
 Uses [FormSubmit](https://formsubmit.co) (free, no backend). The first message sends an
-activation email to sazzuxui@gmail.com — click the link once to start receiving inquiries.
+activation email to sazzuiux@gmail.com — click the link once to start receiving inquiries.
