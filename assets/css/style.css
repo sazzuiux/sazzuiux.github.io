@@ -1513,9 +1513,9 @@ html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,
 .pplan__what { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .pplan__what b { font-size: var(--t-small); font-weight: 600; line-height: 1.3; color: #0a0a0a; }
 .pplan__what small, .pplan__note { font-size: var(--t-label); font-weight: 500; line-height: 1.35; color: rgba(10,10,10,.6); }
-.pplan__amt { display: flex; flex-direction: column; align-items: flex-end; }
-.pplan__amt b { font-size: var(--t-body); font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; }
-.pplan__amt small { font-size: var(--t-label); font-weight: 600; color: var(--orange); }
+.pplan__amt { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.pplan__amt b { font-size: var(--t-body); font-weight: 600; color: var(--orange); }
+.pplan__amt small { font-size: var(--t-label); font-weight: 600; color: #0a0a0a; }
 @media (max-width: 767px) { .pplan { --pp-y: 8px; --pp-x: 12px; } .pplan__steps li { padding: 8px 0; } }
 @media (prefers-reduced-motion: reduce) { .pplan__details, .pplan__chev svg { transition: none; } }
 
