@@ -1932,3 +1932,20 @@ html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: 
   .hero__photo .hero__ring, .hero__photo .hero__orbit { left: 0.05%; right: auto; width: 83.93%; top: 6.73%; }
   .hero .glow--1 { width: 746px; height: 746px; right: -20px; top: auto; bottom: 216px; }
 }
+
+/* =========================================================
+   HERO — desktop (1024+), portrait pixel-matched to the Figma desktop frame (node 9:2)
+   portrait 607×910.5 flush to the screen's right edge, 91.5px from the top of the hero,
+   cropped by the hero's bottom; ring 509.4 (83.93%), glow 743, robot lens 249 (main.js)
+   ========================================================= */
+@media (min-width: 1024px) {
+  .hero { min-height: max(100vh, 922px); min-height: max(100svh, 922px); } /* same height as before, so the copy stays put */
+  .hero__inner { position: static; }
+  .hero__copy { position: relative; z-index: 1; }
+  .hero__photo {
+    position: absolute; z-index: 1; right: 0; top: max(91.5px, calc(100% - 910.5px)); /* Figma 91.5; on tall screens the portrait still reaches the bottom */
+    width: 607px; max-width: none; align-self: auto; justify-self: auto;
+  }
+  .hero__photo .hero__ring, .hero__photo .hero__orbit { left: 0.05%; right: auto; width: 83.93%; top: 6.73%; }
+  .hero .glow--1 { width: 743px; height: 743px; right: -20px; top: 45px; }
+}

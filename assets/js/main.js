@@ -259,8 +259,8 @@
 
   /* ---------------- human → robot reveal ---------------- */
   $$("[data-reveal]").forEach((el) => {
-    // tablet has its own lens spot/size from the Figma tablet frame (data-xt / data-yt / data-rt, at a 610px-wide photo)
-    const tabMQ = matchMedia("(min-width: 768px) and (max-width: 1023px)");
+    // tablet and desktop use the lens spot/size from the Figma frames (data-xt / data-yt / data-rt, at a 610px-wide photo)
+    const tabMQ = matchMedia("(min-width: 768px)"); // tablet + desktop share the Figma lens spot and ratio
     const useTab = () => tabMQ.matches && el.dataset.xt;
     const home = { x: 0, y: 0 };
     const setHome = () => {
