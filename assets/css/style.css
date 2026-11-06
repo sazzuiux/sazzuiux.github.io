@@ -1336,12 +1336,12 @@ html[data-theme="dark"] { color-scheme: dark; }
   font-size: clamp(44px, 9vw, 120px);
   background: linear-gradient(120deg, #ffb07a, #ff5a1f 55%, #eb4000); -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.pt__label b { display: block; opacity: 0; transform: translateY(48px); clip-path: inset(0 0 100% 0); }
+.pt__label b { display: block; opacity: 0; transform: translateY(48px); clip-path: inset(0 0 100% 0); padding: 0.06em 0.08em 0.24em; line-height: 1.05; } /* room for descenders (the "g" in Pricing) inside the gradient text box */
 .pt.is-on .pt__o { animation: ptSweep .62s cubic-bezier(.76,0,.24,1) forwards; }
 .pt.is-on .pt__k { animation: ptSweep .62s cubic-bezier(.76,0,.24,1) .09s forwards; }
 .pt.is-on .pt__label b { animation: ptWord .45s cubic-bezier(.22,1,.36,1) .5s forwards; }
 @keyframes ptSweep { to { transform: translateY(0); border-radius: 0; } }
-@keyframes ptWord { to { opacity: 1; transform: none; clip-path: inset(0 0 -20% 0); } }
+@keyframes ptWord { to { opacity: 1; transform: none; clip-path: inset(-20% -10% -40% -10%); } }
 html.pt-leave .nav, html.pt-in .nav { z-index: 3000; }
 html.pt-leave .tabbar, html.pt-in .tabbar { z-index: 3001; }
 
@@ -1352,7 +1352,7 @@ html.pt-in::before {
   border-radius: 0; will-change: transform;
 }
 html.pt-in::after {
-  content: var(--pt-label, ""); position: fixed; z-index: 2991; inset: 0; display: grid; place-items: center; pointer-events: none;
+  content: var(--pt-label, ""); position: fixed; z-index: 2991; inset: 0; display: grid; place-items: center; pointer-events: none; padding-bottom: 0.2em;
 }
 html.pt-out::before {
   transform: translateY(calc(-100% - 80px)); border-radius: 0 0 50% 50% / 0 0 180px 180px;
