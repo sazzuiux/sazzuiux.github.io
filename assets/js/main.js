@@ -259,13 +259,23 @@
 
   /* ---------------- human → robot reveal ---------------- */
   $$("[data-reveal]").forEach((el) => {
-    const home = { x: +el.dataset.x || 60, y: +el.dataset.y || 33 };
+    // tablet has its own lens spot/size from the Figma tablet frame (data-xt / data-yt / data-rt, at a 610px-wide photo)
+    const tabMQ = matchMedia("(min-width: 768px) and (max-width: 1023px)");
+    const useTab = () => tabMQ.matches && el.dataset.xt;
+    const home = { x: 0, y: 0 };
+    const setHome = () => {
+      home.x = useTab() ? +el.dataset.xt : +el.dataset.x || 60;
+      home.y = useTab() ? +el.dataset.yt : +el.dataset.y || 33;
+    };
+    setHome();
+    tabMQ.addEventListener && tabMQ.addEventListener("change", setHome);
     const baseR = +el.dataset.r || 100;
     const pos = { x: home.x, y: home.y, r: baseR };
     const target = { x: home.x, y: home.y, r: baseR };
     let inside = false, raf = 0;
 
-    const scaleR = () => baseR * clamp(el.clientWidth / (baseR > 60 ? 540 : 240), 0.55, 1.2);
+    const scaleR = () => (useTab() ? +el.dataset.rt * (el.clientWidth / 610)
+      : baseR * clamp(el.clientWidth / (baseR > 60 ? 540 : 240), 0.55, 1.2));
     const apply = () => {
       el.style.setProperty("--mx", pos.x + "%");
       el.style.setProperty("--my", pos.y + "%");

@@ -1916,3 +1916,19 @@ html.pt-in .tabbar:not(.nav-ready) a.is-active::before { opacity: 1; transform: 
 
 /* desktop footer: room for the five social buttons (Instagram added) on one line, as before */
 @media (min-width: 1024px) { .footer__brand { max-width: 660px; } }
+
+/* =========================================================
+   HERO — tablet (768–1023), pixel-matched to the Figma tablet frame (node 44:7779)
+   headline at 170px, 20px gaps, portrait 610×915 flush right and tucked 54.5px under the copy,
+   ring 512 (83.93% of the photo), glow 746, robot lens 250.5 (handled in main.js)
+   ========================================================= */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero { padding-top: 122px; }
+  .hero__copy { padding-top: 48px; padding-bottom: 48px; max-width: none; }
+  .hero__title .chip-hl { margin-bottom: 0; }
+  .hero__bio { margin-top: 20px; max-width: none; line-height: 1.6; }
+  .hero .btn-row { margin-top: 20px; }
+  .hero__photo { width: 610px; max-width: none; margin-top: -53px; margin-right: calc(var(--margin) * -1); justify-self: end; }
+  .hero__photo .hero__ring, .hero__photo .hero__orbit { left: 0.05%; right: auto; width: 83.93%; top: 6.73%; }
+  .hero .glow--1 { width: 746px; height: 746px; right: -20px; top: auto; bottom: 216px; }
+}
