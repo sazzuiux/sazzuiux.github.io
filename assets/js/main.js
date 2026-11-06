@@ -931,6 +931,7 @@
       const dep = Math.round(total * 10) / 100;
       totalEl.textContent = money(total);
       depEl.textContent = money(dep);
+      [10, 40, 50].forEach((p, i) => { const el = $("#pp-" + (i + 1)); if (el) el.textContent = money(Math.round(total * p) / 100); });
       const n = list.reduce((s, x) => s + x.qty, 0);
       sumEl.textContent = list.length ? `Launch Kit + ${n} add-on${n > 1 ? "s" : ""}` : "The Launch Kit";
       if (total !== last && !reduced) { totalEl.classList.remove("bump"); void totalEl.offsetWidth; totalEl.classList.add("bump"); }
@@ -952,6 +953,13 @@
       }));
     });
     update();
+    const plan = $("#p-plan"), planBtn = plan && $(".pplan__toggle", plan);
+    planBtn && planBtn.addEventListener("click", () => {
+      const open = planBtn.getAttribute("aria-expanded") !== "true";
+      planBtn.setAttribute("aria-expanded", String(open));
+      plan.classList.toggle("is-open", open);
+      if (open && typeof window.gtag === "function") window.gtag("event", "pricing_plan_open");
+    });
     cta.addEventListener("click", () => {
       if (typeof window.gtag === "function") window.gtag("event", "pricing_start", { value: +totalEl.textContent.replace(/[^0-9.]/g, ""), currency: "USD" });
     });

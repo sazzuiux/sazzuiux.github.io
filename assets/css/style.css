@@ -1473,7 +1473,52 @@ html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,
   content: ""; flex: none; width: 18px; height: 18px; border-radius: 50%; background: rgba(255,90,31,.12) no-repeat center / 12px
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.6 6.3l2.3 2.3 4.6-5' stroke='%23ff5a1f' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
-@container (max-width: 400px) { .pfeat { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; } }
+.pfeat li:nth-child(-n+4) { grid-column: 1; }
+.pfeat li:nth-child(n+5) { grid-column: 2; }
+@container (max-width: 400px) { .pfeat { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; } .pfeat li:nth-child(n) { grid-column: auto; } }
+
+/* payment plan: always-visible summary under the price, tap to open the 3-step breakdown inline */
+.pplan {
+  --pp-y: 10px; --pp-x: 14px;
+  display: flex; flex-direction: column; border-radius: var(--radius); background: rgba(255,90,31,.08);
+  box-shadow: inset 0 0 0 1px transparent; transition: box-shadow .25s;
+}
+.pplan:has(.pplan__toggle:hover) { box-shadow: inset 0 0 0 1px var(--orange); }
+.pplan__toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-xs); width: 100%;
+  padding: var(--pp-y) var(--pp-x); text-align: left; color: #0a0a0a; border-radius: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.pplan__toggle:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+.pplan__sum { display: flex; flex-direction: column; font-size: var(--t-small); line-height: 1.4; font-weight: 500; color: rgba(10,10,10,.6); }
+.pplan__sum b { font-weight: 600; color: #0a0a0a; }
+.pplan__sum > span { text-wrap: balance; }
+.pplan__sum em { font-style: normal; font-weight: 600; color: var(--orange); }
+.pplan__chev {
+  flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: #0a0a0a;
+  transition: background-color .25s, color .25s;
+}
+.pplan__chev svg { width: 16px; height: 16px; transition: transform .35s var(--ease); }
+.pplan__toggle:hover .pplan__chev { background: var(--orange); color: #fff; }
+.pplan__toggle[aria-expanded="true"] .pplan__chev svg { transform: rotate(180deg); }
+.pplan__details { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s var(--ease); }
+.pplan.is-open .pplan__details { grid-template-rows: 1fr; }
+.pplan__inner { min-height: 0; overflow: hidden; display: flex; flex-direction: column; gap: var(--space-sm); padding: 0 var(--pp-x); }
+.pplan.is-open .pplan__inner { padding-bottom: var(--pp-y); }
+.pplan__steps { list-style: none; margin: 0; padding: 4px var(--pp-x); background: #fff; border-radius: var(--radius); }
+.pplan__steps li { display: flex; align-items: center; gap: var(--space-sm); padding: 10px 0; }
+.pplan__steps li + li { border-top: 1px solid rgba(10,10,10,.12); }
+.pplan__num {
+  flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255,90,31,.08); color: var(--orange); font-size: var(--t-label); font-weight: 600;
+}
+.pplan__what { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.pplan__what b { font-size: var(--t-small); font-weight: 600; line-height: 1.3; color: #0a0a0a; }
+.pplan__what small, .pplan__note { font-size: var(--t-label); font-weight: 500; line-height: 1.35; color: rgba(10,10,10,.6); }
+.pplan__amt { display: flex; flex-direction: column; align-items: flex-end; }
+.pplan__amt b { font-size: var(--t-body); font-weight: 600; letter-spacing: -0.01em; color: #0a0a0a; }
+.pplan__amt small { font-size: var(--t-label); font-weight: 600; color: var(--orange); }
+@media (max-width: 767px) { .pplan { --pp-y: 8px; --pp-x: 12px; } .pplan__steps li { padding: 8px 0; } }
+@media (prefers-reduced-motion: reduce) { .pplan__details, .pplan__chev svg { transition: none; } }
 
 /* add-ons: tap to toggle, like a Fiverr gig extra */
 .addons { display: flex; flex-direction: column; gap: 8px; }
