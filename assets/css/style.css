@@ -1065,10 +1065,9 @@ html.is-loading .loader.is-done { opacity: 0; visibility: hidden; }
   .svc.is-active .svc-m-wrap { grid-template-rows: 1fr; opacity: 1; }
   .svc-m-inner { min-height: 0; overflow: hidden; }
   .svc-m {
-    margin: 4px 0 var(--space-md); border-radius: var(--radius); color: var(--black); overflow: hidden;
+    margin: var(--space-xs) 0 var(--space-md); border-radius: var(--radius); color: var(--black); overflow: hidden;
     background: linear-gradient(135deg, #ff9a4d, #ff5a1f 45%, #e43c00); background-size: 220% 220%;
     animation: gradShift 10s ease-in-out infinite; padding: var(--space-lg);
-    box-shadow: 0 40px 80px -40px rgba(255, 90, 31, 0.6);
     transform: translateY(14px); transition: transform 0.7s var(--ease);
   }
   .svc.is-active .svc-m { transform: none; }
