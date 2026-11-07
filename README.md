@@ -22,3 +22,7 @@ Then commit and push — the site updates in about a minute.
 
 Uses [FormSubmit](https://formsubmit.co) (free, no backend). The first message sends an
 activation email to sazzuiux@gmail.com — click the link once to start receiving inquiries.
+
+## License
+
+© 2026 Sazzadul Kabir. All rights reserved. The code, design and content may not be copied or reused without written permission. See [LICENSE](LICENSE).
