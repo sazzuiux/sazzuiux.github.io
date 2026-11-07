@@ -522,7 +522,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 /* =========================================================
    WORKS — stacked sticky projects
    ========================================================= */
-.works__list { display: flex; flex-direction: column; gap: var(--space-lg); }
+/* each card stays fully visible for a short scroll before the next one slides over it */
+.works__list { display: flex; flex-direction: column; gap: calc(var(--space-lg) + 32svh); }
 .work {
   position: sticky; top: calc(96px + var(--i) * 18px);
   display: grid; grid-template-columns: minmax(0, 760fr) minmax(280px, 440fr) auto; gap: var(--space-lg);
@@ -1197,7 +1198,11 @@ html[data-theme="dark"] { color-scheme: dark; }
 [data-theme="light"] .logos img:hover { opacity: 1; }
 
 /* about / process / testimonials (already light) */
-[data-theme="light"] .section--light { background: #f6f5f1; }
+/* light mode section backgrounds from Figma: About + Showcase = bg/light, Process = bg/testimonial-card
+   (mobile About + Showcase = bg/testimonial-card) so each section reads as its own block */
+[data-theme="light"] .section--light { background: #fdfcf8; }
+[data-theme="light"] #process { background: #fefefa; }
+@media (max-width: 767px) { [data-theme="light"] .section--light { background: #fefefa; } }
 [data-theme="light"] .note { background: #fefefa; box-shadow: 0 16px 40px -12px rgba(0,0,0,.12); }
 [data-theme="light"] .sheet { background: #fefefa; }
 

@@ -439,10 +439,13 @@
       if (!force && w === lastW) return; // ignore mobile URL-bar height changes
       lastW = w;
       vh = document.documentElement.clientHeight;
+      // keep the whole card (incl. Figma preview / Live site buttons) on screen,
+      // above the fixed tab bar on tablet / mobile, on every device
+      const bar = document.querySelector(".tabbar");
+      const barH = bar && getComputedStyle(bar).display !== "none" ? bar.getBoundingClientRect().height + 12 : 0;
       works.forEach((card, i) => {
-        if (isDesktop()) { card.style.top = ""; return; }
-        const base = (w < 768 ? 76 : 84) + i * (w < 768 ? 8 : 12);
-        card.style.top = Math.min(base, vh - card.offsetHeight - 16) + "px";
+        const base = isDesktop() ? 96 + i * 18 : (w < 768 ? 76 : 84) + i * (w < 768 ? 8 : 12);
+        card.style.top = Math.min(base, vh - card.offsetHeight - 16 - barH) + "px";
       });
     };
     fit(true);
