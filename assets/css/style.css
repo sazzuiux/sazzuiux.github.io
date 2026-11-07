@@ -744,6 +744,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 .socials a:hover { background: rgba(255,90,31,.15); border-color: rgba(255,90,31,.6); }
 .socials svg { width: 14px; height: 14px; }
 .footer__nav { flex: 1 1 360px; max-width: 460px; }
+/* tablet / mobile (Figma): footer nav fills the full content width, numbers sit on the right edge of the grid */
+@media (max-width: 1023px) { .footer__nav { flex-basis: 100%; max-width: none; } }
+/* desktop: brand + nav stay side by side down to 1024px (brand gives up width first) */
+@media (min-width: 1024px) { .footer__top { flex-wrap: nowrap; } .footer__brand { flex: 0 1 660px; min-width: 0; } .footer__nav { min-width: 360px; } }
 .footer__nav a {
   display: flex; align-items: center; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border-dark);
   font-size: 16px; font-weight: 500; transition: color 0.25s, padding 0.35s var(--ease);
