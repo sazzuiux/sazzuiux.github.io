@@ -1489,7 +1489,7 @@ html.pt-out main, html.pt-out .footer { animation: ptRise 1s cubic-bezier(.22,1,
 .pplan__toggle:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 .pplan__sum { display: flex; flex-direction: column; gap: 4px; font-size: var(--t-small); line-height: 1.3; font-weight: 500; color: rgba(10,10,10,.6); }
 .pplan__sum b { font-weight: 600; color: #0a0a0a; }
-.pplan__sum > span { text-wrap: balance; }
+.pplan__sum i { font-style: normal; white-space: nowrap; }
 .pplan__sum em { font-style: normal; font-weight: 600; color: var(--orange); }
 .pplan__chev {
   flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: #fff; color: #0a0a0a;
