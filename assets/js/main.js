@@ -444,7 +444,11 @@
       const bar = document.querySelector(".tabbar");
       const barH = bar && getComputedStyle(bar).display !== "none" ? bar.getBoundingClientRect().height + 12 : 0;
       works.forEach((card, i) => {
-        const base = isDesktop() ? 96 + i * 18 : (w < 768 ? 76 : 84) + i * (w < 768 ? 8 : 12);
+        // the stacked edges of earlier cards take a fixed total height (1/3 of before),
+        // split across however many cards there are, so adding cards never grows it
+        const total = isDesktop() ? 42 : w < 768 ? 19 : 28;
+        const step = works.length > 1 ? total / (works.length - 1) : 0;
+        const base = (isDesktop() ? 96 : w < 768 ? 76 : 84) + i * step;
         card.style.top = Math.min(base, vh - card.offsetHeight - 16 - barH) + "px";
       });
     };
